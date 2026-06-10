@@ -59,6 +59,20 @@ RATE = int(os.environ.get("HONEYPOT_RATE", 240))
 RATE_WINDOW = int(os.environ.get("HONEYPOT_RATE_WINDOW", 10))
 HTTPS = _flag("HONEYPOT_HTTPS")
 
+# --- private-demo front door -------------------------------------------------
+# When DEMO_GATE_PASS (or DEMO_GATE_PASS_HASH) is set, the ENTIRE decoy surface
+# is locked behind HTTP Basic auth, so a public deployment is reachable only by
+# people you hand the credential to — never the open internet. This is what keeps
+# a hosted "demo" from acting as an open look-alike of a real portal. Unset =>
+# the gate is OFF and lab/localhost behaviour is unchanged.
+DEMO_GATE_USER = os.environ.get("DEMO_GATE_USER", "demo")
+if os.environ.get("DEMO_GATE_PASS"):
+    DEMO_GATE_HASH = generate_password_hash(os.environ["DEMO_GATE_PASS"],
+                                            method="pbkdf2:sha256:260000")
+else:
+    DEMO_GATE_HASH = os.environ.get("DEMO_GATE_PASS_HASH", "")
+DEMO_GATE_ON = bool(DEMO_GATE_HASH)
+
 
 def client_ip() -> str:
     xff = request.headers.get("X-Forwarded-For", "")
@@ -98,6 +112,23 @@ def monitor_guard():
             _auth_fail[ip] = (cnt, until)
     return Response("401 Unauthorized", 401,
                     {"WWW-Authenticate": 'Basic realm="Restricted Monitor"'})
+
+
+def demo_gate():
+    """Front-door gate for a private demo deployment.
+
+    When DEMO_GATE_ON, require HTTP Basic auth on the whole site and return a
+    401 Response until the caller authenticates; otherwise return None (gate
+    off, or already authenticated). The monitor keeps its own stricter guard.
+    """
+    if not DEMO_GATE_ON:
+        return None
+    auth = request.authorization
+    if (auth and hmac.compare_digest(auth.username or "", DEMO_GATE_USER)
+            and check_password_hash(DEMO_GATE_HASH, auth.password or "")):
+        return None
+    return Response("401 Unauthorized", 401,
+                    {"WWW-Authenticate": 'Basic realm="University Honeypot Demo"'})
 
 
 # --- per-IP flood limiter (sliding window, memory-bounded) -------------------

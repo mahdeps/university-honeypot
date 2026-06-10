@@ -236,6 +236,17 @@ def _capture(event_type: str = "request", extra: dict | None = None) -> list[dic
 
 @app.before_request
 def _before():
+    # Health probe for the hosting platform — never gated, never logged.
+    if request.path == "/healthz":
+        return
+    # Private-demo front door: when DEMO_GATE_PASS is set, the whole decoy is
+    # locked behind Basic auth so only invited reviewers reach it (keeps a hosted
+    # demo from acting as an open clone). The monitor keeps its own auth, so it is
+    # excluded here and guarded inside dashboard.py instead.
+    if not request.path.startswith("/_monitor"):
+        gate = security.demo_gate()
+        if gate is not None:
+            return gate
     # Don't double-log the monitor, static assets, or our own intel endpoints.
     if request.path.startswith(("/_monitor", "/static", "/_intel.js", "/_collect")):
         return
@@ -277,6 +288,13 @@ def _logged_in() -> bool:
 
 
 # --- Auth ---------------------------------------------------------------------
+
+@app.route("/healthz")
+def _healthz():
+    # Unauthenticated liveness check for the hosting platform. Returns no decoy
+    # content and is excluded from capture/gating in _before().
+    return Response("ok", 200, mimetype="text/plain")
+
 
 @app.route("/")
 def index():
@@ -502,4 +520,7 @@ def _err_500(e):
 
 if __name__ == "__main__":
     print(security.startup_banner())
-    app.run(host="0.0.0.0", port=8080, debug=False)
+    # PORT is injected by most hosting platforms (Render/Railway); fall back to
+    # 8080 for local runs. Production uses gunicorn (see Procfile) instead.
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host="0.0.0.0", port=port, debug=False)

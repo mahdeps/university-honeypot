@@ -44,7 +44,23 @@ SCALE = {
     "payments_min": 2, "payments_max": 6,  # payments per student
     "fees_min": 3, "fees_max": 8,          # fee lines per student
 }
-_MIN_STUDENTS_OK = 5000  # below this we consider the DB "not built"
+
+# Optional shrink knob for hosted demos: HONEYPOT_SCALE=0.3 builds a smaller
+# decoy so a free-tier container finishes the startup build in seconds instead
+# of minutes. Leave unset (=1) for the full-size lab database. The per-student
+# knobs (enroll/payments/fees) are left untouched so each profile still looks full.
+try:
+    _SCALE_MUL = float(os.environ.get("HONEYPOT_SCALE", "1") or "1")
+except ValueError:
+    _SCALE_MUL = 1.0
+if _SCALE_MUL != 1.0:
+    for _k in ("students", "instructors", "courses", "staff_accounts",
+               "library_books", "loans", "messages", "announcements", "exam_rows"):
+        SCALE[_k] = max(1, int(SCALE[_k] * _SCALE_MUL))
+
+# "Already built?" threshold tracks the configured size, so a shrunk demo DB is
+# still recognised as built and not rebuilt on every cold start.
+_MIN_STUDENTS_OK = max(1, int(SCALE["students"] * 0.5))
 
 random.seed(20260609)
 
