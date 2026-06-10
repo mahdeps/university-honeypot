@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}الرسائل{% endblock %}
+{% block crumb %}الرسائل{% endblock %}
+{% block content %}
+<h2 class="page-title">صندوق الرسائل</h2>
+<p class="page-sub">{{ inbox|selectattr('unread')|list|length }} رسالة غير مقروءة</p>
+
+<div class="grid cols-2">
+  <div class="card">
+    <div class="hd">الوارد</div>
+    <div class="bd" style="padding:0">
+      <table class="table">
+        <tr><th>المرسل</th><th>الموضوع</th><th>التاريخ</th></tr>
+        {% for m in inbox %}
+        <tr>
+          <td>{% if m.unread %}<b>{{ m.sender }}</b>{% else %}{{ m.sender }}{% endif %}</td>
+          <td>{% if m.unread %}<b>{{ m.subject }}</b>{% else %}{{ m.subject }}{% endif %}</td>
+          <td class="muted">{{ m.date }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="hd">رسالة جديدة</div>
+    <div class="bd">
+      <form class="form" method="POST" action="/messages" style="max-width:none">
+        <div class="row"><label>إلى</label>
+          <select name="to"><option>مكتب القبول والتسجيل</option><option>عمادة شؤون الطلبة</option><option>الدعم الفني</option></select>
+        </div>
+        <div class="row"><label>الموضوع</label><input name="subject"></div>
+        <div class="row"><label>نص الرسالة</label><textarea name="body" rows="5"></textarea></div>
+        <button class="btn btn-primary">إرسال</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

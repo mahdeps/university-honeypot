@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}التسجيل للمواد{% endblock %}
+{% block crumb %}التسجيل للمواد{% endblock %}
+{% block content %}
+<h2 class="page-title">التسجيل للمواد</h2>
+<p class="page-sub">فترة التسجيل مفتوحة حتى 2026/02/20 · الحد الأقصى 18 ساعة</p>
+
+{% if msg %}<div class="alert alert-ok">{{ msg }}</div>{% endif %}
+
+<div class="grid cols-2">
+  <div class="card">
+    <div class="hd">المواد المتاحة</div>
+    <div class="bd" style="padding:0">
+      <table class="table">
+        <tr><th>الرمز</th><th>المادة</th><th>ساعات</th><th>الشعبة</th><th></th></tr>
+        {% for c in available %}
+        <tr>
+          <td>{{ c.code }}</td><td>{{ c.title }}</td><td>{{ c.credits }}</td><td>{{ c.section }}</td>
+          <td>
+            <form method="POST" action="/registration" style="margin:0">
+              <input type="hidden" name="course_code" value="{{ c.code }}">
+              <button class="btn btn-gold" style="padding:5px 12px;font-size:12px">+ تسجيل</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="hd">سلة التسجيل ({{ registered|length }} مواد)</div>
+    <div class="bd" style="padding:0">
+      <table class="table">
+        <tr><th>الرمز</th><th>المادة</th><th>ساعات</th></tr>
+        {% for c in registered %}
+        <tr><td>{{ c.code }}</td><td>{{ c.title }}</td><td>{{ c.credits }}</td></tr>
+        {% endfor %}
+        <tr><th>الإجمالي</th><th></th><th>{{ total_credits }} ساعة</th></tr>
+      </table>
+    </div>
+    <div class="bd"><button class="btn btn-primary" style="width:100%">تأكيد التسجيل النهائي</button></div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🛡 Honeypot SOC — لوحة الرصد</title>
+<style>
+  :root{ --bg:#0a0f1e; --panel:#0f1830; --panel2:#13203c; --line:#1e2d4d; --ink:#e6eefc;
+         --mut:#8aa0c6; --accent:#38bdf8; --ok:#34d399; --warn:#fbbf24; --bad:#f87171; --bot:#a78bfa; }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",Tahoma,system-ui,Arial,sans-serif;background:
+       radial-gradient(1200px 600px at 80% -10%, #14233f 0%, var(--bg) 55%);color:var(--ink);min-height:100vh}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 22px;
+         background:rgba(10,16,30,.85);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30;backdrop-filter:blur(6px)}
+  header h1{font-size:17px;margin:0;letter-spacing:.3px}
+  header .sub{font-size:12px;color:var(--mut)}
+  .live{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--ok)}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 rgba(52,211,153,.6);animation:p 1.6s infinite}
+  @keyframes p{0%{box-shadow:0 0 0 0 rgba(52,211,153,.5)}70%{box-shadow:0 0 0 8px rgba(52,211,153,0)}100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}}
+  .btn{background:var(--panel2);border:1px solid var(--line);color:var(--ink);border-radius:8px;
+       padding:7px 12px;font-size:12.5px;cursor:pointer;text-decoration:none}
+  .btn:hover{border-color:var(--accent)}
+  .wrap{padding:18px 22px;max-width:1500px;margin:0 auto}
+  .kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:16px}
+  .kpi{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);
+       border-radius:14px;padding:14px 16px}
+  .kpi .n{font-size:28px;font-weight:800;line-height:1}
+  .kpi .l{font-size:11.5px;color:var(--mut);margin-top:6px}
+  .grid2{display:grid;grid-template-columns:1.1fr 1fr;gap:16px;margin-bottom:16px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .card h2{font-size:13px;margin:0 0 12px;color:var(--mut);font-weight:600;letter-spacing:.4px;text-transform:uppercase}
+  .bar{display:flex;align-items:center;gap:8px;margin:7px 0;font-size:12.5px}
+  .bar .lbl{width:120px;color:var(--mut)}
+  .bar .track{flex:1;background:#0b1429;border-radius:6px;height:14px;overflow:hidden}
+  .bar .fill{height:100%;background:linear-gradient(90deg,var(--accent),#6366f1);border-radius:6px}
+  .bar .v{width:42px;text-align:left;font-variant-numeric:tabular-nums}
+  .spark{display:flex;align-items:flex-end;gap:2px;height:90px}
+  .spark div{flex:1;background:linear-gradient(180deg,var(--accent),#6366f1);border-radius:2px 2px 0 0;min-height:2px}
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  th,td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--line);vertical-align:middle}
+  th{color:var(--mut);font-weight:600;position:sticky;top:0;background:var(--panel);font-size:11.5px}
+  tr.atk{background:rgba(248,113,113,.06)}
+  tr.click{cursor:pointer} tr.click:hover{background:rgba(56,189,248,.08)}
+  .ip{font-family:Consolas,monospace;color:var(--accent)}
+  .mono{font-family:Consolas,monospace}
+  .tag{display:inline-block;padding:1px 8px;border-radius:999px;font-size:10.5px;margin:1px;white-space:nowrap}
+  .t-sqli{background:#7f1d1d;color:#fecaca}.t-xss{background:#78350f;color:#fde68a}
+  .t-lfi{background:#581c87;color:#e9d5ff}.t-cmdi{background:#7f1d1d;color:#fecaca}
+  .t-scanner{background:#1e3a8a;color:#bfdbfe}.t-ssti{background:#831843;color:#fbcfe8}
+  .t-traversal{background:#064e3b;color:#a7f3d0}.t-default{background:#334155;color:#cbd5e1}
+  .badge-bot{background:rgba(167,139,250,.16);color:var(--bot);border:1px solid #5b4b9a;padding:1px 8px;border-radius:999px;font-size:10.5px}
+  .badge-h{background:rgba(248,113,113,.16);color:var(--bad);border:1px solid #7f1d1d;padding:1px 8px;border-radius:999px;font-size:10.5px}
+  .feed{max-height:430px;overflow:auto;border:1px solid var(--line);border-radius:12px}
+  .pay{font-family:Consolas,monospace;color:#fca5a5;word-break:break-all}
+  .muted{color:var(--mut)}
+  input.search{background:#0b1429;border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:8px 12px;font-size:13px;width:260px}
+  /* modal */
+  .ov{position:fixed;inset:0;background:rgba(4,8,18,.78);display:none;align-items:flex-start;justify-content:center;z-index:50;padding:30px 16px;overflow:auto}
+  .ov.on{display:flex}
+  .modal{background:var(--panel);border:1px solid var(--line);border-radius:16px;max-width:920px;width:100%;padding:0;overflow:hidden}
+  .modal .mh{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line);background:var(--panel2)}
+  .modal .mb{padding:18px 20px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .fld{background:#0b1429;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+  .fld .k{font-size:11px;color:var(--mut);margin-bottom:3px}
+  .fld .vv{font-size:13px;word-break:break-word}
+  .full{grid-column:1/3}
+  .x{cursor:pointer;font-size:20px;color:var(--mut)}
+  @media(max-width:1100px){.kpis{grid-template-columns:repeat(3,1fr)}.grid2{grid-template-columns:1fr}.modal .mb{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div><h1>🛡 University Honeypot — مركز عمليات الرصد</h1>
+       <div class="sub">رصد حيّ للمهاجمين + بصمة الأجهزة · مسار محمي <span class="mono">/_monitor</span></div></div>
+  <div style="display:flex;gap:10px;align-items:center">
+    <span class="live"><span class="dot"></span> حيّ — تحديث كل 5 ثوانٍ</span>
+    <input class="search" id="q" placeholder="بحث: IP، نظام، تقنية...">
+    <a class="btn" href="api/events?limit=100000" download="events.json">⬇ تصدير JSON</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="kpis" id="kpis"></div>
+  <div class="grid2">
+    <div class="card"><h2>التقنيات المرصودة</h2><div id="cats"></div></div>
+    <div class="card"><h2>النشاط عبر الزمن (كل دقيقة)</h2><div class="spark" id="spark"></div>
+        <div id="etypes" style="margin-top:14px"></div></div>
+  </div>
+
+  <div class="card" style="margin-bottom:16px">
+    <h2>المهاجمون + بصمة أجهزتهم <span class="muted" style="text-transform:none">— اضغط أي صف للتفاصيل الكاملة</span></h2>
+    <div style="overflow:auto;max-height:520px">
+    <table id="atk"><thead><tr>
+      <th>عنوان IP</th><th>النظام</th><th>المتصفح</th><th>كرت الشاشة (GPU)</th>
+      <th>المنطقة/الموقع</th><th>IP المحلي</th><th>طلبات</th><th>هجمات</th><th>تقنيات</th><th>آخر ظهور</th>
+    </tr></thead><tbody id="atkb"></tbody></table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>التغذية الحيّة (أحدث الأحداث)</h2>
+    <div class="feed"><table><thead><tr>
+      <th>الوقت (UTC)</th><th>IP</th><th>الطريقة</th><th>المسار</th><th>النوع</th><th>الاكتشاف</th>
+    </tr></thead><tbody id="feedb"></tbody></table></div>
+  </div>
+</div>
+
+<div class="ov" id="ov"><div class="modal">
+  <div class="mh"><div><b id="mip" class="ip"></b> <span id="mbadges"></span></div><span class="x" onclick="closeM()">✕</span></div>
+  <div class="mb" id="mbody"></div>
+</div></div>
+
+<script>
+var DATA = {attackers:[]}, EVENTS = [];
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+function tcls(c){ return 't-'+(['sqli','xss','lfi','cmdi','scanner','ssti','traversal'].indexOf(c)>=0?c:'default'); }
+function n(v){ return v==null?'—':v; }
+
+function kpi(n_,l){ return '<div class="kpi"><div class="n">'+n_+'</div><div class="l">'+l+'</div></div>'; }
+function render(){
+  var s=DATA;
+  document.getElementById('kpis').innerHTML =
+    kpi(s.total_events||0,'إجمالي الأحداث')+kpi(s.total_attackers||0,'عناوين IP فريدة')+
+    kpi(s.total_attacks||0,'محاولات هجوم')+kpi(Object.keys(s.category_totals||{}).length,'تقنيات مختلفة')+
+    kpi('<span style="color:var(--bot)">'+(s.bots_detected||0)+'</span>','بوتات/أدوات')+
+    kpi('<span style="color:var(--accent)">'+(s.devices_fingerprinted||0)+'</span>','أجهزة مبصومة');
+
+  var ct=s.category_totals||{}, mx=Math.max(1,...Object.values(ct));
+  document.getElementById('cats').innerHTML = Object.keys(ct).length?
+    Object.entries(ct).sort((a,b)=>b[1]-a[1]).map(([k,v])=>
+      '<div class="bar"><div class="lbl"><span class="tag '+tcls(k)+'">'+esc(k)+'</span></div>'+
+      '<div class="track"><div class="fill" style="width:'+(v/mx*100)+'%"></div></div><div class="v">'+v+'</div></div>').join('')
+    : '<div class="muted">لا هجمات بعد.</div>';
+
+  var tl=s.timeline||{}, keys=Object.keys(tl), tmx=Math.max(1,...Object.values(tl));
+  document.getElementById('spark').innerHTML = keys.slice(-60).map(k=>
+    '<div title="'+esc(k)+': '+tl[k]+'" style="height:'+(tl[k]/tmx*100)+'%"></div>').join('') || '<div class="muted">—</div>';
+  var et=s.event_type_totals||{};
+  document.getElementById('etypes').innerHTML = Object.entries(et).sort((a,b)=>b[1]-a[1]).map(([k,v])=>
+    '<span class="tag t-default" style="margin:2px">'+esc(k)+' · '+v+'</span>').join('');
+
+  var q=(document.getElementById('q').value||'').toLowerCase();
+  var rows=(s.attackers||[]).filter(a=>!q||JSON.stringify(a).toLowerCase().indexOf(q)>=0);
+  document.getElementById('atkb').innerHTML = rows.map((a,i)=>{
+    var loc = a.geo? ('📍 '+a.geo.lat.toFixed(3)+','+a.geo.lon.toFixed(3)) : (a.timezone||'—');
+    var techs=Object.entries(a.categories||{}).map(([c,v])=>'<span class="tag '+tcls(c)+'">'+esc(c)+' '+v+'</span>').join('')||'—';
+    return '<tr class="click '+(a.attacks?'atk':'')+'" onclick="openM('+i+')">'+
+      '<td class="ip">'+esc(a.ip)+'</td>'+
+      '<td>'+esc(a.os)+'</td><td>'+esc(a.browser)+'</td>'+
+      '<td class="muted" style="max-width:180px">'+esc(a.gpu||'—')+'</td>'+
+      '<td>'+esc(loc)+'</td>'+
+      '<td class="mono" style="max-width:140px">'+esc((a.localIPs||[]).join(', ')||'—')+'</td>'+
+      '<td>'+a.hits+'</td><td>'+(a.attacks?('<span class="badge-h">'+a.attacks+'</span>'):'0')+'</td>'+
+      '<td style="max-width:230px">'+techs+(a.is_bot?' <span class="badge-bot">🤖 '+(a.bot_marks||[]).join(',')+'</span>':'')+'</td>'+
+      '<td class="muted mono" style="font-size:11px">'+esc((a.last_seen||'').replace('T',' ').slice(0,19))+'</td></tr>';
+  }).join('') || '<tr><td colspan="10" class="muted">لا حركة بعد. افتح البوابة وتصفّحها لترى الرصد.</td></tr>';
+  window._rows=rows;
+
+  var fe=EVENTS.filter(e=>!q||JSON.stringify(e).toLowerCase().indexOf(q)>=0).slice(0,300);
+  document.getElementById('feedb').innerHTML = fe.map(e=>{
+    var find=(e.findings||[]).map(f=>'<span class="tag '+tcls(f.category)+'">'+esc(f.category)+'</span> <span class="pay">'+esc(f.payload||'')+'</span>').join(' ');
+    if(e.extra&&e.extra.executed_sql) find+=' <span class="pay">SQL: '+esc(e.extra.executed_sql)+'</span>';
+    return '<tr class="'+(e.attack?'atk':'')+'"><td class="muted mono" style="font-size:11px">'+esc((e.ts||'').replace('T',' ').slice(0,19))+'</td>'+
+      '<td class="ip">'+esc(e.src_ip)+'</td><td>'+esc(e.method)+'</td>'+
+      '<td class="pay" style="max-width:260px">'+esc(e.path)+'</td><td>'+esc(e.event_type)+'</td><td>'+find+'</td></tr>';
+  }).join('');
+}
+
+function fld(k,v){ return '<div class="fld"><div class="k">'+esc(k)+'</div><div class="vv">'+v+'</div></div>'; }
+function openM(i){
+  var a=window._rows[i]; if(!a) return;
+  document.getElementById('mip').textContent=a.ip;
+  document.getElementById('mbadges').innerHTML=(a.is_bot?'<span class="badge-bot">🤖 آلي/أداة</span> ':'')+(a.attacks?'<span class="badge-h">⚔ '+a.attacks+' هجوم</span>':'');
+  var sc=a.screen||{}, intel=a.intel||{};
+  var geo=a.geo?('<a class="btn" target="_blank" href="https://www.openstreetmap.org/?mlat='+a.geo.lat+'&mlon='+a.geo.lon+'#map=15/'+a.geo.lat+'/'+a.geo.lon+'">'+a.geo.lat+', '+a.geo.lon+' (دقة '+Math.round(a.geo.acc||0)+'م)</a>'):'—';
+  document.getElementById('mbody').innerHTML =
+    fld('عنوان IP العام', '<span class="ip">'+esc(a.ip)+'</span>')+
+    fld('IP المحلي خلف NAT/VPN', '<span class="mono">'+esc((a.localIPs||[]).join(', ')||'—')+'</span>')+
+    fld('نظام التشغيل', esc(a.os))+ fld('المتصفح', esc(a.browser))+
+    fld('المنصّة', esc(n(a.platform)))+ fld('كرت الشاشة (GPU)', esc(n(a.gpu)))+
+    fld('المنطقة الزمنية', esc(n(a.timezone))+' · '+esc(n(a.locale)))+
+    fld('الموقع الجغرافي (GPS)', geo)+
+    fld('دقة الشاشة', sc.w?(sc.w+'×'+sc.h+' @'+n(sc.pixelRatio)+'x · '+n(sc.colorDepth)+'-bit'):'—')+
+    fld('المعالج/الذاكرة', n(a.cores)+' أنوية · '+n(a.memory)+' GB')+
+    fld('اللغات', esc((a.languages||[]).join(', ')||'—'))+
+    fld('الشبكة', a.connection?esc(n(a.connection.type)+' · '+n(a.connection.downlink)+'Mbps · rtt '+n(a.connection.rtt)):'—')+
+    fld('البطارية', a.battery?(Math.round(a.battery.level*100)+'% '+(a.battery.charging?'(يشحن)':'')):'—')+
+    fld('بصمة Canvas', '<span class="mono">'+esc(n(a.canvas))+'</span>')+
+    fld('معرّف البصمة', '<span class="mono">'+esc(n(a.fpId))+'</span>')+
+    fld('علامات الأتمتة/البوت', (a.bot_marks||[]).map(b=>'<span class="badge-bot">'+esc(b)+'</span>').join(' ')||'لا شيء')+
+    fld('الخطوط المكتشفة', esc((a.fonts||[]).join(', ')||'—'))+
+    '<div class="fld full"><div class="k">User-Agent</div><div class="vv mono" style="font-size:12px">'+esc((a.user_agents||[]).join(' | ')||intel.ua||'—')+'</div></div>'+
+    '<div class="fld full"><div class="k">أكثر المسارات زيارة</div><div class="vv mono" style="font-size:12px">'+
+        ((a.top_paths||[]).map(p=>esc(p[0])+' ('+p[1]+')').join('  ·  ')||'—')+'</div></div>'+
+    '<div class="fld full"><div class="k">الحمولات الملتقطة (payloads)</div><div class="vv pay" style="font-size:12px">'+
+        ((a.payloads||[]).map(p=>'['+esc(p.cat)+'] '+esc(p.payload||'')).join('<br>')||'—')+'</div></div>';
+  document.getElementById('ov').classList.add('on');
+}
+function closeM(){ document.getElementById('ov').classList.remove('on'); }
+document.getElementById('ov').addEventListener('click',function(e){ if(e.target===this) closeM(); });
+document.getElementById('q').addEventListener('input', render);
+
+function load(){
+  fetch('api/stats').then(r=>r.json()).then(d=>{DATA=d; return fetch('api/events?limit=300');})
+    .then(r=>r.json()).then(e=>{EVENTS=e; render();}).catch(function(){});
+}
+load(); setInterval(load, 5000);
+</script>
+</body>
+</html>

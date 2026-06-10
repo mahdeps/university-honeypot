@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}الحساب المالي{% endblock %}
+{% block crumb %}الحساب المالي{% endblock %}
+{% block content %}
+<h2 class="page-title">الحساب المالي</h2>
+<p class="page-sub">كشف الرسوم والمدفوعات</p>
+
+<div class="grid cols-3">
+  <div class="stat"><div class="ic">💰</div><div><div class="n">{{ total }}₪</div><div class="l">إجمالي الرسوم</div></div></div>
+  <div class="stat"><div class="ic">✅</div><div><div class="n">{{ paid }}₪</div><div class="l">المدفوع</div></div></div>
+  <div class="stat"><div class="ic">⚠️</div><div><div class="n">{{ due }}₪</div><div class="l">المستحق</div></div></div>
+</div>
+
+<div class="card mt">
+  <div class="hd">كشف الحركات المالية</div>
+  <div class="bd" style="padding:0">
+    <table class="table">
+      <tr><th>التاريخ</th><th>البيان</th><th>مدين</th><th>دائن</th><th>الرصيد</th></tr>
+      {% for t in transactions %}
+      <tr><td>{{ t.date }}</td><td>{{ t.desc }}</td><td>{{ t.debit }}</td><td>{{ t.credit }}</td><td>{{ t.balance }}</td></tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+
+<div class="card mt">
+  <div class="hd">دفع إلكتروني</div>
+  <div class="bd">
+    <form class="form" method="POST" action="/finance/pay">
+      <div class="grid cols-2">
+        <div class="row"><label>المبلغ (₪)</label><input name="amount" placeholder="0.00"></div>
+        <div class="row"><label>طريقة الدفع</label>
+          <select name="method"><option>بطاقة ائتمان</option><option>محفظة إلكترونية</option><option>تحويل بنكي</option></select>
+        </div>
+      </div>
+      <div class="row"><label>رقم البطاقة</label><input name="card" placeholder="0000 0000 0000 0000"></div>
+      <button class="btn btn-primary">إتمام الدفع</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

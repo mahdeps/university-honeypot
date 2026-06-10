@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}جدول الامتحانات{% endblock %}
+{% block crumb %}جدول الامتحانات{% endblock %}
+{% block content %}
+<h2 class="page-title">جدول الامتحانات النهائية</h2>
+<p class="page-sub">الفصل الثاني 2025/2026</p>
+
+<div class="card">
+  <div class="hd">مواعيد الامتحانات</div>
+  <div class="bd" style="padding:0">
+    <table class="table">
+      <tr><th>الرمز</th><th>المادة</th><th>التاريخ</th><th>اليوم</th><th>الوقت</th><th>القاعة</th><th>المقعد</th></tr>
+      {% for e in exams %}
+      <tr><td>{{ e.code }}</td><td>{{ e.title }}</td><td>{{ e.date }}</td><td>{{ e.day }}</td><td>{{ e.time }}</td><td>{{ e.hall }}</td><td>{{ e.seat }}</td></tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+
+<div class="alert alert-ok mt">📌 يجب إحضار البطاقة الجامعية والوصول قبل موعد الامتحان بنصف ساعة. لا يُسمح بدخول الامتحان بعد مرور 20 دقيقة.</div>
+{% endblock %}

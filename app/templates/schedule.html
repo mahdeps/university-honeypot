@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}الجدول الدراسي{% endblock %}
+{% block crumb %}الجدول الدراسي{% endblock %}
+{% block content %}
+<h2 class="page-title">الجدول الدراسي الأسبوعي</h2>
+<p class="page-sub">الفصل الثاني 2025/2026</p>
+
+<div class="card">
+  <div class="hd">جدول المحاضرات</div>
+  <div class="bd" style="padding:0;overflow:auto">
+    <table class="table">
+      <tr><th>اليوم</th><th>08:00 - 09:30</th><th>09:40 - 11:10</th><th>11:20 - 12:50</th><th>13:00 - 14:30</th></tr>
+      {% for day, slots in week %}
+      <tr>
+        <th>{{ day }}</th>
+        {% for s in slots %}
+          <td>{% if s %}<b>{{ s.code }}</b><br><span class="muted" style="font-size:12px">{{ s.title }}<br>قاعة {{ s.room }}</span>{% else %}<span class="muted">—</span>{% endif %}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+
+<div class="card mt">
+  <div class="hd">ملخص المواد المسجّلة</div>
+  <div class="bd" style="padding:0">
+    <table class="table">
+      <tr><th>الرمز</th><th>المادة</th><th>الساعات</th><th>المدرّس</th><th>القاعة</th></tr>
+      {% for c in courses %}
+      <tr><td>{{ c.code }}</td><td>{{ c.title }}</td><td>{{ c.credits }}</td><td>{{ c.instructor }}</td><td>{{ c.room }}</td></tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+{% endblock %}

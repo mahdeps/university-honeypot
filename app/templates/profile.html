@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}الملف الشخصي{% endblock %}
+{% block crumb %}الملف الشخصي{% endblock %}
+{% block content %}
+<h2 class="page-title">الملف الشخصي</h2>
+<p class="page-sub">بياناتك الأكاديمية والشخصية</p>
+
+<div class="grid cols-2">
+  <div class="card">
+    <div class="hd">البيانات الشخصية</div>
+    <div class="bd">
+      <table class="table">
+        <tr><th style="width:40%">الاسم الكامل</th><td>{{ p.name }}</td></tr>
+        <tr><th>الرقم الجامعي</th><td>{{ p.sid }}</td></tr>
+        <tr><th>رقم الهوية</th><td>{{ p.national_id }}</td></tr>
+        <tr><th>تاريخ الميلاد</th><td>{{ p.dob }}</td></tr>
+        <tr><th>الجنسية</th><td>{{ p.nationality }}</td></tr>
+        <tr><th>الجنس</th><td>{{ p.gender }}</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="card">
+    <div class="hd">بيانات التواصل والأكاديمية</div>
+    <div class="bd">
+      <table class="table">
+        <tr><th style="width:40%">البريد الإلكتروني</th><td>{{ p.email }}</td></tr>
+        <tr><th>رقم الجوال</th><td>{{ p.phone }}</td></tr>
+        <tr><th>العنوان</th><td>{{ p.address }}</td></tr>
+        <tr><th>الكلية</th><td>{{ p.faculty }}</td></tr>
+        <tr><th>التخصص</th><td>{{ p.major }}</td></tr>
+        <tr><th>الحالة الأكاديمية</th><td><span class="badge b-ok">منتظم</span></td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="card mt">
+  <div class="hd">تحديث بيانات التواصل</div>
+  <div class="bd">
+    <form class="form" method="POST" action="/profile">
+      <div class="grid cols-2">
+        <div class="row"><label>رقم الجوال</label><input name="phone" value="{{ p.phone }}"></div>
+        <div class="row"><label>البريد البديل</label><input name="alt_email" placeholder="example@mail.com"></div>
+      </div>
+      <div class="row"><label>العنوان</label><input name="address" value="{{ p.address }}"></div>
+      <button class="btn btn-primary" type="submit">حفظ التعديلات</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

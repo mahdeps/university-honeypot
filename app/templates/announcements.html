@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}الإعلانات{% endblock %}
+{% block crumb %}الإعلانات{% endblock %}
+{% block content %}
+<h2 class="page-title">الإعلانات والأخبار</h2>
+<p class="page-sub">آخر التعميمات الصادرة عن العمادة والكليات</p>
+
+<div class="card">
+  <div class="bd">
+    {% for a in announcements %}
+    <div class="announce">
+      <div class="dot"></div>
+      <div>
+        <div class="t">{{ a.title }}</div>
+        <div class="m">{{ a.body }}</div>
+        <div class="d">{{ a.source }} · {{ a.date }}</div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,927 @@
+<!DOCTYPE html><html lang="ar" class="notranslate"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><title>
+	UCAS - البريد الإلكتروني
+</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta content="الكلية الجامعية للعلوم التطبيقية" name="description"><meta content="الكلية الجامعية للعلوم التطبيقية" name="author">
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="/static/NewTemp/src/images/favicon.ico">
+
+    <!--Morris Chart-->
+    <link rel="stylesheet" href="/static/NewTemp/src/libs/morris-js/morris.css">
+    <!-- Sweet Alert css -->
+    <link href="/static/NewTemp/src/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
+
+    <!-- App css -->
+    <link id="bootstrap" href="/static/NewTemp/src/css-light/bootstrap.min.css" rel="stylesheet" type="text/css"><link id="icons" href="/static/NewTemp/src/css-light/icons.min.css" rel="stylesheet" type="text/css"><link id="app_rtl" href="/static/NewTemp/src/css-light/app-rtl.min.css" rel="stylesheet" type="text/css"><link href="/static/NewTemp/src/libs/basictable-master/dist/css/basictable.min.css" rel="stylesheet" type="text/css"><link href="/static/NewTemp/src/style.css?v=3.11" rel="stylesheet" type="text/css"><link id="cus_style" href="/static/NewTemp/src/css-light/cusstyle.css" rel="stylesheet" type="text/css">
+
+    <!-- Vendor js -->
+    <script src="/static/NewTemp/src/js/vendor.min.js"></script>
+
+    <script src="/static/NewTemp/src/js/jquery-1.9.1.min.js"></script>
+    <script src="/static/NewTemp/src/libs/sweetalert2/sweetalert2.min.js"></script>
+    <script src="/static/NewTemp/src/libs/basictable-master/dist/js/basictable.min.js"></script>
+    <script src="/static/NewTemp/src/libs/basictable-master/dist/js/jquery.basictable.min.js"></script>
+
+    <style>:root{--swal2-outline: 0 0 0 3px rgba(100, 150, 200, 0.5);--swal2-container-padding: 0.625em;--swal2-backdrop: rgba(0, 0, 0, 0.4);--swal2-backdrop-transition: background-color 0.15s;--swal2-width: 32em;--swal2-padding: 0 0 1.25em;--swal2-border: none;--swal2-border-radius: 0.3125rem;--swal2-background: white;--swal2-color: #545454;--swal2-show-animation: swal2-show 0.3s;--swal2-hide-animation: swal2-hide 0.15s forwards;--swal2-icon-zoom: 1;--swal2-title-padding: 0.8em 1em 0;--swal2-html-container-padding: 1em 1.6em 0.3em;--swal2-input-border: 1px solid #d9d9d9;--swal2-input-border-radius: 0.1875em;--swal2-input-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06), 0 0 0 3px transparent;--swal2-input-background: transparent;--swal2-input-transition: border-color 0.2s, box-shadow 0.2s;--swal2-input-hover-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06), 0 0 0 3px transparent;--swal2-input-focus-border: 1px solid #b4dbed;--swal2-input-focus-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06), 0 0 0 3px rgba(100, 150, 200, 0.5);--swal2-progress-step-background: #add8e6;--swal2-validation-message-background: #f0f0f0;--swal2-validation-message-color: #666;--swal2-footer-border-color: #eee;--swal2-footer-background: transparent;--swal2-footer-color: inherit;--swal2-timer-progress-bar-background: rgba(0, 0, 0, 0.3);--swal2-close-button-position: initial;--swal2-close-button-inset: auto;--swal2-close-button-font-size: 2.5em;--swal2-close-button-color: #ccc;--swal2-close-button-transition: color 0.2s, box-shadow 0.2s;--swal2-close-button-outline: initial;--swal2-close-button-box-shadow: inset 0 0 0 3px transparent;--swal2-close-button-focus-box-shadow: inset var(--swal2-outline);--swal2-close-button-hover-transform: none;--swal2-actions-justify-content: center;--swal2-actions-width: auto;--swal2-actions-margin: 1.25em auto 0;--swal2-actions-padding: 0;--swal2-actions-border-radius: 0;--swal2-actions-background: transparent;--swal2-action-button-transition: background-color 0.2s, box-shadow 0.2s;--swal2-action-button-hover: black 10%;--swal2-action-button-active: black 10%;--swal2-confirm-button-box-shadow: none;--swal2-confirm-button-border-radius: 0.25em;--swal2-confirm-button-background-color: #7066e0;--swal2-confirm-button-color: #fff;--swal2-deny-button-box-shadow: none;--swal2-deny-button-border-radius: 0.25em;--swal2-deny-button-background-color: #dc3741;--swal2-deny-button-color: #fff;--swal2-cancel-button-box-shadow: none;--swal2-cancel-button-border-radius: 0.25em;--swal2-cancel-button-background-color: #6e7881;--swal2-cancel-button-color: #fff;--swal2-toast-show-animation: swal2-toast-show 0.5s;--swal2-toast-hide-animation: swal2-toast-hide 0.1s forwards;--swal2-toast-border: none;--swal2-toast-box-shadow: 0 0 1px hsl(0deg 0% 0% / 0.075), 0 1px 2px hsl(0deg 0% 0% / 0.075), 1px 2px 4px hsl(0deg 0% 0% / 0.075), 1px 3px 8px hsl(0deg 0% 0% / 0.075), 2px 4px 16px hsl(0deg 0% 0% / 0.075)}[data-swal2-theme=dark]{--swal2-dark-theme-black: #19191a;--swal2-dark-theme-white: #e1e1e1;--swal2-background: var(--swal2-dark-theme-black);--swal2-color: var(--swal2-dark-theme-white);--swal2-footer-border-color: #555;--swal2-input-background: color-mix(in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10%);--swal2-validation-message-background: color-mix( in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10% );--swal2-validation-message-color: var(--swal2-dark-theme-white);--swal2-timer-progress-bar-background: rgba(255, 255, 255, 0.7)}@media(prefers-color-scheme: dark){[data-swal2-theme=auto]{--swal2-dark-theme-black: #19191a;--swal2-dark-theme-white: #e1e1e1;--swal2-background: var(--swal2-dark-theme-black);--swal2-color: var(--swal2-dark-theme-white);--swal2-footer-border-color: #555;--swal2-input-background: color-mix(in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10%);--swal2-validation-message-background: color-mix( in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10% );--swal2-validation-message-color: var(--swal2-dark-theme-white);--swal2-timer-progress-bar-background: rgba(255, 255, 255, 0.7)}}body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown){overflow:hidden}body.swal2-height-auto{height:auto !important}body.swal2-no-backdrop .swal2-container{background-color:rgba(0,0,0,0) !important;pointer-events:none}body.swal2-no-backdrop .swal2-container .swal2-popup{pointer-events:auto}body.swal2-no-backdrop .swal2-container .swal2-modal{box-shadow:0 0 10px var(--swal2-backdrop)}body.swal2-toast-shown .swal2-container{box-sizing:border-box;width:360px;max-width:100%;background-color:rgba(0,0,0,0);pointer-events:none}body.swal2-toast-shown .swal2-container.swal2-top{inset:0 auto auto 50%;transform:translateX(-50%)}body.swal2-toast-shown .swal2-container.swal2-top-end,body.swal2-toast-shown .swal2-container.swal2-top-right{inset:0 0 auto auto}body.swal2-toast-shown .swal2-container.swal2-top-start,body.swal2-toast-shown .swal2-container.swal2-top-left{inset:0 auto auto 0}body.swal2-toast-shown .swal2-container.swal2-center-start,body.swal2-toast-shown .swal2-container.swal2-center-left{inset:50% auto auto 0;transform:translateY(-50%)}body.swal2-toast-shown .swal2-container.swal2-center{inset:50% auto auto 50%;transform:translate(-50%, -50%)}body.swal2-toast-shown .swal2-container.swal2-center-end,body.swal2-toast-shown .swal2-container.swal2-center-right{inset:50% 0 auto auto;transform:translateY(-50%)}body.swal2-toast-shown .swal2-container.swal2-bottom-start,body.swal2-toast-shown .swal2-container.swal2-bottom-left{inset:auto auto 0 0}body.swal2-toast-shown .swal2-container.swal2-bottom{inset:auto auto 0 50%;transform:translateX(-50%)}body.swal2-toast-shown .swal2-container.swal2-bottom-end,body.swal2-toast-shown .swal2-container.swal2-bottom-right{inset:auto 0 0 auto}@media print{body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown){overflow-y:scroll !important}body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown)>[aria-hidden=true]{display:none}body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown) .swal2-container{position:static !important}}div:where(.swal2-container){display:grid;position:fixed;z-index:1060;inset:0;box-sizing:border-box;grid-template-areas:"top-start     top            top-end" "center-start  center         center-end" "bottom-start  bottom-center  bottom-end";grid-template-rows:minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto);height:100%;padding:var(--swal2-container-padding);overflow-x:hidden;transition:var(--swal2-backdrop-transition);-webkit-overflow-scrolling:touch}div:where(.swal2-container).swal2-backdrop-show,div:where(.swal2-container).swal2-noanimation{background:var(--swal2-backdrop)}div:where(.swal2-container).swal2-backdrop-hide{background:rgba(0,0,0,0) !important}div:where(.swal2-container).swal2-top-start,div:where(.swal2-container).swal2-center-start,div:where(.swal2-container).swal2-bottom-start{grid-template-columns:minmax(0, 1fr) auto auto}div:where(.swal2-container).swal2-top,div:where(.swal2-container).swal2-center,div:where(.swal2-container).swal2-bottom{grid-template-columns:auto minmax(0, 1fr) auto}div:where(.swal2-container).swal2-top-end,div:where(.swal2-container).swal2-center-end,div:where(.swal2-container).swal2-bottom-end{grid-template-columns:auto auto minmax(0, 1fr)}div:where(.swal2-container).swal2-top-start>.swal2-popup{align-self:start}div:where(.swal2-container).swal2-top>.swal2-popup{grid-column:2;place-self:start center}div:where(.swal2-container).swal2-top-end>.swal2-popup,div:where(.swal2-container).swal2-top-right>.swal2-popup{grid-column:3;place-self:start end}div:where(.swal2-container).swal2-center-start>.swal2-popup,div:where(.swal2-container).swal2-center-left>.swal2-popup{grid-row:2;align-self:center}div:where(.swal2-container).swal2-center>.swal2-popup{grid-column:2;grid-row:2;place-self:center center}div:where(.swal2-container).swal2-center-end>.swal2-popup,div:where(.swal2-container).swal2-center-right>.swal2-popup{grid-column:3;grid-row:2;place-self:center end}div:where(.swal2-container).swal2-bottom-start>.swal2-popup,div:where(.swal2-container).swal2-bottom-left>.swal2-popup{grid-column:1;grid-row:3;align-self:end}div:where(.swal2-container).swal2-bottom>.swal2-popup{grid-column:2;grid-row:3;place-self:end center}div:where(.swal2-container).swal2-bottom-end>.swal2-popup,div:where(.swal2-container).swal2-bottom-right>.swal2-popup{grid-column:3;grid-row:3;place-self:end end}div:where(.swal2-container).swal2-grow-row>.swal2-popup,div:where(.swal2-container).swal2-grow-fullscreen>.swal2-popup{grid-column:1/4;width:100%}div:where(.swal2-container).swal2-grow-column>.swal2-popup,div:where(.swal2-container).swal2-grow-fullscreen>.swal2-popup{grid-row:1/4;align-self:stretch}div:where(.swal2-container).swal2-no-transition{transition:none !important}div:where(.swal2-container)[popover]{width:auto;border:0}div:where(.swal2-container) div:where(.swal2-popup){display:none;position:relative;box-sizing:border-box;grid-template-columns:minmax(0, 100%);width:var(--swal2-width);max-width:100%;padding:var(--swal2-padding);border:var(--swal2-border);border-radius:var(--swal2-border-radius);background:var(--swal2-background);color:var(--swal2-color);font-family:inherit;font-size:1rem}div:where(.swal2-container) div:where(.swal2-popup):focus{outline:none}div:where(.swal2-container) div:where(.swal2-popup).swal2-loading{overflow-y:hidden}div:where(.swal2-container) div:where(.swal2-popup).swal2-draggable{cursor:grab}div:where(.swal2-container) div:where(.swal2-popup).swal2-draggable div:where(.swal2-icon){cursor:grab}div:where(.swal2-container) div:where(.swal2-popup).swal2-dragging{cursor:grabbing}div:where(.swal2-container) div:where(.swal2-popup).swal2-dragging div:where(.swal2-icon){cursor:grabbing}div:where(.swal2-container) h2:where(.swal2-title){position:relative;max-width:100%;margin:0;padding:var(--swal2-title-padding);color:inherit;font-size:1.875em;font-weight:600;text-align:center;text-transform:none;overflow-wrap:break-word;cursor:initial}div:where(.swal2-container) div:where(.swal2-actions){display:flex;z-index:1;box-sizing:border-box;flex-wrap:wrap;align-items:center;justify-content:var(--swal2-actions-justify-content);width:var(--swal2-actions-width);margin:var(--swal2-actions-margin);padding:var(--swal2-actions-padding);border-radius:var(--swal2-actions-border-radius);background:var(--swal2-actions-background)}div:where(.swal2-container) div:where(.swal2-loader){display:none;align-items:center;justify-content:center;width:2.2em;height:2.2em;margin:0 1.875em;animation:swal2-rotate-loading 1.5s linear 0s infinite normal;border-width:.25em;border-style:solid;border-radius:100%;border-color:#2778c4 rgba(0,0,0,0) #2778c4 rgba(0,0,0,0)}div:where(.swal2-container) button:where(.swal2-styled){margin:.3125em;padding:.625em 1.1em;transition:var(--swal2-action-button-transition);border:none;box-shadow:0 0 0 3px rgba(0,0,0,0);font-weight:500}div:where(.swal2-container) button:where(.swal2-styled):not([disabled]){cursor:pointer}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm){border-radius:var(--swal2-confirm-button-border-radius);background:initial;background-color:var(--swal2-confirm-button-background-color);box-shadow:var(--swal2-confirm-button-box-shadow);color:var(--swal2-confirm-button-color);font-size:1em}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):hover{background-color:color-mix(in srgb, var(--swal2-confirm-button-background-color), var(--swal2-action-button-hover))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):active{background-color:color-mix(in srgb, var(--swal2-confirm-button-background-color), var(--swal2-action-button-active))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-deny){border-radius:var(--swal2-deny-button-border-radius);background:initial;background-color:var(--swal2-deny-button-background-color);box-shadow:var(--swal2-deny-button-box-shadow);color:var(--swal2-deny-button-color);font-size:1em}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-deny):hover{background-color:color-mix(in srgb, var(--swal2-deny-button-background-color), var(--swal2-action-button-hover))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-deny):active{background-color:color-mix(in srgb, var(--swal2-deny-button-background-color), var(--swal2-action-button-active))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel){border-radius:var(--swal2-cancel-button-border-radius);background:initial;background-color:var(--swal2-cancel-button-background-color);box-shadow:var(--swal2-cancel-button-box-shadow);color:var(--swal2-cancel-button-color);font-size:1em}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel):hover{background-color:color-mix(in srgb, var(--swal2-cancel-button-background-color), var(--swal2-action-button-hover))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel):active{background-color:color-mix(in srgb, var(--swal2-cancel-button-background-color), var(--swal2-action-button-active))}div:where(.swal2-container) button:where(.swal2-styled):focus-visible{outline:none;box-shadow:var(--swal2-action-button-focus-box-shadow)}div:where(.swal2-container) button:where(.swal2-styled)[disabled]:not(.swal2-loading){opacity:.4}div:where(.swal2-container) button:where(.swal2-styled)::-moz-focus-inner{border:0}div:where(.swal2-container) div:where(.swal2-footer){margin:1em 0 0;padding:1em 1em 0;border-top:1px solid var(--swal2-footer-border-color);background:var(--swal2-footer-background);color:var(--swal2-footer-color);font-size:1em;text-align:center;cursor:initial}div:where(.swal2-container) .swal2-timer-progress-bar-container{position:absolute;right:0;bottom:0;left:0;grid-column:auto !important;overflow:hidden;border-bottom-right-radius:var(--swal2-border-radius);border-bottom-left-radius:var(--swal2-border-radius)}div:where(.swal2-container) div:where(.swal2-timer-progress-bar){width:100%;height:.25em;background:var(--swal2-timer-progress-bar-background)}div:where(.swal2-container) img:where(.swal2-image){max-width:100%;margin:2em auto 1em;cursor:initial}div:where(.swal2-container) button:where(.swal2-close){position:var(--swal2-close-button-position);inset:var(--swal2-close-button-inset);z-index:2;align-items:center;justify-content:center;width:1.2em;height:1.2em;margin-top:0;margin-right:0;margin-bottom:-1.2em;padding:0;overflow:hidden;transition:var(--swal2-close-button-transition);border:none;border-radius:var(--swal2-border-radius);outline:var(--swal2-close-button-outline);background:rgba(0,0,0,0);color:var(--swal2-close-button-color);font-family:monospace;font-size:var(--swal2-close-button-font-size);cursor:pointer;justify-self:end}div:where(.swal2-container) button:where(.swal2-close):hover{transform:var(--swal2-close-button-hover-transform);background:rgba(0,0,0,0);color:#f27474}div:where(.swal2-container) button:where(.swal2-close):focus-visible{outline:none;box-shadow:var(--swal2-close-button-focus-box-shadow)}div:where(.swal2-container) button:where(.swal2-close)::-moz-focus-inner{border:0}div:where(.swal2-container) div:where(.swal2-html-container){z-index:1;justify-content:center;margin:0;padding:var(--swal2-html-container-padding);overflow:auto;color:inherit;font-size:1.125em;font-weight:normal;line-height:normal;text-align:center;overflow-wrap:break-word;word-break:break-word;cursor:initial}div:where(.swal2-container) input:where(.swal2-input),div:where(.swal2-container) input:where(.swal2-file),div:where(.swal2-container) textarea:where(.swal2-textarea),div:where(.swal2-container) select:where(.swal2-select),div:where(.swal2-container) div:where(.swal2-radio),div:where(.swal2-container) label:where(.swal2-checkbox){margin:1em 2em 3px}div:where(.swal2-container) input:where(.swal2-input),div:where(.swal2-container) input:where(.swal2-file),div:where(.swal2-container) textarea:where(.swal2-textarea){box-sizing:border-box;width:auto;transition:var(--swal2-input-transition);border:var(--swal2-input-border);border-radius:var(--swal2-input-border-radius);background:var(--swal2-input-background);box-shadow:var(--swal2-input-box-shadow);color:inherit;font-size:1.125em}div:where(.swal2-container) input:where(.swal2-input).swal2-inputerror,div:where(.swal2-container) input:where(.swal2-file).swal2-inputerror,div:where(.swal2-container) textarea:where(.swal2-textarea).swal2-inputerror{border-color:#f27474 !important;box-shadow:0 0 2px #f27474 !important}div:where(.swal2-container) input:where(.swal2-input):hover,div:where(.swal2-container) input:where(.swal2-file):hover,div:where(.swal2-container) textarea:where(.swal2-textarea):hover{box-shadow:var(--swal2-input-hover-box-shadow)}div:where(.swal2-container) input:where(.swal2-input):focus,div:where(.swal2-container) input:where(.swal2-file):focus,div:where(.swal2-container) textarea:where(.swal2-textarea):focus{border:var(--swal2-input-focus-border);outline:none;box-shadow:var(--swal2-input-focus-box-shadow)}div:where(.swal2-container) input:where(.swal2-input)::placeholder,div:where(.swal2-container) input:where(.swal2-file)::placeholder,div:where(.swal2-container) textarea:where(.swal2-textarea)::placeholder{color:#ccc}div:where(.swal2-container) .swal2-range{margin:1em 2em 3px;background:var(--swal2-background)}div:where(.swal2-container) .swal2-range input{width:80%}div:where(.swal2-container) .swal2-range output{width:20%;color:inherit;font-weight:600;text-align:center}div:where(.swal2-container) .swal2-range input,div:where(.swal2-container) .swal2-range output{height:2.625em;padding:0;font-size:1.125em;line-height:2.625em}div:where(.swal2-container) .swal2-input{height:2.625em;padding:0 .75em}div:where(.swal2-container) .swal2-file{width:75%;margin-right:auto;margin-left:auto;background:var(--swal2-input-background);font-size:1.125em}div:where(.swal2-container) .swal2-textarea{height:6.75em;padding:.75em}div:where(.swal2-container) .swal2-select{min-width:50%;max-width:100%;padding:.375em .625em;background:var(--swal2-input-background);color:inherit;font-size:1.125em}div:where(.swal2-container) .swal2-radio,div:where(.swal2-container) .swal2-checkbox{align-items:center;justify-content:center;background:var(--swal2-background);color:inherit}div:where(.swal2-container) .swal2-radio label,div:where(.swal2-container) .swal2-checkbox label{margin:0 .6em;font-size:1.125em}div:where(.swal2-container) .swal2-radio input,div:where(.swal2-container) .swal2-checkbox input{flex-shrink:0;margin:0 .4em}div:where(.swal2-container) label:where(.swal2-input-label){display:flex;justify-content:center;margin:1em auto 0}div:where(.swal2-container) div:where(.swal2-validation-message){align-items:center;justify-content:center;margin:1em 0 0;padding:.625em;overflow:hidden;background:var(--swal2-validation-message-background);color:var(--swal2-validation-message-color);font-size:1em;font-weight:300}div:where(.swal2-container) div:where(.swal2-validation-message)::before{content:"!";display:inline-block;width:1.5em;min-width:1.5em;height:1.5em;margin:0 .625em;border-radius:50%;background-color:#f27474;color:#fff;font-weight:600;line-height:1.5em;text-align:center}div:where(.swal2-container) .swal2-progress-steps{flex-wrap:wrap;align-items:center;max-width:100%;margin:1.25em auto;padding:0;background:rgba(0,0,0,0);font-weight:600}div:where(.swal2-container) .swal2-progress-steps li{display:inline-block;position:relative}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step{z-index:20;flex-shrink:0;width:2em;height:2em;border-radius:2em;background:#2778c4;color:#fff;line-height:2em;text-align:center}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step{background:#2778c4}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step~.swal2-progress-step{background:var(--swal2-progress-step-background);color:#fff}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step~.swal2-progress-step-line{background:var(--swal2-progress-step-background)}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step-line{z-index:10;flex-shrink:0;width:2.5em;height:.4em;margin:0 -1px;background:#2778c4}div:where(.swal2-icon){position:relative;box-sizing:content-box;justify-content:center;width:5em;height:5em;margin:2.5em auto .6em;zoom:var(--swal2-icon-zoom);border:.25em solid rgba(0,0,0,0);border-radius:50%;border-color:#000;font-family:inherit;line-height:5em;cursor:default;user-select:none}div:where(.swal2-icon) .swal2-icon-content{display:flex;align-items:center;font-size:3.75em}div:where(.swal2-icon).swal2-error{border-color:#f27474;color:#f27474}div:where(.swal2-icon).swal2-error .swal2-x-mark{position:relative;flex-grow:1}div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line]{display:block;position:absolute;top:2.3125em;width:2.9375em;height:.3125em;border-radius:.125em;background-color:#f27474}div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line][class$=left]{left:1.0625em;transform:rotate(45deg)}div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line][class$=right]{right:1em;transform:rotate(-45deg)}div:where(.swal2-icon).swal2-error.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-error.swal2-icon-show .swal2-x-mark{animation:swal2-animate-error-x-mark .5s}div:where(.swal2-icon).swal2-warning{border-color:#f8bb86;color:#f8bb86}div:where(.swal2-icon).swal2-warning.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-warning.swal2-icon-show .swal2-icon-content{animation:swal2-animate-i-mark .5s}div:where(.swal2-icon).swal2-info{border-color:#3fc3ee;color:#3fc3ee}div:where(.swal2-icon).swal2-info.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-info.swal2-icon-show .swal2-icon-content{animation:swal2-animate-i-mark .8s}div:where(.swal2-icon).swal2-question{border-color:#87adbd;color:#87adbd}div:where(.swal2-icon).swal2-question.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-question.swal2-icon-show .swal2-icon-content{animation:swal2-animate-question-mark .8s}div:where(.swal2-icon).swal2-success{border-color:#a5dc86;color:#a5dc86}div:where(.swal2-icon).swal2-success [class^=swal2-success-circular-line]{position:absolute;width:3.75em;height:7.5em;border-radius:50%}div:where(.swal2-icon).swal2-success [class^=swal2-success-circular-line][class$=left]{top:-0.4375em;left:-2.0635em;transform:rotate(-45deg);transform-origin:3.75em 3.75em;border-radius:7.5em 0 0 7.5em}div:where(.swal2-icon).swal2-success [class^=swal2-success-circular-line][class$=right]{top:-0.6875em;left:1.875em;transform:rotate(-45deg);transform-origin:0 3.75em;border-radius:0 7.5em 7.5em 0}div:where(.swal2-icon).swal2-success .swal2-success-ring{position:absolute;z-index:2;top:-0.25em;left:-0.25em;box-sizing:content-box;width:100%;height:100%;border:.25em solid rgba(165,220,134,.3);border-radius:50%}div:where(.swal2-icon).swal2-success .swal2-success-fix{position:absolute;z-index:1;top:.5em;left:1.625em;width:.4375em;height:5.625em;transform:rotate(-45deg)}div:where(.swal2-icon).swal2-success [class^=swal2-success-line]{display:block;position:absolute;z-index:2;height:.3125em;border-radius:.125em;background-color:#a5dc86}div:where(.swal2-icon).swal2-success [class^=swal2-success-line][class$=tip]{top:2.875em;left:.8125em;width:1.5625em;transform:rotate(45deg)}div:where(.swal2-icon).swal2-success [class^=swal2-success-line][class$=long]{top:2.375em;right:.5em;width:2.9375em;transform:rotate(-45deg)}div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-line-tip{animation:swal2-animate-success-line-tip .75s}div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-line-long{animation:swal2-animate-success-line-long .75s}div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-circular-line-right{animation:swal2-rotate-success-circular-line 4.25s ease-in}[class^=swal2]{-webkit-tap-highlight-color:rgba(0,0,0,0)}.swal2-show{animation:var(--swal2-show-animation)}.swal2-hide{animation:var(--swal2-hide-animation)}.swal2-noanimation{transition:none}.swal2-scrollbar-measure{position:absolute;top:-9999px;width:50px;height:50px;overflow:scroll}.swal2-rtl .swal2-close{margin-right:initial;margin-left:0}.swal2-rtl .swal2-timer-progress-bar{right:0;left:auto}.swal2-toast{box-sizing:border-box;grid-column:1/4 !important;grid-row:1/4 !important;grid-template-columns:min-content auto min-content;padding:1em;overflow-y:hidden;border:var(--swal2-toast-border);background:var(--swal2-background);box-shadow:var(--swal2-toast-box-shadow);pointer-events:auto}.swal2-toast>*{grid-column:2}.swal2-toast h2:where(.swal2-title){margin:.5em 1em;padding:0;font-size:1em;text-align:initial}.swal2-toast .swal2-loading{justify-content:center}.swal2-toast input:where(.swal2-input){height:2em;margin:.5em;font-size:1em}.swal2-toast .swal2-validation-message{font-size:1em}.swal2-toast div:where(.swal2-footer){margin:.5em 0 0;padding:.5em 0 0;font-size:.8em}.swal2-toast button:where(.swal2-close){grid-column:3/3;grid-row:1/99;align-self:center;width:.8em;height:.8em;margin:0;font-size:2em}.swal2-toast div:where(.swal2-html-container){margin:.5em 1em;padding:0;overflow:initial;font-size:1em;text-align:initial}.swal2-toast div:where(.swal2-html-container):empty{padding:0}.swal2-toast .swal2-loader{grid-column:1;grid-row:1/99;align-self:center;width:2em;height:2em;margin:.25em}.swal2-toast .swal2-icon{grid-column:1;grid-row:1/99;align-self:center;width:2em;min-width:2em;height:2em;margin:0 .5em 0 0}.swal2-toast .swal2-icon .swal2-icon-content{display:flex;align-items:center;font-size:1.8em;font-weight:bold}.swal2-toast .swal2-icon.swal2-success .swal2-success-ring{width:2em;height:2em}.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line]{top:.875em;width:1.375em}.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=left]{left:.3125em}.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=right]{right:.3125em}.swal2-toast div:where(.swal2-actions){justify-content:flex-start;height:auto;margin:0;margin-top:.5em;padding:0 .5em}.swal2-toast button:where(.swal2-styled){margin:.25em .5em;padding:.4em .6em;font-size:1em}.swal2-toast .swal2-success{border-color:#a5dc86}.swal2-toast .swal2-success [class^=swal2-success-circular-line]{position:absolute;width:1.6em;height:3em;border-radius:50%}.swal2-toast .swal2-success [class^=swal2-success-circular-line][class$=left]{top:-0.8em;left:-0.5em;transform:rotate(-45deg);transform-origin:2em 2em;border-radius:4em 0 0 4em}.swal2-toast .swal2-success [class^=swal2-success-circular-line][class$=right]{top:-0.25em;left:.9375em;transform-origin:0 1.5em;border-radius:0 4em 4em 0}.swal2-toast .swal2-success .swal2-success-ring{width:2em;height:2em}.swal2-toast .swal2-success .swal2-success-fix{top:0;left:.4375em;width:.4375em;height:2.6875em}.swal2-toast .swal2-success [class^=swal2-success-line]{height:.3125em}.swal2-toast .swal2-success [class^=swal2-success-line][class$=tip]{top:1.125em;left:.1875em;width:.75em}.swal2-toast .swal2-success [class^=swal2-success-line][class$=long]{top:.9375em;right:.1875em;width:1.375em}.swal2-toast .swal2-success.swal2-icon-show .swal2-success-line-tip{animation:swal2-toast-animate-success-line-tip .75s}.swal2-toast .swal2-success.swal2-icon-show .swal2-success-line-long{animation:swal2-toast-animate-success-line-long .75s}.swal2-toast.swal2-show{animation:var(--swal2-toast-show-animation)}.swal2-toast.swal2-hide{animation:var(--swal2-toast-hide-animation)}@keyframes swal2-show{0%{transform:translate3d(0, -50px, 0) scale(0.9);opacity:0}100%{transform:translate3d(0, 0, 0) scale(1);opacity:1}}@keyframes swal2-hide{0%{transform:translate3d(0, 0, 0) scale(1);opacity:1}100%{transform:translate3d(0, -50px, 0) scale(0.9);opacity:0}}@keyframes swal2-animate-success-line-tip{0%{top:1.1875em;left:.0625em;width:0}54%{top:1.0625em;left:.125em;width:0}70%{top:2.1875em;left:-0.375em;width:3.125em}84%{top:3em;left:1.3125em;width:1.0625em}100%{top:2.8125em;left:.8125em;width:1.5625em}}@keyframes swal2-animate-success-line-long{0%{top:3.375em;right:2.875em;width:0}65%{top:3.375em;right:2.875em;width:0}84%{top:2.1875em;right:0;width:3.4375em}100%{top:2.375em;right:.5em;width:2.9375em}}@keyframes swal2-rotate-success-circular-line{0%{transform:rotate(-45deg)}5%{transform:rotate(-45deg)}12%{transform:rotate(-405deg)}100%{transform:rotate(-405deg)}}@keyframes swal2-animate-error-x-mark{0%{margin-top:1.625em;transform:scale(0.4);opacity:0}50%{margin-top:1.625em;transform:scale(0.4);opacity:0}80%{margin-top:-0.375em;transform:scale(1.15)}100%{margin-top:0;transform:scale(1);opacity:1}}@keyframes swal2-animate-error-icon{0%{transform:rotateX(100deg);opacity:0}100%{transform:rotateX(0deg);opacity:1}}@keyframes swal2-rotate-loading{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}@keyframes swal2-animate-question-mark{0%{transform:rotateY(-360deg)}100%{transform:rotateY(0)}}@keyframes swal2-animate-i-mark{0%{transform:rotateZ(45deg);opacity:0}25%{transform:rotateZ(-25deg);opacity:.4}50%{transform:rotateZ(15deg);opacity:.8}75%{transform:rotateZ(-5deg);opacity:1}100%{transform:rotateX(0);opacity:1}}@keyframes swal2-toast-show{0%{transform:translateY(-0.625em) rotateZ(2deg)}33%{transform:translateY(0) rotateZ(-2deg)}66%{transform:translateY(0.3125em) rotateZ(2deg)}100%{transform:translateY(0) rotateZ(0deg)}}@keyframes swal2-toast-hide{100%{transform:rotateZ(1deg);opacity:0}}@keyframes swal2-toast-animate-success-line-tip{0%{top:.5625em;left:.0625em;width:0}54%{top:.125em;left:.125em;width:0}70%{top:.625em;left:-0.25em;width:1.625em}84%{top:1.0625em;left:.75em;width:.5em}100%{top:1.125em;left:.1875em;width:.75em}}@keyframes swal2-toast-animate-success-line-long{0%{top:1.625em;right:1.375em;width:0}65%{top:1.25em;right:.9375em;width:0}84%{top:.9375em;right:0;width:1.125em}100%{top:.9375em;right:.1875em;width:1.375em}}</style>
+    <script>
+
+        function getMsgY(msgid, msgtitle) {
+            Swal.fire({
+                title:"عذرا",
+                html: " بيانات الطالب الجامعيه غير مكتمله برجاء اكمال بيانات النزوح في تفاصيل العنوان والإتصال",
+                icon: 'error',
+                showCancelButton: false,
+                showconfirmButton: true,
+                confirmButtonText: 'انتقال'
+            }).then((result) => {
+                if (result.isConfirmed || result.isDismissed) {
+                    window.location.replace(
+                        window.location.origin + "/profile/student_info"
+                    );
+                    //window.location.replace("https://my.ucas.edu.ps/profile/student_info");
+                }
+            });
+        }
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $('.lines').click(function () {
+                //$('#navigation').toggle();
+            });
+            $('.has-submenu>a').click(function (event) {
+                event.stopPropagation();
+                $('.submenu').toggle();
+            });
+            $('.responsive_table').basictable();
+        });
+
+        $(document).ready(function () { // Add your event handlers inside ready block
+            $(".btn-noref").click(function (event) { // button event handler
+                event.preventDefault(); // prevent page from redirecting
+            });
+            $(".topbtn").each(function (index) {
+                var attr = $(this).attr('href');
+                var hclass = $(this).hasClass('fb');
+                var iframe = $(this).hasClass('fancybox.iframe');
+                var fancybox = $(this).hasClass('fancybox');
+                if ((typeof attr !== 'undefined' && attr !== false) || hclass || iframe || fancybox) {
+                } else {
+                    $(this).addClass("ChangeIt");
+                }
+            });
+        });
+    </script>
+    <script>
+        $(window).load(function () {
+            $('#loader').hide();
+        });
+    </script>
+
+    
+    <title>تفعيل البريد الالكتروني</title>
+    <script>
+        $(document).ready(function () {
+
+            $("#Lic_accept").click(function () {
+                $('#ContentPlaceHolder1_CheckBox1').prop('checked', true);  
+                $.fancybox.close();
+            });
+            $("#Lic_deny").click(function () {
+                $('#ContentPlaceHolder1_CheckBox1').prop('checked', false);
+                $.fancybox.close();
+            });
+
+            $(".fb").fancybox({
+                padding: 0,
+                openEffect: 'elastic',
+                openSpeed: 250,
+                closeEffect: 'elastic',
+                closeSpeed: 250
+            });
+        });
+    </script>
+
+    <style>
+        .col-sm-3.has_valid:before,
+        .col-sm-4.has_valid:before,
+        .col-sm-5.has_valid:before,
+        .col-sm-6.has_valid:before,
+        .col-sm-7.has_valid:before,
+        .col-sm-8.has_valid:before,
+        .col-sm-9.has_valid:before,
+        .col-sm-10.has_valid:before,
+        .col-sm-11.has_valid:before,
+        .col-sm-12.has_valid:before,
+        .col-sm-1.has_valid:before,
+        .col-sm-2.has_valid:before{
+            left:17px;
+        }
+        .redColor{
+            color: red !important;
+        }
+        span.reqspan:before , .has_valid:before {
+            content: "";
+            background-image: url(../NewTemp/src/icons/req.png);
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 10px;
+            height: 10px;
+            position: absolute;
+            left: 2px;
+            top: 2px;
+            background-size: contain;
+        }
+        span.reqspan {
+            float: left;
+            position: relative;
+        }
+        .lblEmail{
+            cursor:pointer;
+        }
+        .swal2-html-container, button.swal2-confirm.swal2-styled {
+            font-family: Fon !important;
+        }
+    </style>
+
+<style type="text/css">.fancybox-margin{margin-right:0px;}</style></head>
+<body class="webstyle-light">
+    <div id="loader" style="display: none;">
+        <div class="loader"></div>
+    </div>
+    <!-- Navigation Bar-->
+    <header id="topnav" class="light">
+
+        <!-- Topbar Start -->
+        <div class="navbar-custom">
+            <div class="container-fluid">
+                <ul class="list-unstyled topnav-menu float-right mb-0">
+
+                    <li class="dropdown notification-list">
+                        <!-- Mobile menu toggle-->
+                        <a class="navbar-toggle nav-link">
+                            <div class="lines">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </a>
+                        <!-- End mobile menu toggle-->
+                    </li>
+
+                    <li id="notifys_New" class="dropdown notification-list notifys_New">
+                        <a class="nav-link dropdown-toggle waves-effect" id="notifys_link" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            <i class="fe-bell noti-icon"></i>
+                            <span id="notify_number" class="badge badge-danger rounded-circle noti-icon-badge">0</span>
+                        </a>
+                        
+                        <div class="dropdown-menu dropdown-menu-right dropdown-lg" id="notify-dropdown">
+                            <!-- item-->
+                            <div class="dropdown-item noti-title">
+                                <h5 class="m-0">
+                                    <span class="float-right">
+                                        
+                                    </span>التنبيهات
+                                </h5>
+                            </div>
+
+                            <div class="slimscroll noti-scroll" id="notList">
+                                
+                                        <a href="#" class="dropdown-item notify-item fb fancybox.iframe active">
+                                            <p class="">القبول والتسجيل</p>
+                                            <p class="text-muted mb-0 user-msg">
+                                                <small>رابط القضايا الطلابية </small>
+                                            </p>
+                                        </a>
+                                    
+                                
+                                
+                            </div>
+
+                            <!-- All-->
+                            
+                        </div>
+                    </li>
+
+                    <li class="dropdown notification-list">
+                        <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            <img src="/static/NewTemp/src/images/fotlogo.png" alt="user-image" class="rounded-circle">
+                            <span class="pro-user-name ml-1">
+                                عبدالله محمد أحمد سالم <i class="mdi mdi-chevron-down"></i>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                            <!-- item-->
+
+                            <!-- item-->
+                            
+
+                            <!-- item-->
+                            <a href="#" class="dropdown-item notify-item">
+                                <i class="fe-settings"></i>
+                                <span>بياناتي</span>
+                            </a>
+
+                            <!-- item-->
+                            <a href="/profile/change_password" class="dropdown-item notify-item">
+                                <i class="fe-lock"></i>
+                                <span>تغير كلمه المرور</span>
+                            </a>
+
+                            <div class="dropdown-divider"></div>
+
+                            <!-- item-->
+                            
+                            <!-- item-->
+                            <a href="/logout" class="dropdown-item notify-item">
+                                <i class="fe-log-out"></i>
+                                <span>تسجيل الخروج</span>
+                            </a>
+
+
+                        </div>
+                    </li>
+                    <li class="dropdown notification-list">
+                        <a href="javascript:void(0);" class="nav-link waves-effect dark_btn_change light">
+                            <i class="mdi mdi-white-balance-sunny"></i>
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- LOGO -->
+                <div class="logo-box">
+                    <a href="/home" class="logo text-center">
+                        <span class="logo-lg">
+                            <img src="/static/NewTemp/src/images/logo-dark.png" alt="" height="55">
+                            <!-- <span class="logo-lg-text-light">UBold</span> -->
+                        </span>
+                        <span class="logo-sm">
+                            <!-- <span class="logo-sm-text-dark">U</span> -->
+                            <img src="/static/NewTemp/src/images/logo-sm.png" alt="" height="50">
+                        </span>
+                    </a>
+                </div>
+
+            </div>
+            <!-- end container-fluid-->
+        </div>
+        <!-- end Topbar -->
+
+        <div class="topbar-menu">
+            <div class="container-fluid">
+                <div id="navigation" class="active">
+                    <!-- Navigation Menu-->
+                    <ul class="navigation-menu in">
+
+                        <li>
+                            <a href="/home"><i class="mdi mdi-view-dashboard"></i>الرئيسية</a>
+                        </li>
+                        
+                                <li class="has-submenu">
+                                    <a id="M1" class="menulnk" href="/Registration">القبول و التسجيل</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                                <li>
+                                                    <a id="M18" title="تمكين الطالب من الاطلاع على خطته الدراسية" href="/Registration/study_plan">الخطة الدراسية</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M49" title="المساقات المسجلة للفصل الدراسي الحالي والفصول السابقة." href="/Registration/Registered_Subjects">المساقات المسجلة</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M9" title="تسجيل المساقات في الفصل الدراسي و السحب و الإضافة و تغيير الشعب" href="/Registration/semester_registration">التسجيل الفصلي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M10" title="يوضح الجدول الدراسي للطالب بالتفصيل الأيام و المواعيد و المساقات و الشعب" href="/Registration/semester_table">الجدول التفصيلي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M12" title="تحتوي على الأجندة الفصلية مثل بدء الدراسة و التسجيل و السحب و الإضافة" href="/Registration/academic_calendar">التقويم الأكاديمي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M57" title="تحتوي على جدول مواعيد الامتحانات النهائية." href="/Registration/exams_schedule">جدول الإمتحانات</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M19" title="عبارة عن جدول بدرجات الطالب مصنفة حسب الفصول الدراسية." href="/Registration/transcript">كشف الدرجات</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M25" title="تحتوي على مساقات الطالب المسجلة حاليا وتوصيفها" href="/Registration/course_descriptions">توصيف المساقات</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M208" title="للتسجيل في امتحانات المستوى مثل امتحان مستوى اللغة الانجليزية وامتحان مستوى القراءن وغيرها." href="#">تقديم لامتحانات المستوى</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M248" title="لاستعراض المواد والمساقات التي تم طرحها في الفصل الحالي , كذلك الفصلص القادم." href="/Registration/semester_subjects">المواد لهذا الفصل</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu active">
+                                    <a id="M2" class="menulnk active" href="/profile">ملف الطالب</a>
+
+                                    
+                                    <ul class="submenu in">
+                                        
+                                                <li>
+                                                    <a id="M15" title="تمكين الطالب من تغيير كلمة المرور الخاصة به" href="/profile/change_password">تغيير كلمة المرور</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M48" title="يقوم الطالب بتعبئة بيانات طلب اقرار خريج حتى تتحول حالته الى خريج اذا كانت بياناته صحيحة." href="/profile/graduate_allowance_form">اقرار خريج</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M20" title="عبارة عن سجلات مالية تخص الطالب بحيث يعرف الطالب تاريخ الدفعات التي قام بها وتاريخ المستحقات لكل فصل دراسي" href="/profile/financial_profile">الملف المالي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M21" title="يتعرف الطالب من خلالها على مرشده المالي ويتلقى الرسائل التي يرسلها مرشده المالي." href="/profile/financial_advisor">المرشد المالي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M22" title="يتعرف الطالب من خلالها على مرشده الاكاديمي ويتلقى الرسائل التي يرسلها مرشده." href="/profile/academic_advisor">المرشد الأكاديمي</a>
+                                                </li>
+                                            
+                                                <li class="active">
+                                                    <a id="M16" title="تفعيل البريد الالكتروني وفحص حالة البريد." href="/profile/email" class="active">البريد الإلكتروني</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M17" title="قم من هذه الصفحة بمراجعة بياناتك واحرص ان تكون جميع بياناتك الاساسية سليمة وصحيحة." href="/profile/student_info">بيانات الطالب</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M288" title="للاستعلام عن المنح والقروض الخاصة بالطالب حسب الفصل." href="/profile/discounts_gifts">المنح والقروض</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M328" title="للاستعلام عن المنح والقروض المقدمة من التعليم العالي- برنامج إقراض." href="/profile/Iqrad">قروض التعليم العالي</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu">
+                                    <a id="M4" class="menulnk" href="/personal_apps">الطلبات الشخصية</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                                <li>
+                                                    <a id="M28" title="في حال اردت طلب مساعدة لتغطية الرسوم الدراسية او الحصول على منحة يمكنك استخدام هذه الصفحة لتعبئة بياناتك." href="/personal_apps/assistance_request">البحث الاجتماعي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M29" title="تمكين الطالب من استلام درجاته للمساقات المسجلة للفصل الحالي فور اعتمادها." href="#">إشتراك الرسائل القصيرة</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M150" title="تحتوي على طلبات الإفادات التي ممكن أن يحتاجها الطال مثل شهادة القيد و إفادة خريج." href="/personal_apps/Student_Informs">الإفادات</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M317" title="الذهاب الى حساب دريم سبارك" href="/personal_apps/UserVerification">حساب دريم سبارك</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu">
+                                    <a id="M5" class="menulnk" href="/issues_and_applications">القضايا و الطلبات</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                                <li>
+                                                    <a id="M32" title="من هنا يمكنك تقديم طلب احتساب من مئة او طلب غير مكتمل او طلب مراجعة لاي مساق من مساقات المسجلة لهذا الفصل." href="/issues_and_applications/courses_applications">طلبات المساقات</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M108" title="من هنا يمكنك تقديم طلب تأجيل الفصل الدراسي الحالي" href="/issues_and_applications/postponement">طلب تأجيل فصل</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M109" title="من هنا يمكنك تقديم طلب إعادة قيد الفصل الدراسي الحالي" href="/issues_and_applications/re_under">طلب إعادة قيد</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M168" title="استخدم هذه الصفحة لتحويل تخصصك الحالي الى تخصص اخر." href="/issues_and_applications/dept_trans">طلب تحويل تخصص</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M31" title="قضايا التسجيل" href="/issues_and_applications/registration_issues">قضايا التسجيل</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu">
+                                    <a id="M6" class="menulnk" href="/evaluation">تقييم المساقات</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                                <li>
+                                                    <a id="M44" title="تقييم الطالب للمساقات" href="/evaluation/teacher_eval">تقييم المساقات</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu">
+                                    <a id="M7" class="menulnk" href="/questionnair">استبانات عامة</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                                <li>
+                                                    <a id="M45" title="قائمة الاستبانات الحالية" href="/questionnair/general_questionnaires">استبانات عامة</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu last-elements">
+                                    <a id="M8" class="menulnk" href="/library">المكتبة</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                                <li>
+                                                    <a id="M47" title="يمكنك من هنا الحصول على نماذج الامتحانات لمساقات الفصل الحالي." href="/library/examinations_samples">نماذج الامتحانات</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M46" title="الاطلاع على الكتب المستعارة من المكتبة كما ويمكنه تجديد الاستعارة" href="/library/borrowed_books">الكتب المستعارة</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu last-elements">
+                                    <a id="M999" class="menulnk" href="#">برامج الطلبة</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                    </ul>
+                                    
+                                </li>
+                            
+
+
+
+
+                    </ul>
+                    <!-- End navigation menu -->
+
+                    <div class="clearfix"></div>
+                </div>
+                <!-- end #navigation -->
+            </div>
+            <!-- end container -->
+        </div>
+        <!-- end navbar-custom -->
+
+    </header>
+    <!-- End Navigation Bar-->
+
+    <div class="wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-12 col-md-12">
+                    <div class="card-box widget-user">
+                        <div>
+                            <div class="avatar-lg float-left mr-3">
+                                <img src="/static/NewTemp/src/images/fotlogo.png" style="width: 72px !important; height: 72px;" class="img-fluid rounded-circle" alt="user">
+                            </div>
+                            <div class="wid-u-info">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h5 id="lblStudentName" class="mt-2 font-18">عبدالله محمد أحمد سالم</h5>
+                                        <p id="lblStudentNo" class="text-muted mb-1 font-16 text-truncate">200000000</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="pull-left plfef float-right">
+                                            <small class="text-info"><b>التخصص :</b>
+                                                <span id="lblSpecial">أمن المعلومات</span>
+                                            </small>
+                                            <small class="text-info"><b>القسم :</b>
+                                                <span id="lblTaw_College">قسم هندسة الحاسوب - دبلوم متوسط</span>
+                                            </small>
+                                            <small class="text-info"><b>العمادة:</b>
+                                                <span id="lblDean">عمادة الهندسة والنظم الذكية</span>
+                                            </small>
+                                            <small id="smallEmail" class="text-info"><b>البريد :</b>
+                                                <span id="lblEmail" title="اضغط هنا لنسخ البريد الالكتروني" class="lblEmail">200000000@smail.ucas.edu.ps</span>
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="ADVISOR_DIV" class="col-xl-12 col-md-12">
+                    <div class="card-box">
+                        <h4>بيانات المرشد</h4>
+                        <div class="wid-u-info">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <small class="text-info"><b>الاسم  :</b>
+                                        <span id="ADVISOR_NAME">أحمد محمد المرشد</span>
+                                    </small>
+                                </div>
+                                <div class="col-md-4">
+                                    <small class="text-info"><b>القسم  :</b>
+                                        <span id="ADVISOR_DEPT_NAME">أمن المعلومات</span>
+                                    </small>
+                                </div>
+                                <div class="col-md-4">
+                                    <small class="text-info"><b>البريد الالكتروني :</b>
+                                        <span id="ADVISOR_MAIL">advisor@ucas.edu.ps</span>
+                                    </small>
+                                </div>
+                                <div class="col-md-4">
+                                    <small class="text-info"><b>رقم الواتس  :</b>
+                                        <span id="ADVISOR_WHATSAPP_NO">970599000000</span>
+                                    </small>
+                                </div>
+                                <div class="col-md-4">
+                                    <small class="text-info"><b>ساعات التواصل :</b>
+                                        <span id="TimeCon" class="redColor">من الساعة 9:00 صباحاً حتى 3:00 مساءً</span>
+                                    </small>
+                                </div>
+                                <div id="NOTES_div" class="col-md-12">
+                                    <small class="text-info"><b>الملاحظات  :</b>
+                                        <span id="NOTES">م. أحمد المرشد – مرشد دبلوم أمن المعلومات (طلاب وطالبات)</span>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- end row -->
+
+            <form method="post" action="#" id="form1">
+<div class="aspNetHidden">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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">
+</div>
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="114C6CBF">
+	<input type="hidden" name="__VIEWSTATEENCRYPTED" id="__VIEWSTATEENCRYPTED" value="">
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="zPDFmy+kCq/UPj9Ty68ZltnabaRGxrIWgsQ0GsW4DD5njIdMtcjp3Bw6ncSsIcImXX+wHem61HT8JZopJFO2HDc1THjo7tRospqiQ4eJvr6+kUJwz21LREHnd8uAUbPTLtGWurjPxxnYGx8GtG5eMlYzY/TxeP6R3wK3idd92+0=">
+</div>
+                
+                
+                
+    <style>b.c_green>a {
+    display: inline-block;
+    color: #fff;
+    background: #03A9F4;
+    padding: 5px 7px;
+    margin-right: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+}</style>
+    <div class="card-box" id="divLicense" style="display: none">
+        <h4 class="header-title">اتفاقية الاستخدام</h4>
+        <br>
+        <div class="card-boxs">
+            <p class="text-muted">أقر أنا الطالب/ة  بأن استخدم البريد الالكتروني  بما يخدم دراستي في الكلية ويرفع من المستوى العلمي والثقافي وأتعهد بأن لا أسيء استخدام البريد بأمور غير قانونية أو غير أخلاقية أو تتعارض مع فلسفة الكلية وقوانينها, وفي حالة مخالفة ذلك حسب ما يسجله جهاز المراقبة في مركز الحاسوب أتحمل المسئولية الكاملة
+                ويحق لإدارة الكلية إيقاف الخدمة واتخاذ الإجراءات المناسبة. </p>
+            <div class="btns">
+                <a id="Lic_deny" class="d_left btn btn-info" href="#divLicense" style=" ">غير موافق</a>
+                <a id="Lic_accept" class="d_left btn btn-info" href="#divLicense" style=" ">موافق</a>
+            </div>
+        </div>
+        <br>
+    </div>
+    
+    <div class="card-box">
+        <h4 id="ContentPlaceHolder1_title_" class="header-title">حالة بريدك الالكتروني</h4>
+        <br>
+        <div class="card-boxs">
+            <div id="ContentPlaceHolder1_Msg1_divMsg" class="card-boxs" style="">
+    <div class="">
+        <div id="ContentPlaceHolder1_Msg1_TMsg" class="alert alert-success">
+            <strong><img src="/static/NewTemp/src/icons/accept.png" id="ContentPlaceHolder1_Msg1_imgMsg" class="small_img d_right" style="width:35px; margin-left:5px;"></strong>
+            <span id="ContentPlaceHolder1_Msg1_lblMsg" class="c_green" style="float:none;">- تم تفعيل حسابك البريدي :&lt;b&gt; 200000000@smail.ucas.edu.ps&lt;/b&gt;&lt;br/&gt;- سعة التخزين للبريد الخاص بك 10G </span>
+        </div>
+    </div>
+</div>
+
+            
+
+            
+            <input type="hidden" name="ctl00$ContentPlaceHolder1$HiddenField1" id="ContentPlaceHolder1_HiddenField1">
+            <div id="ContentPlaceHolder1_div_help">
+                 <div class="card-boxs">
+                     <p style="float:none">ما هي خدمة البريد الإلكتروني ؟</p>
+                     <div style="padding:10px 20px 20px">
+                         <p class="c_blue" style="float: none">
+                             يمكن تعريف خدمة البريد الإلكتروني بأنها الخدمة الخاصة بتبادل الرسائل الإلكترونية بين مستخدمي هذه الخدمة, و تقدم الكلية هذه الخدمة سعياً منها لتسخير آخر وسائل تكنولوجيا المعلومات لخدمة الطلبة و المدرسين و تسهيل آليات التواصل فيما بينهم.
+                         </p>
+                     </div>
+                 </div>
+                <div class="card-boxs">
+                     <p style="float:none">إرشادات استخدام البريد الإلكتروني ؟</p>
+                </div>
+                <div class="card-boxs">
+                    <p class="c_blue" style="padding:20px;float: none">
+                            لقد تم تحديث البريد الإلكتروني للطلبة بحيث أصبح يعتمد على نظام جوجل، و عليه يرجى اتباع التالي:
+                    </p>
+                    <span class="listp c_blue" style="float: none">
+سعة التخزين للبريد الخاص بك 10 جيجا بايت ( ويتم استخدامها لأجل الدراسة فقط)
+                        <br>
+                        فتح صفحة البريد من متصفح الإنترنت او من خلال التطبيقات
+
+                        <br>
+                        <b class="c_green" style="padding:2px 0;display: inline-block;">
+البريد الإلكتروني <a href="https://mail.google.com" target="_blank">https://mail.google.com</a></b>
+                        <br>
+                        <b class="c_green" style="padding:2px 0;display: inline-block;">
+السعة التخزينية "درايف"
+ <a href="https://drive.google.com" target="_blank">https://drive.google.com</a></b>
+                            <br>
+                            <b class="c_green" style="padding:2px 0;display: inline-block;">
+الكلاس روم
+ <a href="https://classroom.google.com" target="_blank">https://classroom.google.com</a></b>
+                        
+                    </span>
+                    <span class="listp c_blue" style="float: none">
+                         التسجيل الدخول مباشرة بنفس كلمة المرور الخاصة بخدمات الطلبة.
+                    </span>
+                </div>
+                <br>
+            </div>
+            <div class="block-footer">     
+                <a href="https://mail.google.com" id="ContentPlaceHolder1_btn_GoToMail" class="btn btn-info d_left" style="" title="اضغط هنا لفتح بريدك الالكتروني">اذهب للبريد</a>
+                
+            </div>
+         </div>
+    </div>
+
+                <!-- end page title -->
+            </form>
+        </div>
+    </div>
+
+
+
+    <!-- Footer Start -->
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    2020 - 2022 © جميع الحقوق محفوظة لـ <a href="#">الكلية الجامعية</a>
+                </div>
+                
+            </div>
+        </div>
+    </footer>
+    <!-- end Footer -->
+    <div class="feedback">
+        <a href="/feedback.aspx" class="fb fancybox.iframe">الإبلاغ عن مشكلة
+        </a>
+    </div>
+
+    <!-- Right bar overlay-->
+    <div class="rightbar-overlay"></div>
+
+
+    <!-- knob plugin -->
+    
+
+    <!--Morris Chart-->
+    
+    
+
+
+
+    <!-- Dashboard init js-->
+    
+
+    <!-- App js-->
+    <script src="/static/NewTemp/src/js/app.js"></script>
+
+    <!-- Add mousewheel plugin (this is optional) -->
+    <script type="text/javascript" src="/static/NewTemp/src/libs/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+
+    <!-- Add fancyBox main JS and CSS files -->
+    <script type="text/javascript" src="/static/NewTemp/src/libs/fancybox/source/jquery.fancybox.js?v=2.1.5"></script>
+    <link rel="stylesheet" type="text/css" href="/static/NewTemp/src/libs/fancybox/source/jquery.fancybox.css?v=2.1.5" media="screen">
+
+    <!-- Add Button helper (this is optional) -->
+    <link rel="stylesheet" type="text/css" href="/static/NewTemp/src/libs/fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5">
+    <script type="text/javascript" src="/static/NewTemp/src/libs/fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+
+    <!-- Add Thumbnail helper (this is optional) -->
+    <link rel="stylesheet" type="text/css" href="/static/NewTemp/src/libs/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7">
+    <script type="text/javascript" src="/static/NewTemp/src/libs/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+
+    <!-- Add Media helper (this is optional) -->
+    <script type="text/javascript" src="/static/NewTemp/src/libs/fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
+    <script>
+        function getCookie(cname) {
+            let name = cname + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let ca = decodedCookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+        var themes_style = "light";
+        //console.log(themes_style);
+        if (themes_style == '') {
+            var themes_style = getCookie("themes_style");
+        }
+        //console.log(themes_style);
+        $(document).ready(function () {
+            $(".lblEmail").click(function () {
+                copyToClipboard($(this));
+            });
+            $('#notifys_New a').click(function () {
+                document.cookie = "notifys_New=true;path=/";
+                $('#notifys_New').removeClass('notifys_New');
+            });
+            $('.bg_NewJusts').click(function () {
+                document.cookie = "notifys_New=true;path=/";
+                $('#notifys_New').removeClass('notifys_New');
+            });
+            console.log("true");
+            $('.dark_btn_change').click(function () {
+                if (themes_style == 'dark') {
+                    themes_style = "light";
+                    document.cookie = "themes_style=light;path=/";
+                } else {
+                    themes_style = "dark";
+                    document.cookie = "themes_style=dark;path=/";
+                }
+                location.reload();
+            });
+            $(".fb").fancybox({
+                width: 1024,
+                autoScale: false,
+                afterClose: function () {
+                    // parent.location.reload(true);
+                }
+            });
+        });
+
+        function fnSaveData() {
+            var item = JSON.parse(window.localStorage.getItem("notifications"));
+            let unread = 0;
+            var notifList = document.getElementById("notList");
+            var notifyNum = document.getElementById("notify_number");
+            function viewItems() {
+                var templateItem = document.createElement("a");
+                templateItem.classList.add("fancybox.iframe");
+                templateItem.classList.add("dropdown-item");
+                templateItem.classList.add("fb");
+                templateItem.classList.add("notify-item");
+                templateItem.setAttribute("id", "_notify-item");
+                let notTitle = item[i].TITLE;
+                let notUrl = item[i].URL;
+                let notAdv = item[i].ADV_SIDE;
+                let notDate = item[i].START_DATE;
+                let notRead = item[i].IS_READ;
+                let notDetails = item[i].DETAILS;
+                if (notRead == 0)
+                    unread++;
+                templateItem.classList.add(notRead);
+                let title = document.createElement("p");
+                let adv = document.createElement("p");
+                let details = document.createElement("p");
+                let date = document.createElement("small");
+                templateItem.href = `/show.aspx?created_date= ${notDate}&title= ${notTitle}&url=${notUrl}`;
+                notRead == 0 ? templateItem.classList.add("active") : "";
+                title.innerHTML = notTitle;
+                adv.innerHTML = notAdv;
+                notRead == 0 ? adv.classList.add("font-weight-bold") : "";
+                date.classList.add("text-muted");
+                date.classList.add("d-flex");
+                date.classList.add("flex-row-reverse");
+                details.innerHTML = notDetails.substring(0, 15) + "...";
+                date.innerHTML = notDate
+                templateItem.appendChild(adv);
+                templateItem.appendChild(title);
+                templateItem.appendChild(details);
+                templateItem.appendChild(date);
+                notifList.appendChild(templateItem);
+            }
+            if (item != null) {
+                if (notifList.children[0]) {
+                    for (i = 0; i < item?.length; i++) {
+                        document.getElementById("_notify-item")?.remove();
+                        viewItems();
+                    }
+                }
+                else {
+                    for (i = 0; i < item?.length; i++) {
+                        viewItems();
+                    }
+
+                }
+
+
+                notifyNum.innerHTML = unread.toString();
+            }
+        }
+
+        function GET_STD_NOTIFICATIONS_SSP(currentdate) {
+            $.ajax({
+                type: "POST",
+                url: '/WebService.asmx/GET_STD_NOTIFICATIONS_SSP',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    localStorage.setItem('notifications', data.d);
+                    currentdate.setDate(currentdate.getDate() + 1);
+                    localStorage.setItem('expiryStartDate', currentdate);
+                    fnSaveData();
+                },
+                error: function (result) {
+                    msgget(2, "حدث خطأ أثناء عملية الحفظ");
+                }
+            });
+        }
+
+
+        function SET_STD_NOTIFICATIONS_READ() {
+
+            $.ajax({
+                type: "POST",
+                url: '/WebService.asmx/SET_STD_NOTIFICATIONS_READ',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+
+                },
+                error: function (result) {
+                    msgget(2, "حدث خطأ ما");
+
+                }
+            })
+        }
+        $(document).ready(function () {
+
+            $("#notifys_link").click(function (e) {
+                var _currentdate = new Date();
+                GET_STD_NOTIFICATIONS_SSP(_currentdate);
+                SET_STD_NOTIFICATIONS_READ();
+            });
+            var currentdate = new Date();
+            var expiryDate = new Date(localStorage.getItem('expiryStartDate'));
+            var IsNotif = localStorage.getItem('notifications');
+            if (isNaN(Date.parse(expiryDate)) || currentdate > expiryDate || !IsNotif) {
+                GET_STD_NOTIFICATIONS_SSP(currentdate);
+            } else {
+                fnSaveData();
+            }
+
+
+        });
+        function copyToClipboard(element) {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val($(element).html()).select();
+            document.execCommand("copy");
+            $temp.remove();
+            alert("تم نسخ البريد");
+        }
+
+    </script>
+
+    
+    
+
+
+</body></html>

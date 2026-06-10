@@ -1,0 +1,941 @@
+<!DOCTYPE html><html lang="ar" class="notranslate"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><title>
+	UCAS - طلب تحويل تخصص
+</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta content="الكلية الجامعية للعلوم التطبيقية" name="description"><meta content="الكلية الجامعية للعلوم التطبيقية" name="author">
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="/static/NewTemp/src/images/favicon.ico">
+
+    <!--Morris Chart-->
+    <link rel="stylesheet" href="/static/NewTemp/src/libs/morris-js/morris.css">
+    <!-- Sweet Alert css -->
+    <link href="/static/NewTemp/src/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
+
+    <!-- App css -->
+    <link id="bootstrap" href="/static/NewTemp/src/css-light/bootstrap.min.css" rel="stylesheet" type="text/css"><link id="icons" href="/static/NewTemp/src/css-light/icons.min.css" rel="stylesheet" type="text/css"><link id="app_rtl" href="/static/NewTemp/src/css-light/app-rtl.min.css" rel="stylesheet" type="text/css"><link href="/static/NewTemp/src/libs/basictable-master/dist/css/basictable.min.css" rel="stylesheet" type="text/css"><link href="/static/NewTemp/src/style.css?v=3.11" rel="stylesheet" type="text/css"><link id="cus_style" href="/static/NewTemp/src/css-light/cusstyle.css" rel="stylesheet" type="text/css">
+
+    <!-- Vendor js -->
+    <script src="/static/NewTemp/src/js/vendor.min.js"></script>
+
+    <script src="/static/NewTemp/src/js/jquery-1.9.1.min.js"></script>
+    <script src="/static/NewTemp/src/libs/sweetalert2/sweetalert2.min.js"></script>
+    <script src="/static/NewTemp/src/libs/basictable-master/dist/js/basictable.min.js"></script>
+    <script src="/static/NewTemp/src/libs/basictable-master/dist/js/jquery.basictable.min.js"></script>
+
+    <style>:root{--swal2-outline: 0 0 0 3px rgba(100, 150, 200, 0.5);--swal2-container-padding: 0.625em;--swal2-backdrop: rgba(0, 0, 0, 0.4);--swal2-backdrop-transition: background-color 0.15s;--swal2-width: 32em;--swal2-padding: 0 0 1.25em;--swal2-border: none;--swal2-border-radius: 0.3125rem;--swal2-background: white;--swal2-color: #545454;--swal2-show-animation: swal2-show 0.3s;--swal2-hide-animation: swal2-hide 0.15s forwards;--swal2-icon-zoom: 1;--swal2-title-padding: 0.8em 1em 0;--swal2-html-container-padding: 1em 1.6em 0.3em;--swal2-input-border: 1px solid #d9d9d9;--swal2-input-border-radius: 0.1875em;--swal2-input-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06), 0 0 0 3px transparent;--swal2-input-background: transparent;--swal2-input-transition: border-color 0.2s, box-shadow 0.2s;--swal2-input-hover-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06), 0 0 0 3px transparent;--swal2-input-focus-border: 1px solid #b4dbed;--swal2-input-focus-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06), 0 0 0 3px rgba(100, 150, 200, 0.5);--swal2-progress-step-background: #add8e6;--swal2-validation-message-background: #f0f0f0;--swal2-validation-message-color: #666;--swal2-footer-border-color: #eee;--swal2-footer-background: transparent;--swal2-footer-color: inherit;--swal2-timer-progress-bar-background: rgba(0, 0, 0, 0.3);--swal2-close-button-position: initial;--swal2-close-button-inset: auto;--swal2-close-button-font-size: 2.5em;--swal2-close-button-color: #ccc;--swal2-close-button-transition: color 0.2s, box-shadow 0.2s;--swal2-close-button-outline: initial;--swal2-close-button-box-shadow: inset 0 0 0 3px transparent;--swal2-close-button-focus-box-shadow: inset var(--swal2-outline);--swal2-close-button-hover-transform: none;--swal2-actions-justify-content: center;--swal2-actions-width: auto;--swal2-actions-margin: 1.25em auto 0;--swal2-actions-padding: 0;--swal2-actions-border-radius: 0;--swal2-actions-background: transparent;--swal2-action-button-transition: background-color 0.2s, box-shadow 0.2s;--swal2-action-button-hover: black 10%;--swal2-action-button-active: black 10%;--swal2-confirm-button-box-shadow: none;--swal2-confirm-button-border-radius: 0.25em;--swal2-confirm-button-background-color: #7066e0;--swal2-confirm-button-color: #fff;--swal2-deny-button-box-shadow: none;--swal2-deny-button-border-radius: 0.25em;--swal2-deny-button-background-color: #dc3741;--swal2-deny-button-color: #fff;--swal2-cancel-button-box-shadow: none;--swal2-cancel-button-border-radius: 0.25em;--swal2-cancel-button-background-color: #6e7881;--swal2-cancel-button-color: #fff;--swal2-toast-show-animation: swal2-toast-show 0.5s;--swal2-toast-hide-animation: swal2-toast-hide 0.1s forwards;--swal2-toast-border: none;--swal2-toast-box-shadow: 0 0 1px hsl(0deg 0% 0% / 0.075), 0 1px 2px hsl(0deg 0% 0% / 0.075), 1px 2px 4px hsl(0deg 0% 0% / 0.075), 1px 3px 8px hsl(0deg 0% 0% / 0.075), 2px 4px 16px hsl(0deg 0% 0% / 0.075)}[data-swal2-theme=dark]{--swal2-dark-theme-black: #19191a;--swal2-dark-theme-white: #e1e1e1;--swal2-background: var(--swal2-dark-theme-black);--swal2-color: var(--swal2-dark-theme-white);--swal2-footer-border-color: #555;--swal2-input-background: color-mix(in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10%);--swal2-validation-message-background: color-mix( in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10% );--swal2-validation-message-color: var(--swal2-dark-theme-white);--swal2-timer-progress-bar-background: rgba(255, 255, 255, 0.7)}@media(prefers-color-scheme: dark){[data-swal2-theme=auto]{--swal2-dark-theme-black: #19191a;--swal2-dark-theme-white: #e1e1e1;--swal2-background: var(--swal2-dark-theme-black);--swal2-color: var(--swal2-dark-theme-white);--swal2-footer-border-color: #555;--swal2-input-background: color-mix(in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10%);--swal2-validation-message-background: color-mix( in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10% );--swal2-validation-message-color: var(--swal2-dark-theme-white);--swal2-timer-progress-bar-background: rgba(255, 255, 255, 0.7)}}body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown){overflow:hidden}body.swal2-height-auto{height:auto !important}body.swal2-no-backdrop .swal2-container{background-color:rgba(0,0,0,0) !important;pointer-events:none}body.swal2-no-backdrop .swal2-container .swal2-popup{pointer-events:auto}body.swal2-no-backdrop .swal2-container .swal2-modal{box-shadow:0 0 10px var(--swal2-backdrop)}body.swal2-toast-shown .swal2-container{box-sizing:border-box;width:360px;max-width:100%;background-color:rgba(0,0,0,0);pointer-events:none}body.swal2-toast-shown .swal2-container.swal2-top{inset:0 auto auto 50%;transform:translateX(-50%)}body.swal2-toast-shown .swal2-container.swal2-top-end,body.swal2-toast-shown .swal2-container.swal2-top-right{inset:0 0 auto auto}body.swal2-toast-shown .swal2-container.swal2-top-start,body.swal2-toast-shown .swal2-container.swal2-top-left{inset:0 auto auto 0}body.swal2-toast-shown .swal2-container.swal2-center-start,body.swal2-toast-shown .swal2-container.swal2-center-left{inset:50% auto auto 0;transform:translateY(-50%)}body.swal2-toast-shown .swal2-container.swal2-center{inset:50% auto auto 50%;transform:translate(-50%, -50%)}body.swal2-toast-shown .swal2-container.swal2-center-end,body.swal2-toast-shown .swal2-container.swal2-center-right{inset:50% 0 auto auto;transform:translateY(-50%)}body.swal2-toast-shown .swal2-container.swal2-bottom-start,body.swal2-toast-shown .swal2-container.swal2-bottom-left{inset:auto auto 0 0}body.swal2-toast-shown .swal2-container.swal2-bottom{inset:auto auto 0 50%;transform:translateX(-50%)}body.swal2-toast-shown .swal2-container.swal2-bottom-end,body.swal2-toast-shown .swal2-container.swal2-bottom-right{inset:auto 0 0 auto}@media print{body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown){overflow-y:scroll !important}body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown)>[aria-hidden=true]{display:none}body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown) .swal2-container{position:static !important}}div:where(.swal2-container){display:grid;position:fixed;z-index:1060;inset:0;box-sizing:border-box;grid-template-areas:"top-start     top            top-end" "center-start  center         center-end" "bottom-start  bottom-center  bottom-end";grid-template-rows:minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto);height:100%;padding:var(--swal2-container-padding);overflow-x:hidden;transition:var(--swal2-backdrop-transition);-webkit-overflow-scrolling:touch}div:where(.swal2-container).swal2-backdrop-show,div:where(.swal2-container).swal2-noanimation{background:var(--swal2-backdrop)}div:where(.swal2-container).swal2-backdrop-hide{background:rgba(0,0,0,0) !important}div:where(.swal2-container).swal2-top-start,div:where(.swal2-container).swal2-center-start,div:where(.swal2-container).swal2-bottom-start{grid-template-columns:minmax(0, 1fr) auto auto}div:where(.swal2-container).swal2-top,div:where(.swal2-container).swal2-center,div:where(.swal2-container).swal2-bottom{grid-template-columns:auto minmax(0, 1fr) auto}div:where(.swal2-container).swal2-top-end,div:where(.swal2-container).swal2-center-end,div:where(.swal2-container).swal2-bottom-end{grid-template-columns:auto auto minmax(0, 1fr)}div:where(.swal2-container).swal2-top-start>.swal2-popup{align-self:start}div:where(.swal2-container).swal2-top>.swal2-popup{grid-column:2;place-self:start center}div:where(.swal2-container).swal2-top-end>.swal2-popup,div:where(.swal2-container).swal2-top-right>.swal2-popup{grid-column:3;place-self:start end}div:where(.swal2-container).swal2-center-start>.swal2-popup,div:where(.swal2-container).swal2-center-left>.swal2-popup{grid-row:2;align-self:center}div:where(.swal2-container).swal2-center>.swal2-popup{grid-column:2;grid-row:2;place-self:center center}div:where(.swal2-container).swal2-center-end>.swal2-popup,div:where(.swal2-container).swal2-center-right>.swal2-popup{grid-column:3;grid-row:2;place-self:center end}div:where(.swal2-container).swal2-bottom-start>.swal2-popup,div:where(.swal2-container).swal2-bottom-left>.swal2-popup{grid-column:1;grid-row:3;align-self:end}div:where(.swal2-container).swal2-bottom>.swal2-popup{grid-column:2;grid-row:3;place-self:end center}div:where(.swal2-container).swal2-bottom-end>.swal2-popup,div:where(.swal2-container).swal2-bottom-right>.swal2-popup{grid-column:3;grid-row:3;place-self:end end}div:where(.swal2-container).swal2-grow-row>.swal2-popup,div:where(.swal2-container).swal2-grow-fullscreen>.swal2-popup{grid-column:1/4;width:100%}div:where(.swal2-container).swal2-grow-column>.swal2-popup,div:where(.swal2-container).swal2-grow-fullscreen>.swal2-popup{grid-row:1/4;align-self:stretch}div:where(.swal2-container).swal2-no-transition{transition:none !important}div:where(.swal2-container)[popover]{width:auto;border:0}div:where(.swal2-container) div:where(.swal2-popup){display:none;position:relative;box-sizing:border-box;grid-template-columns:minmax(0, 100%);width:var(--swal2-width);max-width:100%;padding:var(--swal2-padding);border:var(--swal2-border);border-radius:var(--swal2-border-radius);background:var(--swal2-background);color:var(--swal2-color);font-family:inherit;font-size:1rem}div:where(.swal2-container) div:where(.swal2-popup):focus{outline:none}div:where(.swal2-container) div:where(.swal2-popup).swal2-loading{overflow-y:hidden}div:where(.swal2-container) div:where(.swal2-popup).swal2-draggable{cursor:grab}div:where(.swal2-container) div:where(.swal2-popup).swal2-draggable div:where(.swal2-icon){cursor:grab}div:where(.swal2-container) div:where(.swal2-popup).swal2-dragging{cursor:grabbing}div:where(.swal2-container) div:where(.swal2-popup).swal2-dragging div:where(.swal2-icon){cursor:grabbing}div:where(.swal2-container) h2:where(.swal2-title){position:relative;max-width:100%;margin:0;padding:var(--swal2-title-padding);color:inherit;font-size:1.875em;font-weight:600;text-align:center;text-transform:none;overflow-wrap:break-word;cursor:initial}div:where(.swal2-container) div:where(.swal2-actions){display:flex;z-index:1;box-sizing:border-box;flex-wrap:wrap;align-items:center;justify-content:var(--swal2-actions-justify-content);width:var(--swal2-actions-width);margin:var(--swal2-actions-margin);padding:var(--swal2-actions-padding);border-radius:var(--swal2-actions-border-radius);background:var(--swal2-actions-background)}div:where(.swal2-container) div:where(.swal2-loader){display:none;align-items:center;justify-content:center;width:2.2em;height:2.2em;margin:0 1.875em;animation:swal2-rotate-loading 1.5s linear 0s infinite normal;border-width:.25em;border-style:solid;border-radius:100%;border-color:#2778c4 rgba(0,0,0,0) #2778c4 rgba(0,0,0,0)}div:where(.swal2-container) button:where(.swal2-styled){margin:.3125em;padding:.625em 1.1em;transition:var(--swal2-action-button-transition);border:none;box-shadow:0 0 0 3px rgba(0,0,0,0);font-weight:500}div:where(.swal2-container) button:where(.swal2-styled):not([disabled]){cursor:pointer}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm){border-radius:var(--swal2-confirm-button-border-radius);background:initial;background-color:var(--swal2-confirm-button-background-color);box-shadow:var(--swal2-confirm-button-box-shadow);color:var(--swal2-confirm-button-color);font-size:1em}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):hover{background-color:color-mix(in srgb, var(--swal2-confirm-button-background-color), var(--swal2-action-button-hover))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):active{background-color:color-mix(in srgb, var(--swal2-confirm-button-background-color), var(--swal2-action-button-active))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-deny){border-radius:var(--swal2-deny-button-border-radius);background:initial;background-color:var(--swal2-deny-button-background-color);box-shadow:var(--swal2-deny-button-box-shadow);color:var(--swal2-deny-button-color);font-size:1em}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-deny):hover{background-color:color-mix(in srgb, var(--swal2-deny-button-background-color), var(--swal2-action-button-hover))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-deny):active{background-color:color-mix(in srgb, var(--swal2-deny-button-background-color), var(--swal2-action-button-active))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel){border-radius:var(--swal2-cancel-button-border-radius);background:initial;background-color:var(--swal2-cancel-button-background-color);box-shadow:var(--swal2-cancel-button-box-shadow);color:var(--swal2-cancel-button-color);font-size:1em}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel):hover{background-color:color-mix(in srgb, var(--swal2-cancel-button-background-color), var(--swal2-action-button-hover))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel):active{background-color:color-mix(in srgb, var(--swal2-cancel-button-background-color), var(--swal2-action-button-active))}div:where(.swal2-container) button:where(.swal2-styled):focus-visible{outline:none;box-shadow:var(--swal2-action-button-focus-box-shadow)}div:where(.swal2-container) button:where(.swal2-styled)[disabled]:not(.swal2-loading){opacity:.4}div:where(.swal2-container) button:where(.swal2-styled)::-moz-focus-inner{border:0}div:where(.swal2-container) div:where(.swal2-footer){margin:1em 0 0;padding:1em 1em 0;border-top:1px solid var(--swal2-footer-border-color);background:var(--swal2-footer-background);color:var(--swal2-footer-color);font-size:1em;text-align:center;cursor:initial}div:where(.swal2-container) .swal2-timer-progress-bar-container{position:absolute;right:0;bottom:0;left:0;grid-column:auto !important;overflow:hidden;border-bottom-right-radius:var(--swal2-border-radius);border-bottom-left-radius:var(--swal2-border-radius)}div:where(.swal2-container) div:where(.swal2-timer-progress-bar){width:100%;height:.25em;background:var(--swal2-timer-progress-bar-background)}div:where(.swal2-container) img:where(.swal2-image){max-width:100%;margin:2em auto 1em;cursor:initial}div:where(.swal2-container) button:where(.swal2-close){position:var(--swal2-close-button-position);inset:var(--swal2-close-button-inset);z-index:2;align-items:center;justify-content:center;width:1.2em;height:1.2em;margin-top:0;margin-right:0;margin-bottom:-1.2em;padding:0;overflow:hidden;transition:var(--swal2-close-button-transition);border:none;border-radius:var(--swal2-border-radius);outline:var(--swal2-close-button-outline);background:rgba(0,0,0,0);color:var(--swal2-close-button-color);font-family:monospace;font-size:var(--swal2-close-button-font-size);cursor:pointer;justify-self:end}div:where(.swal2-container) button:where(.swal2-close):hover{transform:var(--swal2-close-button-hover-transform);background:rgba(0,0,0,0);color:#f27474}div:where(.swal2-container) button:where(.swal2-close):focus-visible{outline:none;box-shadow:var(--swal2-close-button-focus-box-shadow)}div:where(.swal2-container) button:where(.swal2-close)::-moz-focus-inner{border:0}div:where(.swal2-container) div:where(.swal2-html-container){z-index:1;justify-content:center;margin:0;padding:var(--swal2-html-container-padding);overflow:auto;color:inherit;font-size:1.125em;font-weight:normal;line-height:normal;text-align:center;overflow-wrap:break-word;word-break:break-word;cursor:initial}div:where(.swal2-container) input:where(.swal2-input),div:where(.swal2-container) input:where(.swal2-file),div:where(.swal2-container) textarea:where(.swal2-textarea),div:where(.swal2-container) select:where(.swal2-select),div:where(.swal2-container) div:where(.swal2-radio),div:where(.swal2-container) label:where(.swal2-checkbox){margin:1em 2em 3px}div:where(.swal2-container) input:where(.swal2-input),div:where(.swal2-container) input:where(.swal2-file),div:where(.swal2-container) textarea:where(.swal2-textarea){box-sizing:border-box;width:auto;transition:var(--swal2-input-transition);border:var(--swal2-input-border);border-radius:var(--swal2-input-border-radius);background:var(--swal2-input-background);box-shadow:var(--swal2-input-box-shadow);color:inherit;font-size:1.125em}div:where(.swal2-container) input:where(.swal2-input).swal2-inputerror,div:where(.swal2-container) input:where(.swal2-file).swal2-inputerror,div:where(.swal2-container) textarea:where(.swal2-textarea).swal2-inputerror{border-color:#f27474 !important;box-shadow:0 0 2px #f27474 !important}div:where(.swal2-container) input:where(.swal2-input):hover,div:where(.swal2-container) input:where(.swal2-file):hover,div:where(.swal2-container) textarea:where(.swal2-textarea):hover{box-shadow:var(--swal2-input-hover-box-shadow)}div:where(.swal2-container) input:where(.swal2-input):focus,div:where(.swal2-container) input:where(.swal2-file):focus,div:where(.swal2-container) textarea:where(.swal2-textarea):focus{border:var(--swal2-input-focus-border);outline:none;box-shadow:var(--swal2-input-focus-box-shadow)}div:where(.swal2-container) input:where(.swal2-input)::placeholder,div:where(.swal2-container) input:where(.swal2-file)::placeholder,div:where(.swal2-container) textarea:where(.swal2-textarea)::placeholder{color:#ccc}div:where(.swal2-container) .swal2-range{margin:1em 2em 3px;background:var(--swal2-background)}div:where(.swal2-container) .swal2-range input{width:80%}div:where(.swal2-container) .swal2-range output{width:20%;color:inherit;font-weight:600;text-align:center}div:where(.swal2-container) .swal2-range input,div:where(.swal2-container) .swal2-range output{height:2.625em;padding:0;font-size:1.125em;line-height:2.625em}div:where(.swal2-container) .swal2-input{height:2.625em;padding:0 .75em}div:where(.swal2-container) .swal2-file{width:75%;margin-right:auto;margin-left:auto;background:var(--swal2-input-background);font-size:1.125em}div:where(.swal2-container) .swal2-textarea{height:6.75em;padding:.75em}div:where(.swal2-container) .swal2-select{min-width:50%;max-width:100%;padding:.375em .625em;background:var(--swal2-input-background);color:inherit;font-size:1.125em}div:where(.swal2-container) .swal2-radio,div:where(.swal2-container) .swal2-checkbox{align-items:center;justify-content:center;background:var(--swal2-background);color:inherit}div:where(.swal2-container) .swal2-radio label,div:where(.swal2-container) .swal2-checkbox label{margin:0 .6em;font-size:1.125em}div:where(.swal2-container) .swal2-radio input,div:where(.swal2-container) .swal2-checkbox input{flex-shrink:0;margin:0 .4em}div:where(.swal2-container) label:where(.swal2-input-label){display:flex;justify-content:center;margin:1em auto 0}div:where(.swal2-container) div:where(.swal2-validation-message){align-items:center;justify-content:center;margin:1em 0 0;padding:.625em;overflow:hidden;background:var(--swal2-validation-message-background);color:var(--swal2-validation-message-color);font-size:1em;font-weight:300}div:where(.swal2-container) div:where(.swal2-validation-message)::before{content:"!";display:inline-block;width:1.5em;min-width:1.5em;height:1.5em;margin:0 .625em;border-radius:50%;background-color:#f27474;color:#fff;font-weight:600;line-height:1.5em;text-align:center}div:where(.swal2-container) .swal2-progress-steps{flex-wrap:wrap;align-items:center;max-width:100%;margin:1.25em auto;padding:0;background:rgba(0,0,0,0);font-weight:600}div:where(.swal2-container) .swal2-progress-steps li{display:inline-block;position:relative}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step{z-index:20;flex-shrink:0;width:2em;height:2em;border-radius:2em;background:#2778c4;color:#fff;line-height:2em;text-align:center}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step{background:#2778c4}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step~.swal2-progress-step{background:var(--swal2-progress-step-background);color:#fff}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step~.swal2-progress-step-line{background:var(--swal2-progress-step-background)}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step-line{z-index:10;flex-shrink:0;width:2.5em;height:.4em;margin:0 -1px;background:#2778c4}div:where(.swal2-icon){position:relative;box-sizing:content-box;justify-content:center;width:5em;height:5em;margin:2.5em auto .6em;zoom:var(--swal2-icon-zoom);border:.25em solid rgba(0,0,0,0);border-radius:50%;border-color:#000;font-family:inherit;line-height:5em;cursor:default;user-select:none}div:where(.swal2-icon) .swal2-icon-content{display:flex;align-items:center;font-size:3.75em}div:where(.swal2-icon).swal2-error{border-color:#f27474;color:#f27474}div:where(.swal2-icon).swal2-error .swal2-x-mark{position:relative;flex-grow:1}div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line]{display:block;position:absolute;top:2.3125em;width:2.9375em;height:.3125em;border-radius:.125em;background-color:#f27474}div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line][class$=left]{left:1.0625em;transform:rotate(45deg)}div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line][class$=right]{right:1em;transform:rotate(-45deg)}div:where(.swal2-icon).swal2-error.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-error.swal2-icon-show .swal2-x-mark{animation:swal2-animate-error-x-mark .5s}div:where(.swal2-icon).swal2-warning{border-color:#f8bb86;color:#f8bb86}div:where(.swal2-icon).swal2-warning.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-warning.swal2-icon-show .swal2-icon-content{animation:swal2-animate-i-mark .5s}div:where(.swal2-icon).swal2-info{border-color:#3fc3ee;color:#3fc3ee}div:where(.swal2-icon).swal2-info.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-info.swal2-icon-show .swal2-icon-content{animation:swal2-animate-i-mark .8s}div:where(.swal2-icon).swal2-question{border-color:#87adbd;color:#87adbd}div:where(.swal2-icon).swal2-question.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-question.swal2-icon-show .swal2-icon-content{animation:swal2-animate-question-mark .8s}div:where(.swal2-icon).swal2-success{border-color:#a5dc86;color:#a5dc86}div:where(.swal2-icon).swal2-success [class^=swal2-success-circular-line]{position:absolute;width:3.75em;height:7.5em;border-radius:50%}div:where(.swal2-icon).swal2-success [class^=swal2-success-circular-line][class$=left]{top:-0.4375em;left:-2.0635em;transform:rotate(-45deg);transform-origin:3.75em 3.75em;border-radius:7.5em 0 0 7.5em}div:where(.swal2-icon).swal2-success [class^=swal2-success-circular-line][class$=right]{top:-0.6875em;left:1.875em;transform:rotate(-45deg);transform-origin:0 3.75em;border-radius:0 7.5em 7.5em 0}div:where(.swal2-icon).swal2-success .swal2-success-ring{position:absolute;z-index:2;top:-0.25em;left:-0.25em;box-sizing:content-box;width:100%;height:100%;border:.25em solid rgba(165,220,134,.3);border-radius:50%}div:where(.swal2-icon).swal2-success .swal2-success-fix{position:absolute;z-index:1;top:.5em;left:1.625em;width:.4375em;height:5.625em;transform:rotate(-45deg)}div:where(.swal2-icon).swal2-success [class^=swal2-success-line]{display:block;position:absolute;z-index:2;height:.3125em;border-radius:.125em;background-color:#a5dc86}div:where(.swal2-icon).swal2-success [class^=swal2-success-line][class$=tip]{top:2.875em;left:.8125em;width:1.5625em;transform:rotate(45deg)}div:where(.swal2-icon).swal2-success [class^=swal2-success-line][class$=long]{top:2.375em;right:.5em;width:2.9375em;transform:rotate(-45deg)}div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-line-tip{animation:swal2-animate-success-line-tip .75s}div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-line-long{animation:swal2-animate-success-line-long .75s}div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-circular-line-right{animation:swal2-rotate-success-circular-line 4.25s ease-in}[class^=swal2]{-webkit-tap-highlight-color:rgba(0,0,0,0)}.swal2-show{animation:var(--swal2-show-animation)}.swal2-hide{animation:var(--swal2-hide-animation)}.swal2-noanimation{transition:none}.swal2-scrollbar-measure{position:absolute;top:-9999px;width:50px;height:50px;overflow:scroll}.swal2-rtl .swal2-close{margin-right:initial;margin-left:0}.swal2-rtl .swal2-timer-progress-bar{right:0;left:auto}.swal2-toast{box-sizing:border-box;grid-column:1/4 !important;grid-row:1/4 !important;grid-template-columns:min-content auto min-content;padding:1em;overflow-y:hidden;border:var(--swal2-toast-border);background:var(--swal2-background);box-shadow:var(--swal2-toast-box-shadow);pointer-events:auto}.swal2-toast>*{grid-column:2}.swal2-toast h2:where(.swal2-title){margin:.5em 1em;padding:0;font-size:1em;text-align:initial}.swal2-toast .swal2-loading{justify-content:center}.swal2-toast input:where(.swal2-input){height:2em;margin:.5em;font-size:1em}.swal2-toast .swal2-validation-message{font-size:1em}.swal2-toast div:where(.swal2-footer){margin:.5em 0 0;padding:.5em 0 0;font-size:.8em}.swal2-toast button:where(.swal2-close){grid-column:3/3;grid-row:1/99;align-self:center;width:.8em;height:.8em;margin:0;font-size:2em}.swal2-toast div:where(.swal2-html-container){margin:.5em 1em;padding:0;overflow:initial;font-size:1em;text-align:initial}.swal2-toast div:where(.swal2-html-container):empty{padding:0}.swal2-toast .swal2-loader{grid-column:1;grid-row:1/99;align-self:center;width:2em;height:2em;margin:.25em}.swal2-toast .swal2-icon{grid-column:1;grid-row:1/99;align-self:center;width:2em;min-width:2em;height:2em;margin:0 .5em 0 0}.swal2-toast .swal2-icon .swal2-icon-content{display:flex;align-items:center;font-size:1.8em;font-weight:bold}.swal2-toast .swal2-icon.swal2-success .swal2-success-ring{width:2em;height:2em}.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line]{top:.875em;width:1.375em}.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=left]{left:.3125em}.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=right]{right:.3125em}.swal2-toast div:where(.swal2-actions){justify-content:flex-start;height:auto;margin:0;margin-top:.5em;padding:0 .5em}.swal2-toast button:where(.swal2-styled){margin:.25em .5em;padding:.4em .6em;font-size:1em}.swal2-toast .swal2-success{border-color:#a5dc86}.swal2-toast .swal2-success [class^=swal2-success-circular-line]{position:absolute;width:1.6em;height:3em;border-radius:50%}.swal2-toast .swal2-success [class^=swal2-success-circular-line][class$=left]{top:-0.8em;left:-0.5em;transform:rotate(-45deg);transform-origin:2em 2em;border-radius:4em 0 0 4em}.swal2-toast .swal2-success [class^=swal2-success-circular-line][class$=right]{top:-0.25em;left:.9375em;transform-origin:0 1.5em;border-radius:0 4em 4em 0}.swal2-toast .swal2-success .swal2-success-ring{width:2em;height:2em}.swal2-toast .swal2-success .swal2-success-fix{top:0;left:.4375em;width:.4375em;height:2.6875em}.swal2-toast .swal2-success [class^=swal2-success-line]{height:.3125em}.swal2-toast .swal2-success [class^=swal2-success-line][class$=tip]{top:1.125em;left:.1875em;width:.75em}.swal2-toast .swal2-success [class^=swal2-success-line][class$=long]{top:.9375em;right:.1875em;width:1.375em}.swal2-toast .swal2-success.swal2-icon-show .swal2-success-line-tip{animation:swal2-toast-animate-success-line-tip .75s}.swal2-toast .swal2-success.swal2-icon-show .swal2-success-line-long{animation:swal2-toast-animate-success-line-long .75s}.swal2-toast.swal2-show{animation:var(--swal2-toast-show-animation)}.swal2-toast.swal2-hide{animation:var(--swal2-toast-hide-animation)}@keyframes swal2-show{0%{transform:translate3d(0, -50px, 0) scale(0.9);opacity:0}100%{transform:translate3d(0, 0, 0) scale(1);opacity:1}}@keyframes swal2-hide{0%{transform:translate3d(0, 0, 0) scale(1);opacity:1}100%{transform:translate3d(0, -50px, 0) scale(0.9);opacity:0}}@keyframes swal2-animate-success-line-tip{0%{top:1.1875em;left:.0625em;width:0}54%{top:1.0625em;left:.125em;width:0}70%{top:2.1875em;left:-0.375em;width:3.125em}84%{top:3em;left:1.3125em;width:1.0625em}100%{top:2.8125em;left:.8125em;width:1.5625em}}@keyframes swal2-animate-success-line-long{0%{top:3.375em;right:2.875em;width:0}65%{top:3.375em;right:2.875em;width:0}84%{top:2.1875em;right:0;width:3.4375em}100%{top:2.375em;right:.5em;width:2.9375em}}@keyframes swal2-rotate-success-circular-line{0%{transform:rotate(-45deg)}5%{transform:rotate(-45deg)}12%{transform:rotate(-405deg)}100%{transform:rotate(-405deg)}}@keyframes swal2-animate-error-x-mark{0%{margin-top:1.625em;transform:scale(0.4);opacity:0}50%{margin-top:1.625em;transform:scale(0.4);opacity:0}80%{margin-top:-0.375em;transform:scale(1.15)}100%{margin-top:0;transform:scale(1);opacity:1}}@keyframes swal2-animate-error-icon{0%{transform:rotateX(100deg);opacity:0}100%{transform:rotateX(0deg);opacity:1}}@keyframes swal2-rotate-loading{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}@keyframes swal2-animate-question-mark{0%{transform:rotateY(-360deg)}100%{transform:rotateY(0)}}@keyframes swal2-animate-i-mark{0%{transform:rotateZ(45deg);opacity:0}25%{transform:rotateZ(-25deg);opacity:.4}50%{transform:rotateZ(15deg);opacity:.8}75%{transform:rotateZ(-5deg);opacity:1}100%{transform:rotateX(0);opacity:1}}@keyframes swal2-toast-show{0%{transform:translateY(-0.625em) rotateZ(2deg)}33%{transform:translateY(0) rotateZ(-2deg)}66%{transform:translateY(0.3125em) rotateZ(2deg)}100%{transform:translateY(0) rotateZ(0deg)}}@keyframes swal2-toast-hide{100%{transform:rotateZ(1deg);opacity:0}}@keyframes swal2-toast-animate-success-line-tip{0%{top:.5625em;left:.0625em;width:0}54%{top:.125em;left:.125em;width:0}70%{top:.625em;left:-0.25em;width:1.625em}84%{top:1.0625em;left:.75em;width:.5em}100%{top:1.125em;left:.1875em;width:.75em}}@keyframes swal2-toast-animate-success-line-long{0%{top:1.625em;right:1.375em;width:0}65%{top:1.25em;right:.9375em;width:0}84%{top:.9375em;right:0;width:1.125em}100%{top:.9375em;right:.1875em;width:1.375em}}</style>
+    <script>
+
+        function getMsgY(msgid, msgtitle) {
+            Swal.fire({
+                title:"عذرا",
+                html: " بيانات الطالب الجامعيه غير مكتمله برجاء اكمال بيانات النزوح في تفاصيل العنوان والإتصال",
+                icon: 'error',
+                showCancelButton: false,
+                showconfirmButton: true,
+                confirmButtonText: 'انتقال'
+            }).then((result) => {
+                if (result.isConfirmed || result.isDismissed) {
+                    window.location.replace(
+                        window.location.origin + "/profile/student_info"
+                    );
+                    //window.location.replace("https://my.ucas.edu.ps/profile/student_info");
+                }
+            });
+        }
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $('.lines').click(function () {
+                //$('#navigation').toggle();
+            });
+            $('.has-submenu>a').click(function (event) {
+                event.stopPropagation();
+                $('.submenu').toggle();
+            });
+            $('.responsive_table').basictable();
+        });
+
+        $(document).ready(function () { // Add your event handlers inside ready block
+            $(".btn-noref").click(function (event) { // button event handler
+                event.preventDefault(); // prevent page from redirecting
+            });
+            $(".topbtn").each(function (index) {
+                var attr = $(this).attr('href');
+                var hclass = $(this).hasClass('fb');
+                var iframe = $(this).hasClass('fancybox.iframe');
+                var fancybox = $(this).hasClass('fancybox');
+                if ((typeof attr !== 'undefined' && attr !== false) || hclass || iframe || fancybox) {
+                } else {
+                    $(this).addClass("ChangeIt");
+                }
+            });
+        });
+    </script>
+    <script>
+        $(window).load(function () {
+            $('#loader').hide();
+        });
+    </script>
+
+    
+    <title>طلب تحويل تخصص</title>
+
+    <style>
+        .col-sm-3.has_valid:before,
+        .col-sm-4.has_valid:before,
+        .col-sm-5.has_valid:before,
+        .col-sm-6.has_valid:before,
+        .col-sm-7.has_valid:before,
+        .col-sm-8.has_valid:before,
+        .col-sm-9.has_valid:before,
+        .col-sm-10.has_valid:before,
+        .col-sm-11.has_valid:before,
+        .col-sm-12.has_valid:before,
+        .col-sm-1.has_valid:before,
+        .col-sm-2.has_valid:before{
+            left:17px;
+        }
+        .redColor{
+            color: red !important;
+        }
+        span.reqspan:before , .has_valid:before {
+            content: "";
+            background-image: url(../NewTemp/src/icons/req.png);
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 10px;
+            height: 10px;
+            position: absolute;
+            left: 2px;
+            top: 2px;
+            background-size: contain;
+        }
+        span.reqspan {
+            float: left;
+            position: relative;
+        }
+        .lblEmail{
+            cursor:pointer;
+        }
+        .swal2-html-container, button.swal2-confirm.swal2-styled {
+            font-family: Fon !important;
+        }
+    </style>
+
+<style type="text/css">.fancybox-margin{margin-right:0px;}</style></head>
+<body class="webstyle-light">
+    <div id="loader" style="display: none;">
+        <div class="loader"></div>
+    </div>
+    <!-- Navigation Bar-->
+    <header id="topnav" class="light">
+
+        <!-- Topbar Start -->
+        <div class="navbar-custom">
+            <div class="container-fluid">
+                <ul class="list-unstyled topnav-menu float-right mb-0">
+
+                    <li class="dropdown notification-list">
+                        <!-- Mobile menu toggle-->
+                        <a class="navbar-toggle nav-link">
+                            <div class="lines">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </a>
+                        <!-- End mobile menu toggle-->
+                    </li>
+
+                    <li id="notifys_New" class="dropdown notification-list notifys_New">
+                        <a class="nav-link dropdown-toggle waves-effect" id="notifys_link" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            <i class="fe-bell noti-icon"></i>
+                            <span id="notify_number" class="badge badge-danger rounded-circle noti-icon-badge">0</span>
+                        </a>
+                        
+                        <div class="dropdown-menu dropdown-menu-right dropdown-lg" id="notify-dropdown">
+                            <!-- item-->
+                            <div class="dropdown-item noti-title">
+                                <h5 class="m-0">
+                                    <span class="float-right">
+                                        
+                                    </span>التنبيهات
+                                </h5>
+                            </div>
+
+                            <div class="slimscroll noti-scroll" id="notList">
+                                
+                                        <a href="#" class="dropdown-item notify-item fb fancybox.iframe active">
+                                            <p class="">القبول والتسجيل</p>
+                                            <p class="text-muted mb-0 user-msg">
+                                                <small>رابط القضايا الطلابية </small>
+                                            </p>
+                                        </a>
+                                    
+                                
+                                
+                            </div>
+
+                            <!-- All-->
+                            
+                        </div>
+                    </li>
+
+                    <li class="dropdown notification-list">
+                        <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            <img src="/static/NewTemp/src/images/fotlogo.png" alt="user-image" class="rounded-circle">
+                            <span class="pro-user-name ml-1">
+                                عبدالله محمد أحمد سالم <i class="mdi mdi-chevron-down"></i>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                            <!-- item-->
+
+                            <!-- item-->
+                            
+
+                            <!-- item-->
+                            <a href="#" class="dropdown-item notify-item">
+                                <i class="fe-settings"></i>
+                                <span>بياناتي</span>
+                            </a>
+
+                            <!-- item-->
+                            <a href="/profile/change_password" class="dropdown-item notify-item">
+                                <i class="fe-lock"></i>
+                                <span>تغير كلمه المرور</span>
+                            </a>
+
+                            <div class="dropdown-divider"></div>
+
+                            <!-- item-->
+                            
+                            <!-- item-->
+                            <a href="/logout" class="dropdown-item notify-item">
+                                <i class="fe-log-out"></i>
+                                <span>تسجيل الخروج</span>
+                            </a>
+
+
+                        </div>
+                    </li>
+                    <li class="dropdown notification-list">
+                        <a href="javascript:void(0);" class="nav-link waves-effect dark_btn_change light">
+                            <i class="mdi mdi-white-balance-sunny"></i>
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- LOGO -->
+                <div class="logo-box">
+                    <a href="/home" class="logo text-center">
+                        <span class="logo-lg">
+                            <img src="/static/NewTemp/src/images/logo-dark.png" alt="" height="55">
+                            <!-- <span class="logo-lg-text-light">UBold</span> -->
+                        </span>
+                        <span class="logo-sm">
+                            <!-- <span class="logo-sm-text-dark">U</span> -->
+                            <img src="/static/NewTemp/src/images/logo-sm.png" alt="" height="50">
+                        </span>
+                    </a>
+                </div>
+
+            </div>
+            <!-- end container-fluid-->
+        </div>
+        <!-- end Topbar -->
+
+        <div class="topbar-menu">
+            <div class="container-fluid">
+                <div id="navigation" class="active">
+                    <!-- Navigation Menu-->
+                    <ul class="navigation-menu in">
+
+                        <li>
+                            <a href="/home"><i class="mdi mdi-view-dashboard"></i>الرئيسية</a>
+                        </li>
+                        
+                                <li class="has-submenu">
+                                    <a id="M1" class="menulnk" href="/Registration">القبول و التسجيل</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                                <li>
+                                                    <a id="M18" title="تمكين الطالب من الاطلاع على خطته الدراسية" href="/Registration/study_plan">الخطة الدراسية</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M49" title="المساقات المسجلة للفصل الدراسي الحالي والفصول السابقة." href="/Registration/Registered_Subjects">المساقات المسجلة</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M9" title="تسجيل المساقات في الفصل الدراسي و السحب و الإضافة و تغيير الشعب" href="/Registration/semester_registration">التسجيل الفصلي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M10" title="يوضح الجدول الدراسي للطالب بالتفصيل الأيام و المواعيد و المساقات و الشعب" href="/Registration/semester_table">الجدول التفصيلي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M12" title="تحتوي على الأجندة الفصلية مثل بدء الدراسة و التسجيل و السحب و الإضافة" href="/Registration/academic_calendar">التقويم الأكاديمي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M57" title="تحتوي على جدول مواعيد الامتحانات النهائية." href="/Registration/exams_schedule">جدول الإمتحانات</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M19" title="عبارة عن جدول بدرجات الطالب مصنفة حسب الفصول الدراسية." href="/Registration/transcript">كشف الدرجات</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M25" title="تحتوي على مساقات الطالب المسجلة حاليا وتوصيفها" href="/Registration/course_descriptions">توصيف المساقات</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M208" title="للتسجيل في امتحانات المستوى مثل امتحان مستوى اللغة الانجليزية وامتحان مستوى القراءن وغيرها." href="#">تقديم لامتحانات المستوى</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M248" title="لاستعراض المواد والمساقات التي تم طرحها في الفصل الحالي , كذلك الفصلص القادم." href="/Registration/semester_subjects">المواد لهذا الفصل</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu">
+                                    <a id="M2" class="menulnk" href="/profile">ملف الطالب</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                                <li>
+                                                    <a id="M15" title="تمكين الطالب من تغيير كلمة المرور الخاصة به" href="/profile/change_password">تغيير كلمة المرور</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M48" title="يقوم الطالب بتعبئة بيانات طلب اقرار خريج حتى تتحول حالته الى خريج اذا كانت بياناته صحيحة." href="/profile/graduate_allowance_form">اقرار خريج</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M20" title="عبارة عن سجلات مالية تخص الطالب بحيث يعرف الطالب تاريخ الدفعات التي قام بها وتاريخ المستحقات لكل فصل دراسي" href="/profile/financial_profile">الملف المالي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M21" title="يتعرف الطالب من خلالها على مرشده المالي ويتلقى الرسائل التي يرسلها مرشده المالي." href="/profile/financial_advisor">المرشد المالي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M22" title="يتعرف الطالب من خلالها على مرشده الاكاديمي ويتلقى الرسائل التي يرسلها مرشده." href="/profile/academic_advisor">المرشد الأكاديمي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M16" title="تفعيل البريد الالكتروني وفحص حالة البريد." href="/profile/email">البريد الإلكتروني</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M17" title="قم من هذه الصفحة بمراجعة بياناتك واحرص ان تكون جميع بياناتك الاساسية سليمة وصحيحة." href="/profile/student_info">بيانات الطالب</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M288" title="للاستعلام عن المنح والقروض الخاصة بالطالب حسب الفصل." href="/profile/discounts_gifts">المنح والقروض</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M328" title="للاستعلام عن المنح والقروض المقدمة من التعليم العالي- برنامج إقراض." href="/profile/Iqrad">قروض التعليم العالي</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu">
+                                    <a id="M4" class="menulnk" href="/personal_apps">الطلبات الشخصية</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                                <li>
+                                                    <a id="M28" title="في حال اردت طلب مساعدة لتغطية الرسوم الدراسية او الحصول على منحة يمكنك استخدام هذه الصفحة لتعبئة بياناتك." href="/personal_apps/assistance_request">البحث الاجتماعي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M29" title="تمكين الطالب من استلام درجاته للمساقات المسجلة للفصل الحالي فور اعتمادها." href="#">إشتراك الرسائل القصيرة</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M150" title="تحتوي على طلبات الإفادات التي ممكن أن يحتاجها الطال مثل شهادة القيد و إفادة خريج." href="/personal_apps/Student_Informs">الإفادات</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M317" title="الذهاب الى حساب دريم سبارك" href="/personal_apps/UserVerification">حساب دريم سبارك</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu active">
+                                    <a id="M5" class="menulnk active" href="/issues_and_applications">القضايا و الطلبات</a>
+
+                                    
+                                    <ul class="submenu in">
+                                        
+                                                <li>
+                                                    <a id="M32" title="من هنا يمكنك تقديم طلب احتساب من مئة او طلب غير مكتمل او طلب مراجعة لاي مساق من مساقات المسجلة لهذا الفصل." href="/issues_and_applications/courses_applications">طلبات المساقات</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M108" title="من هنا يمكنك تقديم طلب تأجيل الفصل الدراسي الحالي" href="/issues_and_applications/postponement">طلب تأجيل فصل</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M109" title="من هنا يمكنك تقديم طلب إعادة قيد الفصل الدراسي الحالي" href="/issues_and_applications/re_under">طلب إعادة قيد</a>
+                                                </li>
+                                            
+                                                <li class="active">
+                                                    <a id="M168" title="استخدم هذه الصفحة لتحويل تخصصك الحالي الى تخصص اخر." href="/issues_and_applications/dept_trans" class="active">طلب تحويل تخصص</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M31" title="قضايا التسجيل" href="/issues_and_applications/registration_issues">قضايا التسجيل</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu">
+                                    <a id="M6" class="menulnk" href="/evaluation">تقييم المساقات</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                                <li>
+                                                    <a id="M44" title="تقييم الطالب للمساقات" href="/evaluation/teacher_eval">تقييم المساقات</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu">
+                                    <a id="M7" class="menulnk" href="/questionnair">استبانات عامة</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                                <li>
+                                                    <a id="M45" title="قائمة الاستبانات الحالية" href="/questionnair/general_questionnaires">استبانات عامة</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu last-elements">
+                                    <a id="M8" class="menulnk" href="/library">المكتبة</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                                <li>
+                                                    <a id="M47" title="يمكنك من هنا الحصول على نماذج الامتحانات لمساقات الفصل الحالي." href="/library/examinations_samples">نماذج الامتحانات</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M46" title="الاطلاع على الكتب المستعارة من المكتبة كما ويمكنه تجديد الاستعارة" href="/library/borrowed_books">الكتب المستعارة</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu last-elements">
+                                    <a id="M999" class="menulnk" href="#">برامج الطلبة</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                    </ul>
+                                    
+                                </li>
+                            
+
+
+
+
+                    </ul>
+                    <!-- End navigation menu -->
+
+                    <div class="clearfix"></div>
+                </div>
+                <!-- end #navigation -->
+            </div>
+            <!-- end container -->
+        </div>
+        <!-- end navbar-custom -->
+
+    </header>
+    <!-- End Navigation Bar-->
+
+    <div class="wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-12 col-md-12">
+                    <div class="card-box widget-user">
+                        <div>
+                            <div class="avatar-lg float-left mr-3">
+                                <img src="/static/NewTemp/src/images/fotlogo.png" style="width: 72px !important; height: 72px;" class="img-fluid rounded-circle" alt="user">
+                            </div>
+                            <div class="wid-u-info">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h5 id="lblStudentName" class="mt-2 font-18">عبدالله محمد أحمد سالم</h5>
+                                        <p id="lblStudentNo" class="text-muted mb-1 font-16 text-truncate">200000000</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="pull-left plfef float-right">
+                                            <small class="text-info"><b>التخصص :</b>
+                                                <span id="lblSpecial">أمن المعلومات</span>
+                                            </small>
+                                            <small class="text-info"><b>القسم :</b>
+                                                <span id="lblTaw_College">قسم هندسة الحاسوب - دبلوم متوسط</span>
+                                            </small>
+                                            <small class="text-info"><b>العمادة:</b>
+                                                <span id="lblDean">عمادة الهندسة والنظم الذكية</span>
+                                            </small>
+                                            <small id="smallEmail" class="text-info"><b>البريد :</b>
+                                                <span id="lblEmail" title="اضغط هنا لنسخ البريد الالكتروني" class="lblEmail">200000000@smail.ucas.edu.ps</span>
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="ADVISOR_DIV" class="col-xl-12 col-md-12">
+                    <div class="card-box">
+                        <h4>بيانات المرشد</h4>
+                        <div class="wid-u-info">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <small class="text-info"><b>الاسم  :</b>
+                                        <span id="ADVISOR_NAME">أحمد محمد المرشد</span>
+                                    </small>
+                                </div>
+                                <div class="col-md-4">
+                                    <small class="text-info"><b>القسم  :</b>
+                                        <span id="ADVISOR_DEPT_NAME">أمن المعلومات</span>
+                                    </small>
+                                </div>
+                                <div class="col-md-4">
+                                    <small class="text-info"><b>البريد الالكتروني :</b>
+                                        <span id="ADVISOR_MAIL">advisor@ucas.edu.ps</span>
+                                    </small>
+                                </div>
+                                <div class="col-md-4">
+                                    <small class="text-info"><b>رقم الواتس  :</b>
+                                        <span id="ADVISOR_WHATSAPP_NO">970599000000</span>
+                                    </small>
+                                </div>
+                                <div class="col-md-4">
+                                    <small class="text-info"><b>ساعات التواصل :</b>
+                                        <span id="TimeCon" class="redColor">من الساعة 9:00 صباحاً حتى 3:00 مساءً</span>
+                                    </small>
+                                </div>
+                                <div id="NOTES_div" class="col-md-12">
+                                    <small class="text-info"><b>الملاحظات  :</b>
+                                        <span id="NOTES">م. أحمد المرشد – مرشد دبلوم أمن المعلومات (طلاب وطالبات)</span>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- end row -->
+
+            <form method="post" action="#" onsubmit="javascript:return WebForm_OnSubmit();" id="form1">
+<div class="aspNetHidden">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="">
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="">
+<input type="hidden" name="__LASTFOCUS" id="__LASTFOCUS" value="">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['form1'];
+if (!theForm) {
+    theForm = document.form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+
+<script src="/WebResource.axd?d=2oWCilgSPpcNNdYmr4pIkLekxTSabsutXAliOEfwTiqM3dKXOkyVk67fRoz1POnCQtpG-vdVSWMXy1_TpzXAANXA6TGQNQ6tC4W7rMXlJis1&amp;t=638901634312636832" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+function WebForm_OnSubmit() {
+if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;
+return true;
+}
+//]]>
+</script>
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="A8CFDC66">
+	<input type="hidden" name="__VIEWSTATEENCRYPTED" id="__VIEWSTATEENCRYPTED" value="">
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="2cMPMaUEL4KzODG2mKv9wRxEDpn4QBm0fDyGLNX89u2QKgmCIe9FDRO8qTbNxw37Bp4iG1ZJyt4FGA/ayG0/sDV3tYeltZ95Rt0BfT7+mQX/Wt3/oyM7HGP/xtCk7Mzs/VVTLWkF2ue8rCrJBz3cPI/RF/c1rfKGAQZYcenLPgLb5kAFHZBDcc/0+QSXd889A1a7GTJVT1aaW2OrERap0FSkZblxk8ID+dY+M2u57/GbrWn4zZh64b/AgmcIjuMBss57/F9uaiszZ0jalbxJITq3QWU3hpWQvf3rVY6Im7sOpEBohhRdH5Zuj20A3glKY7sFNWobbmjYLRuGWArXSg==">
+</div>
+                
+                
+                
+    <div class="card-box">
+        <h4 class="header-title mt-0 mb-3"><i class="mdi mdi-notification-clear-all mr-1"></i>
+            طلب تحويل تخصص
+        </h4>
+        <div class="card-boxs">
+            <br>
+            <div id="ContentPlaceHolder1_Msg_divMsg" class="card-boxs" style="">
+    <div class="">
+        <div id="ContentPlaceHolder1_Msg_TMsg" class="alert alert-info">
+            <strong><img src="/static/NewTemp/src/icons/info.png" id="ContentPlaceHolder1_Msg_imgMsg" class="small_img d_right" style="width:35px; margin-left:5px;"></strong>
+            <span id="ContentPlaceHolder1_Msg_lblMsg" class="c_blue" style="float:none;">عزيزي الطالب/ـة.. يمكنك من هنا تقديم طلب تحويل تخصص   </span>
+        </div>
+    </div>
+</div>
+
+            <div class="form-group row">
+                <label class="col-sm-1  col-form-label">مكان الدراسة</label>
+                <div class="col-sm-3">
+                    <select name="ctl00$ContentPlaceHolder1$ddlStudyPlace" onchange="javascript:setTimeout('__doPostBack(\'ctl00$ContentPlaceHolder1$ddlStudyPlace\',\'\')', 0)" id="ContentPlaceHolder1_ddlStudyPlace" class="form-control w100m">
+	<option selected="selected" value="0">اختر مكان الدراسة</option>
+	<option value="G">غزة</option>
+	<option value="K">خانيونس</option>
+
+</select>
+                </div>
+                <label class="col-sm-1  col-form-label">فترة الدراسة</label>
+                <div class="col-sm-3">
+                    <select name="ctl00$ContentPlaceHolder1$ddlStudyPeriod" onchange="javascript:setTimeout('__doPostBack(\'ctl00$ContentPlaceHolder1$ddlStudyPeriod\',\'\')', 0)" id="ContentPlaceHolder1_ddlStudyPeriod" class="form-control w100m">
+	<option selected="selected" value="M">فترة صباحية</option>
+	<option value="E">فترة مسائية</option>
+
+</select>
+                </div>
+            </div>
+            <div id="ContentPlaceHolder1_div_dept" class="form-group row">
+                <label class="col-sm-1  col-form-label">اختر التخصص</label>
+                <div class="col-sm-3">
+                    <select name="ctl00$ContentPlaceHolder1$ddlDeptID" id="ContentPlaceHolder1_ddlDeptID" class="form-control w100m">
+	<option value="0">اختر التخصص</option>
+
+</select>
+                    <span id="ContentPlaceHolder1_RangeValidator5" class="c_required d_right" style="visibility:hidden;">➨</span>
+                </div>
+            </div>
+        </div>
+        <div class="card-boxs">
+             <a onclick="return confirm('سيتم تقديم طلب تحويل تخصص. هل تريد الاستمرار؟');" id="ContentPlaceHolder1_lnkOK" title="تقديم طلب إعادة قيد" class="d_left btn btn-success" href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$lnkOK','')">تقديم الطلب</a>
+             <span class="normal_lbl">ملاحظة: سيتم دراسة الطلب المقدم ومن ثم يتم إبلاغك بقرار الكلية</span>
+        </div>
+            
+    </div>
+
+                <!-- end page title -->
+            
+<script type="text/javascript">
+//<![CDATA[
+var Page_Validators =  new Array(document.getElementById("ContentPlaceHolder1_RangeValidator5"));
+//]]>
+</script>
+
+<script type="text/javascript">
+//<![CDATA[
+var ContentPlaceHolder1_RangeValidator5 = document.all ? document.all["ContentPlaceHolder1_RangeValidator5"] : document.getElementById("ContentPlaceHolder1_RangeValidator5");
+ContentPlaceHolder1_RangeValidator5.controltovalidate = "ContentPlaceHolder1_ddlDeptID";
+ContentPlaceHolder1_RangeValidator5.errormessage = "التخصص";
+ContentPlaceHolder1_RangeValidator5.validationGroup = "dept";
+ContentPlaceHolder1_RangeValidator5.type = "Integer";
+ContentPlaceHolder1_RangeValidator5.evaluationfunction = "RangeValidatorEvaluateIsValid";
+ContentPlaceHolder1_RangeValidator5.maximumvalue = "999999";
+ContentPlaceHolder1_RangeValidator5.minimumvalue = "1";
+//]]>
+</script>
+
+
+<script type="text/javascript">
+//<![CDATA[
+
+var Page_ValidationActive = false;
+if (typeof(ValidatorOnLoad) == "function") {
+    ValidatorOnLoad();
+}
+
+function ValidatorOnSubmit() {
+    if (Page_ValidationActive) {
+        return ValidatorCommonOnSubmit();
+    }
+    else {
+        return true;
+    }
+}
+        //]]>
+</script>
+</form>
+        </div>
+    </div>
+
+
+
+    <!-- Footer Start -->
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    2020 - 2022 © جميع الحقوق محفوظة لـ <a href="#">الكلية الجامعية</a>
+                </div>
+                
+            </div>
+        </div>
+    </footer>
+    <!-- end Footer -->
+    <div class="feedback">
+        <a href="/feedback.aspx" class="fb fancybox.iframe">الإبلاغ عن مشكلة
+        </a>
+    </div>
+
+    <!-- Right bar overlay-->
+    <div class="rightbar-overlay"></div>
+
+
+    <!-- knob plugin -->
+    
+
+    <!--Morris Chart-->
+    
+    
+
+
+
+    <!-- Dashboard init js-->
+    
+
+    <!-- App js-->
+    <script src="/static/NewTemp/src/js/app.js"></script>
+
+    <!-- Add mousewheel plugin (this is optional) -->
+    <script type="text/javascript" src="/static/NewTemp/src/libs/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+
+    <!-- Add fancyBox main JS and CSS files -->
+    <script type="text/javascript" src="/static/NewTemp/src/libs/fancybox/source/jquery.fancybox.js?v=2.1.5"></script>
+    <link rel="stylesheet" type="text/css" href="/static/NewTemp/src/libs/fancybox/source/jquery.fancybox.css?v=2.1.5" media="screen">
+
+    <!-- Add Button helper (this is optional) -->
+    <link rel="stylesheet" type="text/css" href="/static/NewTemp/src/libs/fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5">
+    <script type="text/javascript" src="/static/NewTemp/src/libs/fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+
+    <!-- Add Thumbnail helper (this is optional) -->
+    <link rel="stylesheet" type="text/css" href="/static/NewTemp/src/libs/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7">
+    <script type="text/javascript" src="/static/NewTemp/src/libs/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+
+    <!-- Add Media helper (this is optional) -->
+    <script type="text/javascript" src="/static/NewTemp/src/libs/fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
+    <script>
+        function getCookie(cname) {
+            let name = cname + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let ca = decodedCookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+        var themes_style = "light";
+        //console.log(themes_style);
+        if (themes_style == '') {
+            var themes_style = getCookie("themes_style");
+        }
+        //console.log(themes_style);
+        $(document).ready(function () {
+            $(".lblEmail").click(function () {
+                copyToClipboard($(this));
+            });
+            $('#notifys_New a').click(function () {
+                document.cookie = "notifys_New=true;path=/";
+                $('#notifys_New').removeClass('notifys_New');
+            });
+            $('.bg_NewJusts').click(function () {
+                document.cookie = "notifys_New=true;path=/";
+                $('#notifys_New').removeClass('notifys_New');
+            });
+            console.log("true");
+            $('.dark_btn_change').click(function () {
+                if (themes_style == 'dark') {
+                    themes_style = "light";
+                    document.cookie = "themes_style=light;path=/";
+                } else {
+                    themes_style = "dark";
+                    document.cookie = "themes_style=dark;path=/";
+                }
+                location.reload();
+            });
+            $(".fb").fancybox({
+                width: 1024,
+                autoScale: false,
+                afterClose: function () {
+                    // parent.location.reload(true);
+                }
+            });
+        });
+
+        function fnSaveData() {
+            var item = JSON.parse(window.localStorage.getItem("notifications"));
+            let unread = 0;
+            var notifList = document.getElementById("notList");
+            var notifyNum = document.getElementById("notify_number");
+            function viewItems() {
+                var templateItem = document.createElement("a");
+                templateItem.classList.add("fancybox.iframe");
+                templateItem.classList.add("dropdown-item");
+                templateItem.classList.add("fb");
+                templateItem.classList.add("notify-item");
+                templateItem.setAttribute("id", "_notify-item");
+                let notTitle = item[i].TITLE;
+                let notUrl = item[i].URL;
+                let notAdv = item[i].ADV_SIDE;
+                let notDate = item[i].START_DATE;
+                let notRead = item[i].IS_READ;
+                let notDetails = item[i].DETAILS;
+                if (notRead == 0)
+                    unread++;
+                templateItem.classList.add(notRead);
+                let title = document.createElement("p");
+                let adv = document.createElement("p");
+                let details = document.createElement("p");
+                let date = document.createElement("small");
+                templateItem.href = `/show.aspx?created_date= ${notDate}&title= ${notTitle}&url=${notUrl}`;
+                notRead == 0 ? templateItem.classList.add("active") : "";
+                title.innerHTML = notTitle;
+                adv.innerHTML = notAdv;
+                notRead == 0 ? adv.classList.add("font-weight-bold") : "";
+                date.classList.add("text-muted");
+                date.classList.add("d-flex");
+                date.classList.add("flex-row-reverse");
+                details.innerHTML = notDetails.substring(0, 15) + "...";
+                date.innerHTML = notDate
+                templateItem.appendChild(adv);
+                templateItem.appendChild(title);
+                templateItem.appendChild(details);
+                templateItem.appendChild(date);
+                notifList.appendChild(templateItem);
+            }
+            if (item != null) {
+                if (notifList.children[0]) {
+                    for (i = 0; i < item?.length; i++) {
+                        document.getElementById("_notify-item")?.remove();
+                        viewItems();
+                    }
+                }
+                else {
+                    for (i = 0; i < item?.length; i++) {
+                        viewItems();
+                    }
+
+                }
+
+
+                notifyNum.innerHTML = unread.toString();
+            }
+        }
+
+        function GET_STD_NOTIFICATIONS_SSP(currentdate) {
+            $.ajax({
+                type: "POST",
+                url: '/WebService.asmx/GET_STD_NOTIFICATIONS_SSP',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    localStorage.setItem('notifications', data.d);
+                    currentdate.setDate(currentdate.getDate() + 1);
+                    localStorage.setItem('expiryStartDate', currentdate);
+                    fnSaveData();
+                },
+                error: function (result) {
+                    msgget(2, "حدث خطأ أثناء عملية الحفظ");
+                }
+            });
+        }
+
+
+        function SET_STD_NOTIFICATIONS_READ() {
+
+            $.ajax({
+                type: "POST",
+                url: '/WebService.asmx/SET_STD_NOTIFICATIONS_READ',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+
+                },
+                error: function (result) {
+                    msgget(2, "حدث خطأ ما");
+
+                }
+            })
+        }
+        $(document).ready(function () {
+
+            $("#notifys_link").click(function (e) {
+                var _currentdate = new Date();
+                GET_STD_NOTIFICATIONS_SSP(_currentdate);
+                SET_STD_NOTIFICATIONS_READ();
+            });
+            var currentdate = new Date();
+            var expiryDate = new Date(localStorage.getItem('expiryStartDate'));
+            var IsNotif = localStorage.getItem('notifications');
+            if (isNaN(Date.parse(expiryDate)) || currentdate > expiryDate || !IsNotif) {
+                GET_STD_NOTIFICATIONS_SSP(currentdate);
+            } else {
+                fnSaveData();
+            }
+
+
+        });
+        function copyToClipboard(element) {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val($(element).html()).select();
+            document.execCommand("copy");
+            $temp.remove();
+            alert("تم نسخ البريد");
+        }
+
+    </script>
+
+    
+    
+
+
+</body></html>

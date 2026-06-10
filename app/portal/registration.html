@@ -1,0 +1,979 @@
+<!DOCTYPE html><html lang="ar" class="notranslate"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><title>
+	UCAS - القبول و التسجيل
+</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta content="الكلية الجامعية للعلوم التطبيقية" name="description"><meta content="الكلية الجامعية للعلوم التطبيقية" name="author">
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="/static/NewTemp/src/images/favicon.ico">
+
+    <!--Morris Chart-->
+    <link rel="stylesheet" href="/static/NewTemp/src/libs/morris-js/morris.css">
+    <!-- Sweet Alert css -->
+    <link href="/static/NewTemp/src/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
+
+    <!-- App css -->
+    <link id="bootstrap" href="/static/NewTemp/src/css-light/bootstrap.min.css" rel="stylesheet" type="text/css"><link id="icons" href="/static/NewTemp/src/css-light/icons.min.css" rel="stylesheet" type="text/css"><link id="app_rtl" href="/static/NewTemp/src/css-light/app-rtl.min.css" rel="stylesheet" type="text/css"><link href="/static/NewTemp/src/libs/basictable-master/dist/css/basictable.min.css" rel="stylesheet" type="text/css"><link href="/static/NewTemp/src/style.css?v=3.11" rel="stylesheet" type="text/css"><link id="cus_style" href="/static/NewTemp/src/css-light/cusstyle.css" rel="stylesheet" type="text/css">
+
+    <!-- Vendor js -->
+    <script src="/static/NewTemp/src/js/vendor.min.js"></script>
+
+    <script src="/static/NewTemp/src/js/jquery-1.9.1.min.js"></script>
+    <script src="/static/NewTemp/src/libs/sweetalert2/sweetalert2.min.js"></script>
+    <script src="/static/NewTemp/src/libs/basictable-master/dist/js/basictable.min.js"></script>
+    <script src="/static/NewTemp/src/libs/basictable-master/dist/js/jquery.basictable.min.js"></script>
+
+    <style>:root{--swal2-outline: 0 0 0 3px rgba(100, 150, 200, 0.5);--swal2-container-padding: 0.625em;--swal2-backdrop: rgba(0, 0, 0, 0.4);--swal2-backdrop-transition: background-color 0.15s;--swal2-width: 32em;--swal2-padding: 0 0 1.25em;--swal2-border: none;--swal2-border-radius: 0.3125rem;--swal2-background: white;--swal2-color: #545454;--swal2-show-animation: swal2-show 0.3s;--swal2-hide-animation: swal2-hide 0.15s forwards;--swal2-icon-zoom: 1;--swal2-title-padding: 0.8em 1em 0;--swal2-html-container-padding: 1em 1.6em 0.3em;--swal2-input-border: 1px solid #d9d9d9;--swal2-input-border-radius: 0.1875em;--swal2-input-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06), 0 0 0 3px transparent;--swal2-input-background: transparent;--swal2-input-transition: border-color 0.2s, box-shadow 0.2s;--swal2-input-hover-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06), 0 0 0 3px transparent;--swal2-input-focus-border: 1px solid #b4dbed;--swal2-input-focus-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06), 0 0 0 3px rgba(100, 150, 200, 0.5);--swal2-progress-step-background: #add8e6;--swal2-validation-message-background: #f0f0f0;--swal2-validation-message-color: #666;--swal2-footer-border-color: #eee;--swal2-footer-background: transparent;--swal2-footer-color: inherit;--swal2-timer-progress-bar-background: rgba(0, 0, 0, 0.3);--swal2-close-button-position: initial;--swal2-close-button-inset: auto;--swal2-close-button-font-size: 2.5em;--swal2-close-button-color: #ccc;--swal2-close-button-transition: color 0.2s, box-shadow 0.2s;--swal2-close-button-outline: initial;--swal2-close-button-box-shadow: inset 0 0 0 3px transparent;--swal2-close-button-focus-box-shadow: inset var(--swal2-outline);--swal2-close-button-hover-transform: none;--swal2-actions-justify-content: center;--swal2-actions-width: auto;--swal2-actions-margin: 1.25em auto 0;--swal2-actions-padding: 0;--swal2-actions-border-radius: 0;--swal2-actions-background: transparent;--swal2-action-button-transition: background-color 0.2s, box-shadow 0.2s;--swal2-action-button-hover: black 10%;--swal2-action-button-active: black 10%;--swal2-confirm-button-box-shadow: none;--swal2-confirm-button-border-radius: 0.25em;--swal2-confirm-button-background-color: #7066e0;--swal2-confirm-button-color: #fff;--swal2-deny-button-box-shadow: none;--swal2-deny-button-border-radius: 0.25em;--swal2-deny-button-background-color: #dc3741;--swal2-deny-button-color: #fff;--swal2-cancel-button-box-shadow: none;--swal2-cancel-button-border-radius: 0.25em;--swal2-cancel-button-background-color: #6e7881;--swal2-cancel-button-color: #fff;--swal2-toast-show-animation: swal2-toast-show 0.5s;--swal2-toast-hide-animation: swal2-toast-hide 0.1s forwards;--swal2-toast-border: none;--swal2-toast-box-shadow: 0 0 1px hsl(0deg 0% 0% / 0.075), 0 1px 2px hsl(0deg 0% 0% / 0.075), 1px 2px 4px hsl(0deg 0% 0% / 0.075), 1px 3px 8px hsl(0deg 0% 0% / 0.075), 2px 4px 16px hsl(0deg 0% 0% / 0.075)}[data-swal2-theme=dark]{--swal2-dark-theme-black: #19191a;--swal2-dark-theme-white: #e1e1e1;--swal2-background: var(--swal2-dark-theme-black);--swal2-color: var(--swal2-dark-theme-white);--swal2-footer-border-color: #555;--swal2-input-background: color-mix(in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10%);--swal2-validation-message-background: color-mix( in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10% );--swal2-validation-message-color: var(--swal2-dark-theme-white);--swal2-timer-progress-bar-background: rgba(255, 255, 255, 0.7)}@media(prefers-color-scheme: dark){[data-swal2-theme=auto]{--swal2-dark-theme-black: #19191a;--swal2-dark-theme-white: #e1e1e1;--swal2-background: var(--swal2-dark-theme-black);--swal2-color: var(--swal2-dark-theme-white);--swal2-footer-border-color: #555;--swal2-input-background: color-mix(in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10%);--swal2-validation-message-background: color-mix( in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10% );--swal2-validation-message-color: var(--swal2-dark-theme-white);--swal2-timer-progress-bar-background: rgba(255, 255, 255, 0.7)}}body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown){overflow:hidden}body.swal2-height-auto{height:auto !important}body.swal2-no-backdrop .swal2-container{background-color:rgba(0,0,0,0) !important;pointer-events:none}body.swal2-no-backdrop .swal2-container .swal2-popup{pointer-events:auto}body.swal2-no-backdrop .swal2-container .swal2-modal{box-shadow:0 0 10px var(--swal2-backdrop)}body.swal2-toast-shown .swal2-container{box-sizing:border-box;width:360px;max-width:100%;background-color:rgba(0,0,0,0);pointer-events:none}body.swal2-toast-shown .swal2-container.swal2-top{inset:0 auto auto 50%;transform:translateX(-50%)}body.swal2-toast-shown .swal2-container.swal2-top-end,body.swal2-toast-shown .swal2-container.swal2-top-right{inset:0 0 auto auto}body.swal2-toast-shown .swal2-container.swal2-top-start,body.swal2-toast-shown .swal2-container.swal2-top-left{inset:0 auto auto 0}body.swal2-toast-shown .swal2-container.swal2-center-start,body.swal2-toast-shown .swal2-container.swal2-center-left{inset:50% auto auto 0;transform:translateY(-50%)}body.swal2-toast-shown .swal2-container.swal2-center{inset:50% auto auto 50%;transform:translate(-50%, -50%)}body.swal2-toast-shown .swal2-container.swal2-center-end,body.swal2-toast-shown .swal2-container.swal2-center-right{inset:50% 0 auto auto;transform:translateY(-50%)}body.swal2-toast-shown .swal2-container.swal2-bottom-start,body.swal2-toast-shown .swal2-container.swal2-bottom-left{inset:auto auto 0 0}body.swal2-toast-shown .swal2-container.swal2-bottom{inset:auto auto 0 50%;transform:translateX(-50%)}body.swal2-toast-shown .swal2-container.swal2-bottom-end,body.swal2-toast-shown .swal2-container.swal2-bottom-right{inset:auto 0 0 auto}@media print{body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown){overflow-y:scroll !important}body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown)>[aria-hidden=true]{display:none}body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown) .swal2-container{position:static !important}}div:where(.swal2-container){display:grid;position:fixed;z-index:1060;inset:0;box-sizing:border-box;grid-template-areas:"top-start     top            top-end" "center-start  center         center-end" "bottom-start  bottom-center  bottom-end";grid-template-rows:minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto);height:100%;padding:var(--swal2-container-padding);overflow-x:hidden;transition:var(--swal2-backdrop-transition);-webkit-overflow-scrolling:touch}div:where(.swal2-container).swal2-backdrop-show,div:where(.swal2-container).swal2-noanimation{background:var(--swal2-backdrop)}div:where(.swal2-container).swal2-backdrop-hide{background:rgba(0,0,0,0) !important}div:where(.swal2-container).swal2-top-start,div:where(.swal2-container).swal2-center-start,div:where(.swal2-container).swal2-bottom-start{grid-template-columns:minmax(0, 1fr) auto auto}div:where(.swal2-container).swal2-top,div:where(.swal2-container).swal2-center,div:where(.swal2-container).swal2-bottom{grid-template-columns:auto minmax(0, 1fr) auto}div:where(.swal2-container).swal2-top-end,div:where(.swal2-container).swal2-center-end,div:where(.swal2-container).swal2-bottom-end{grid-template-columns:auto auto minmax(0, 1fr)}div:where(.swal2-container).swal2-top-start>.swal2-popup{align-self:start}div:where(.swal2-container).swal2-top>.swal2-popup{grid-column:2;place-self:start center}div:where(.swal2-container).swal2-top-end>.swal2-popup,div:where(.swal2-container).swal2-top-right>.swal2-popup{grid-column:3;place-self:start end}div:where(.swal2-container).swal2-center-start>.swal2-popup,div:where(.swal2-container).swal2-center-left>.swal2-popup{grid-row:2;align-self:center}div:where(.swal2-container).swal2-center>.swal2-popup{grid-column:2;grid-row:2;place-self:center center}div:where(.swal2-container).swal2-center-end>.swal2-popup,div:where(.swal2-container).swal2-center-right>.swal2-popup{grid-column:3;grid-row:2;place-self:center end}div:where(.swal2-container).swal2-bottom-start>.swal2-popup,div:where(.swal2-container).swal2-bottom-left>.swal2-popup{grid-column:1;grid-row:3;align-self:end}div:where(.swal2-container).swal2-bottom>.swal2-popup{grid-column:2;grid-row:3;place-self:end center}div:where(.swal2-container).swal2-bottom-end>.swal2-popup,div:where(.swal2-container).swal2-bottom-right>.swal2-popup{grid-column:3;grid-row:3;place-self:end end}div:where(.swal2-container).swal2-grow-row>.swal2-popup,div:where(.swal2-container).swal2-grow-fullscreen>.swal2-popup{grid-column:1/4;width:100%}div:where(.swal2-container).swal2-grow-column>.swal2-popup,div:where(.swal2-container).swal2-grow-fullscreen>.swal2-popup{grid-row:1/4;align-self:stretch}div:where(.swal2-container).swal2-no-transition{transition:none !important}div:where(.swal2-container)[popover]{width:auto;border:0}div:where(.swal2-container) div:where(.swal2-popup){display:none;position:relative;box-sizing:border-box;grid-template-columns:minmax(0, 100%);width:var(--swal2-width);max-width:100%;padding:var(--swal2-padding);border:var(--swal2-border);border-radius:var(--swal2-border-radius);background:var(--swal2-background);color:var(--swal2-color);font-family:inherit;font-size:1rem}div:where(.swal2-container) div:where(.swal2-popup):focus{outline:none}div:where(.swal2-container) div:where(.swal2-popup).swal2-loading{overflow-y:hidden}div:where(.swal2-container) div:where(.swal2-popup).swal2-draggable{cursor:grab}div:where(.swal2-container) div:where(.swal2-popup).swal2-draggable div:where(.swal2-icon){cursor:grab}div:where(.swal2-container) div:where(.swal2-popup).swal2-dragging{cursor:grabbing}div:where(.swal2-container) div:where(.swal2-popup).swal2-dragging div:where(.swal2-icon){cursor:grabbing}div:where(.swal2-container) h2:where(.swal2-title){position:relative;max-width:100%;margin:0;padding:var(--swal2-title-padding);color:inherit;font-size:1.875em;font-weight:600;text-align:center;text-transform:none;overflow-wrap:break-word;cursor:initial}div:where(.swal2-container) div:where(.swal2-actions){display:flex;z-index:1;box-sizing:border-box;flex-wrap:wrap;align-items:center;justify-content:var(--swal2-actions-justify-content);width:var(--swal2-actions-width);margin:var(--swal2-actions-margin);padding:var(--swal2-actions-padding);border-radius:var(--swal2-actions-border-radius);background:var(--swal2-actions-background)}div:where(.swal2-container) div:where(.swal2-loader){display:none;align-items:center;justify-content:center;width:2.2em;height:2.2em;margin:0 1.875em;animation:swal2-rotate-loading 1.5s linear 0s infinite normal;border-width:.25em;border-style:solid;border-radius:100%;border-color:#2778c4 rgba(0,0,0,0) #2778c4 rgba(0,0,0,0)}div:where(.swal2-container) button:where(.swal2-styled){margin:.3125em;padding:.625em 1.1em;transition:var(--swal2-action-button-transition);border:none;box-shadow:0 0 0 3px rgba(0,0,0,0);font-weight:500}div:where(.swal2-container) button:where(.swal2-styled):not([disabled]){cursor:pointer}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm){border-radius:var(--swal2-confirm-button-border-radius);background:initial;background-color:var(--swal2-confirm-button-background-color);box-shadow:var(--swal2-confirm-button-box-shadow);color:var(--swal2-confirm-button-color);font-size:1em}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):hover{background-color:color-mix(in srgb, var(--swal2-confirm-button-background-color), var(--swal2-action-button-hover))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):active{background-color:color-mix(in srgb, var(--swal2-confirm-button-background-color), var(--swal2-action-button-active))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-deny){border-radius:var(--swal2-deny-button-border-radius);background:initial;background-color:var(--swal2-deny-button-background-color);box-shadow:var(--swal2-deny-button-box-shadow);color:var(--swal2-deny-button-color);font-size:1em}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-deny):hover{background-color:color-mix(in srgb, var(--swal2-deny-button-background-color), var(--swal2-action-button-hover))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-deny):active{background-color:color-mix(in srgb, var(--swal2-deny-button-background-color), var(--swal2-action-button-active))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel){border-radius:var(--swal2-cancel-button-border-radius);background:initial;background-color:var(--swal2-cancel-button-background-color);box-shadow:var(--swal2-cancel-button-box-shadow);color:var(--swal2-cancel-button-color);font-size:1em}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel):hover{background-color:color-mix(in srgb, var(--swal2-cancel-button-background-color), var(--swal2-action-button-hover))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel):active{background-color:color-mix(in srgb, var(--swal2-cancel-button-background-color), var(--swal2-action-button-active))}div:where(.swal2-container) button:where(.swal2-styled):focus-visible{outline:none;box-shadow:var(--swal2-action-button-focus-box-shadow)}div:where(.swal2-container) button:where(.swal2-styled)[disabled]:not(.swal2-loading){opacity:.4}div:where(.swal2-container) button:where(.swal2-styled)::-moz-focus-inner{border:0}div:where(.swal2-container) div:where(.swal2-footer){margin:1em 0 0;padding:1em 1em 0;border-top:1px solid var(--swal2-footer-border-color);background:var(--swal2-footer-background);color:var(--swal2-footer-color);font-size:1em;text-align:center;cursor:initial}div:where(.swal2-container) .swal2-timer-progress-bar-container{position:absolute;right:0;bottom:0;left:0;grid-column:auto !important;overflow:hidden;border-bottom-right-radius:var(--swal2-border-radius);border-bottom-left-radius:var(--swal2-border-radius)}div:where(.swal2-container) div:where(.swal2-timer-progress-bar){width:100%;height:.25em;background:var(--swal2-timer-progress-bar-background)}div:where(.swal2-container) img:where(.swal2-image){max-width:100%;margin:2em auto 1em;cursor:initial}div:where(.swal2-container) button:where(.swal2-close){position:var(--swal2-close-button-position);inset:var(--swal2-close-button-inset);z-index:2;align-items:center;justify-content:center;width:1.2em;height:1.2em;margin-top:0;margin-right:0;margin-bottom:-1.2em;padding:0;overflow:hidden;transition:var(--swal2-close-button-transition);border:none;border-radius:var(--swal2-border-radius);outline:var(--swal2-close-button-outline);background:rgba(0,0,0,0);color:var(--swal2-close-button-color);font-family:monospace;font-size:var(--swal2-close-button-font-size);cursor:pointer;justify-self:end}div:where(.swal2-container) button:where(.swal2-close):hover{transform:var(--swal2-close-button-hover-transform);background:rgba(0,0,0,0);color:#f27474}div:where(.swal2-container) button:where(.swal2-close):focus-visible{outline:none;box-shadow:var(--swal2-close-button-focus-box-shadow)}div:where(.swal2-container) button:where(.swal2-close)::-moz-focus-inner{border:0}div:where(.swal2-container) div:where(.swal2-html-container){z-index:1;justify-content:center;margin:0;padding:var(--swal2-html-container-padding);overflow:auto;color:inherit;font-size:1.125em;font-weight:normal;line-height:normal;text-align:center;overflow-wrap:break-word;word-break:break-word;cursor:initial}div:where(.swal2-container) input:where(.swal2-input),div:where(.swal2-container) input:where(.swal2-file),div:where(.swal2-container) textarea:where(.swal2-textarea),div:where(.swal2-container) select:where(.swal2-select),div:where(.swal2-container) div:where(.swal2-radio),div:where(.swal2-container) label:where(.swal2-checkbox){margin:1em 2em 3px}div:where(.swal2-container) input:where(.swal2-input),div:where(.swal2-container) input:where(.swal2-file),div:where(.swal2-container) textarea:where(.swal2-textarea){box-sizing:border-box;width:auto;transition:var(--swal2-input-transition);border:var(--swal2-input-border);border-radius:var(--swal2-input-border-radius);background:var(--swal2-input-background);box-shadow:var(--swal2-input-box-shadow);color:inherit;font-size:1.125em}div:where(.swal2-container) input:where(.swal2-input).swal2-inputerror,div:where(.swal2-container) input:where(.swal2-file).swal2-inputerror,div:where(.swal2-container) textarea:where(.swal2-textarea).swal2-inputerror{border-color:#f27474 !important;box-shadow:0 0 2px #f27474 !important}div:where(.swal2-container) input:where(.swal2-input):hover,div:where(.swal2-container) input:where(.swal2-file):hover,div:where(.swal2-container) textarea:where(.swal2-textarea):hover{box-shadow:var(--swal2-input-hover-box-shadow)}div:where(.swal2-container) input:where(.swal2-input):focus,div:where(.swal2-container) input:where(.swal2-file):focus,div:where(.swal2-container) textarea:where(.swal2-textarea):focus{border:var(--swal2-input-focus-border);outline:none;box-shadow:var(--swal2-input-focus-box-shadow)}div:where(.swal2-container) input:where(.swal2-input)::placeholder,div:where(.swal2-container) input:where(.swal2-file)::placeholder,div:where(.swal2-container) textarea:where(.swal2-textarea)::placeholder{color:#ccc}div:where(.swal2-container) .swal2-range{margin:1em 2em 3px;background:var(--swal2-background)}div:where(.swal2-container) .swal2-range input{width:80%}div:where(.swal2-container) .swal2-range output{width:20%;color:inherit;font-weight:600;text-align:center}div:where(.swal2-container) .swal2-range input,div:where(.swal2-container) .swal2-range output{height:2.625em;padding:0;font-size:1.125em;line-height:2.625em}div:where(.swal2-container) .swal2-input{height:2.625em;padding:0 .75em}div:where(.swal2-container) .swal2-file{width:75%;margin-right:auto;margin-left:auto;background:var(--swal2-input-background);font-size:1.125em}div:where(.swal2-container) .swal2-textarea{height:6.75em;padding:.75em}div:where(.swal2-container) .swal2-select{min-width:50%;max-width:100%;padding:.375em .625em;background:var(--swal2-input-background);color:inherit;font-size:1.125em}div:where(.swal2-container) .swal2-radio,div:where(.swal2-container) .swal2-checkbox{align-items:center;justify-content:center;background:var(--swal2-background);color:inherit}div:where(.swal2-container) .swal2-radio label,div:where(.swal2-container) .swal2-checkbox label{margin:0 .6em;font-size:1.125em}div:where(.swal2-container) .swal2-radio input,div:where(.swal2-container) .swal2-checkbox input{flex-shrink:0;margin:0 .4em}div:where(.swal2-container) label:where(.swal2-input-label){display:flex;justify-content:center;margin:1em auto 0}div:where(.swal2-container) div:where(.swal2-validation-message){align-items:center;justify-content:center;margin:1em 0 0;padding:.625em;overflow:hidden;background:var(--swal2-validation-message-background);color:var(--swal2-validation-message-color);font-size:1em;font-weight:300}div:where(.swal2-container) div:where(.swal2-validation-message)::before{content:"!";display:inline-block;width:1.5em;min-width:1.5em;height:1.5em;margin:0 .625em;border-radius:50%;background-color:#f27474;color:#fff;font-weight:600;line-height:1.5em;text-align:center}div:where(.swal2-container) .swal2-progress-steps{flex-wrap:wrap;align-items:center;max-width:100%;margin:1.25em auto;padding:0;background:rgba(0,0,0,0);font-weight:600}div:where(.swal2-container) .swal2-progress-steps li{display:inline-block;position:relative}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step{z-index:20;flex-shrink:0;width:2em;height:2em;border-radius:2em;background:#2778c4;color:#fff;line-height:2em;text-align:center}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step{background:#2778c4}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step~.swal2-progress-step{background:var(--swal2-progress-step-background);color:#fff}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step~.swal2-progress-step-line{background:var(--swal2-progress-step-background)}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step-line{z-index:10;flex-shrink:0;width:2.5em;height:.4em;margin:0 -1px;background:#2778c4}div:where(.swal2-icon){position:relative;box-sizing:content-box;justify-content:center;width:5em;height:5em;margin:2.5em auto .6em;zoom:var(--swal2-icon-zoom);border:.25em solid rgba(0,0,0,0);border-radius:50%;border-color:#000;font-family:inherit;line-height:5em;cursor:default;user-select:none}div:where(.swal2-icon) .swal2-icon-content{display:flex;align-items:center;font-size:3.75em}div:where(.swal2-icon).swal2-error{border-color:#f27474;color:#f27474}div:where(.swal2-icon).swal2-error .swal2-x-mark{position:relative;flex-grow:1}div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line]{display:block;position:absolute;top:2.3125em;width:2.9375em;height:.3125em;border-radius:.125em;background-color:#f27474}div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line][class$=left]{left:1.0625em;transform:rotate(45deg)}div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line][class$=right]{right:1em;transform:rotate(-45deg)}div:where(.swal2-icon).swal2-error.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-error.swal2-icon-show .swal2-x-mark{animation:swal2-animate-error-x-mark .5s}div:where(.swal2-icon).swal2-warning{border-color:#f8bb86;color:#f8bb86}div:where(.swal2-icon).swal2-warning.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-warning.swal2-icon-show .swal2-icon-content{animation:swal2-animate-i-mark .5s}div:where(.swal2-icon).swal2-info{border-color:#3fc3ee;color:#3fc3ee}div:where(.swal2-icon).swal2-info.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-info.swal2-icon-show .swal2-icon-content{animation:swal2-animate-i-mark .8s}div:where(.swal2-icon).swal2-question{border-color:#87adbd;color:#87adbd}div:where(.swal2-icon).swal2-question.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-question.swal2-icon-show .swal2-icon-content{animation:swal2-animate-question-mark .8s}div:where(.swal2-icon).swal2-success{border-color:#a5dc86;color:#a5dc86}div:where(.swal2-icon).swal2-success [class^=swal2-success-circular-line]{position:absolute;width:3.75em;height:7.5em;border-radius:50%}div:where(.swal2-icon).swal2-success [class^=swal2-success-circular-line][class$=left]{top:-0.4375em;left:-2.0635em;transform:rotate(-45deg);transform-origin:3.75em 3.75em;border-radius:7.5em 0 0 7.5em}div:where(.swal2-icon).swal2-success [class^=swal2-success-circular-line][class$=right]{top:-0.6875em;left:1.875em;transform:rotate(-45deg);transform-origin:0 3.75em;border-radius:0 7.5em 7.5em 0}div:where(.swal2-icon).swal2-success .swal2-success-ring{position:absolute;z-index:2;top:-0.25em;left:-0.25em;box-sizing:content-box;width:100%;height:100%;border:.25em solid rgba(165,220,134,.3);border-radius:50%}div:where(.swal2-icon).swal2-success .swal2-success-fix{position:absolute;z-index:1;top:.5em;left:1.625em;width:.4375em;height:5.625em;transform:rotate(-45deg)}div:where(.swal2-icon).swal2-success [class^=swal2-success-line]{display:block;position:absolute;z-index:2;height:.3125em;border-radius:.125em;background-color:#a5dc86}div:where(.swal2-icon).swal2-success [class^=swal2-success-line][class$=tip]{top:2.875em;left:.8125em;width:1.5625em;transform:rotate(45deg)}div:where(.swal2-icon).swal2-success [class^=swal2-success-line][class$=long]{top:2.375em;right:.5em;width:2.9375em;transform:rotate(-45deg)}div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-line-tip{animation:swal2-animate-success-line-tip .75s}div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-line-long{animation:swal2-animate-success-line-long .75s}div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-circular-line-right{animation:swal2-rotate-success-circular-line 4.25s ease-in}[class^=swal2]{-webkit-tap-highlight-color:rgba(0,0,0,0)}.swal2-show{animation:var(--swal2-show-animation)}.swal2-hide{animation:var(--swal2-hide-animation)}.swal2-noanimation{transition:none}.swal2-scrollbar-measure{position:absolute;top:-9999px;width:50px;height:50px;overflow:scroll}.swal2-rtl .swal2-close{margin-right:initial;margin-left:0}.swal2-rtl .swal2-timer-progress-bar{right:0;left:auto}.swal2-toast{box-sizing:border-box;grid-column:1/4 !important;grid-row:1/4 !important;grid-template-columns:min-content auto min-content;padding:1em;overflow-y:hidden;border:var(--swal2-toast-border);background:var(--swal2-background);box-shadow:var(--swal2-toast-box-shadow);pointer-events:auto}.swal2-toast>*{grid-column:2}.swal2-toast h2:where(.swal2-title){margin:.5em 1em;padding:0;font-size:1em;text-align:initial}.swal2-toast .swal2-loading{justify-content:center}.swal2-toast input:where(.swal2-input){height:2em;margin:.5em;font-size:1em}.swal2-toast .swal2-validation-message{font-size:1em}.swal2-toast div:where(.swal2-footer){margin:.5em 0 0;padding:.5em 0 0;font-size:.8em}.swal2-toast button:where(.swal2-close){grid-column:3/3;grid-row:1/99;align-self:center;width:.8em;height:.8em;margin:0;font-size:2em}.swal2-toast div:where(.swal2-html-container){margin:.5em 1em;padding:0;overflow:initial;font-size:1em;text-align:initial}.swal2-toast div:where(.swal2-html-container):empty{padding:0}.swal2-toast .swal2-loader{grid-column:1;grid-row:1/99;align-self:center;width:2em;height:2em;margin:.25em}.swal2-toast .swal2-icon{grid-column:1;grid-row:1/99;align-self:center;width:2em;min-width:2em;height:2em;margin:0 .5em 0 0}.swal2-toast .swal2-icon .swal2-icon-content{display:flex;align-items:center;font-size:1.8em;font-weight:bold}.swal2-toast .swal2-icon.swal2-success .swal2-success-ring{width:2em;height:2em}.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line]{top:.875em;width:1.375em}.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=left]{left:.3125em}.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=right]{right:.3125em}.swal2-toast div:where(.swal2-actions){justify-content:flex-start;height:auto;margin:0;margin-top:.5em;padding:0 .5em}.swal2-toast button:where(.swal2-styled){margin:.25em .5em;padding:.4em .6em;font-size:1em}.swal2-toast .swal2-success{border-color:#a5dc86}.swal2-toast .swal2-success [class^=swal2-success-circular-line]{position:absolute;width:1.6em;height:3em;border-radius:50%}.swal2-toast .swal2-success [class^=swal2-success-circular-line][class$=left]{top:-0.8em;left:-0.5em;transform:rotate(-45deg);transform-origin:2em 2em;border-radius:4em 0 0 4em}.swal2-toast .swal2-success [class^=swal2-success-circular-line][class$=right]{top:-0.25em;left:.9375em;transform-origin:0 1.5em;border-radius:0 4em 4em 0}.swal2-toast .swal2-success .swal2-success-ring{width:2em;height:2em}.swal2-toast .swal2-success .swal2-success-fix{top:0;left:.4375em;width:.4375em;height:2.6875em}.swal2-toast .swal2-success [class^=swal2-success-line]{height:.3125em}.swal2-toast .swal2-success [class^=swal2-success-line][class$=tip]{top:1.125em;left:.1875em;width:.75em}.swal2-toast .swal2-success [class^=swal2-success-line][class$=long]{top:.9375em;right:.1875em;width:1.375em}.swal2-toast .swal2-success.swal2-icon-show .swal2-success-line-tip{animation:swal2-toast-animate-success-line-tip .75s}.swal2-toast .swal2-success.swal2-icon-show .swal2-success-line-long{animation:swal2-toast-animate-success-line-long .75s}.swal2-toast.swal2-show{animation:var(--swal2-toast-show-animation)}.swal2-toast.swal2-hide{animation:var(--swal2-toast-hide-animation)}@keyframes swal2-show{0%{transform:translate3d(0, -50px, 0) scale(0.9);opacity:0}100%{transform:translate3d(0, 0, 0) scale(1);opacity:1}}@keyframes swal2-hide{0%{transform:translate3d(0, 0, 0) scale(1);opacity:1}100%{transform:translate3d(0, -50px, 0) scale(0.9);opacity:0}}@keyframes swal2-animate-success-line-tip{0%{top:1.1875em;left:.0625em;width:0}54%{top:1.0625em;left:.125em;width:0}70%{top:2.1875em;left:-0.375em;width:3.125em}84%{top:3em;left:1.3125em;width:1.0625em}100%{top:2.8125em;left:.8125em;width:1.5625em}}@keyframes swal2-animate-success-line-long{0%{top:3.375em;right:2.875em;width:0}65%{top:3.375em;right:2.875em;width:0}84%{top:2.1875em;right:0;width:3.4375em}100%{top:2.375em;right:.5em;width:2.9375em}}@keyframes swal2-rotate-success-circular-line{0%{transform:rotate(-45deg)}5%{transform:rotate(-45deg)}12%{transform:rotate(-405deg)}100%{transform:rotate(-405deg)}}@keyframes swal2-animate-error-x-mark{0%{margin-top:1.625em;transform:scale(0.4);opacity:0}50%{margin-top:1.625em;transform:scale(0.4);opacity:0}80%{margin-top:-0.375em;transform:scale(1.15)}100%{margin-top:0;transform:scale(1);opacity:1}}@keyframes swal2-animate-error-icon{0%{transform:rotateX(100deg);opacity:0}100%{transform:rotateX(0deg);opacity:1}}@keyframes swal2-rotate-loading{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}@keyframes swal2-animate-question-mark{0%{transform:rotateY(-360deg)}100%{transform:rotateY(0)}}@keyframes swal2-animate-i-mark{0%{transform:rotateZ(45deg);opacity:0}25%{transform:rotateZ(-25deg);opacity:.4}50%{transform:rotateZ(15deg);opacity:.8}75%{transform:rotateZ(-5deg);opacity:1}100%{transform:rotateX(0);opacity:1}}@keyframes swal2-toast-show{0%{transform:translateY(-0.625em) rotateZ(2deg)}33%{transform:translateY(0) rotateZ(-2deg)}66%{transform:translateY(0.3125em) rotateZ(2deg)}100%{transform:translateY(0) rotateZ(0deg)}}@keyframes swal2-toast-hide{100%{transform:rotateZ(1deg);opacity:0}}@keyframes swal2-toast-animate-success-line-tip{0%{top:.5625em;left:.0625em;width:0}54%{top:.125em;left:.125em;width:0}70%{top:.625em;left:-0.25em;width:1.625em}84%{top:1.0625em;left:.75em;width:.5em}100%{top:1.125em;left:.1875em;width:.75em}}@keyframes swal2-toast-animate-success-line-long{0%{top:1.625em;right:1.375em;width:0}65%{top:1.25em;right:.9375em;width:0}84%{top:.9375em;right:0;width:1.125em}100%{top:.9375em;right:.1875em;width:1.375em}}</style>
+    <script>
+
+        function getMsgY(msgid, msgtitle) {
+            Swal.fire({
+                title:"عذرا",
+                html: " بيانات الطالب الجامعيه غير مكتمله برجاء اكمال بيانات النزوح في تفاصيل العنوان والإتصال",
+                icon: 'error',
+                showCancelButton: false,
+                showconfirmButton: true,
+                confirmButtonText: 'انتقال'
+            }).then((result) => {
+                if (result.isConfirmed || result.isDismissed) {
+                    window.location.replace(
+                        window.location.origin + "/profile/student_info"
+                    );
+                    //window.location.replace("https://my.ucas.edu.ps/profile/student_info");
+                }
+            });
+        }
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $('.lines').click(function () {
+                //$('#navigation').toggle();
+            });
+            $('.has-submenu>a').click(function (event) {
+                event.stopPropagation();
+                $('.submenu').toggle();
+            });
+            $('.responsive_table').basictable();
+        });
+
+        $(document).ready(function () { // Add your event handlers inside ready block
+            $(".btn-noref").click(function (event) { // button event handler
+                event.preventDefault(); // prevent page from redirecting
+            });
+            $(".topbtn").each(function (index) {
+                var attr = $(this).attr('href');
+                var hclass = $(this).hasClass('fb');
+                var iframe = $(this).hasClass('fancybox.iframe');
+                var fancybox = $(this).hasClass('fancybox');
+                if ((typeof attr !== 'undefined' && attr !== false) || hclass || iframe || fancybox) {
+                } else {
+                    $(this).addClass("ChangeIt");
+                }
+            });
+        });
+    </script>
+    <script>
+        $(window).load(function () {
+            $('#loader').hide();
+        });
+    </script>
+
+    
+     <title>التسجيل</title>
+
+    <style>
+        .col-sm-3.has_valid:before,
+        .col-sm-4.has_valid:before,
+        .col-sm-5.has_valid:before,
+        .col-sm-6.has_valid:before,
+        .col-sm-7.has_valid:before,
+        .col-sm-8.has_valid:before,
+        .col-sm-9.has_valid:before,
+        .col-sm-10.has_valid:before,
+        .col-sm-11.has_valid:before,
+        .col-sm-12.has_valid:before,
+        .col-sm-1.has_valid:before,
+        .col-sm-2.has_valid:before{
+            left:17px;
+        }
+        .redColor{
+            color: red !important;
+        }
+        span.reqspan:before , .has_valid:before {
+            content: "";
+            background-image: url(../NewTemp/src/icons/req.png);
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 10px;
+            height: 10px;
+            position: absolute;
+            left: 2px;
+            top: 2px;
+            background-size: contain;
+        }
+        span.reqspan {
+            float: left;
+            position: relative;
+        }
+        .lblEmail{
+            cursor:pointer;
+        }
+        .swal2-html-container, button.swal2-confirm.swal2-styled {
+            font-family: Fon !important;
+        }
+    </style>
+
+<style type="text/css">.fancybox-margin{margin-right:0px;}</style></head>
+<body class="webstyle-light">
+    <div id="loader" style="display: none;">
+        <div class="loader"></div>
+    </div>
+    <!-- Navigation Bar-->
+    <header id="topnav" class="light">
+
+        <!-- Topbar Start -->
+        <div class="navbar-custom">
+            <div class="container-fluid">
+                <ul class="list-unstyled topnav-menu float-right mb-0">
+
+                    <li class="dropdown notification-list">
+                        <!-- Mobile menu toggle-->
+                        <a class="navbar-toggle nav-link">
+                            <div class="lines">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </a>
+                        <!-- End mobile menu toggle-->
+                    </li>
+
+                    <li id="notifys_New" class="dropdown notification-list notifys_New">
+                        <a class="nav-link dropdown-toggle waves-effect" id="notifys_link" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            <i class="fe-bell noti-icon"></i>
+                            <span id="notify_number" class="badge badge-danger rounded-circle noti-icon-badge">0</span>
+                        </a>
+                        
+                        <div class="dropdown-menu dropdown-menu-right dropdown-lg" id="notify-dropdown">
+                            <!-- item-->
+                            <div class="dropdown-item noti-title">
+                                <h5 class="m-0">
+                                    <span class="float-right">
+                                        
+                                    </span>التنبيهات
+                                </h5>
+                            </div>
+
+                            <div class="slimscroll noti-scroll" id="notList">
+                                
+                                        <a href="#" class="dropdown-item notify-item fb fancybox.iframe active">
+                                            <p class="">القبول والتسجيل</p>
+                                            <p class="text-muted mb-0 user-msg">
+                                                <small>رابط القضايا الطلابية </small>
+                                            </p>
+                                        </a>
+                                    
+                                
+                                
+                            </div>
+
+                            <!-- All-->
+                            
+                        </div>
+                    </li>
+
+                    <li class="dropdown notification-list">
+                        <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            <img src="/static/NewTemp/src/images/fotlogo.png" alt="user-image" class="rounded-circle">
+                            <span class="pro-user-name ml-1">
+                                عبدالله محمد أحمد سالم <i class="mdi mdi-chevron-down"></i>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                            <!-- item-->
+
+                            <!-- item-->
+                            
+
+                            <!-- item-->
+                            <a href="#" class="dropdown-item notify-item">
+                                <i class="fe-settings"></i>
+                                <span>بياناتي</span>
+                            </a>
+
+                            <!-- item-->
+                            <a href="/profile/change_password" class="dropdown-item notify-item">
+                                <i class="fe-lock"></i>
+                                <span>تغير كلمه المرور</span>
+                            </a>
+
+                            <div class="dropdown-divider"></div>
+
+                            <!-- item-->
+                            
+                            <!-- item-->
+                            <a href="/logout" class="dropdown-item notify-item">
+                                <i class="fe-log-out"></i>
+                                <span>تسجيل الخروج</span>
+                            </a>
+
+
+                        </div>
+                    </li>
+                    <li class="dropdown notification-list">
+                        <a href="javascript:void(0);" class="nav-link waves-effect dark_btn_change light">
+                            <i class="mdi mdi-white-balance-sunny"></i>
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- LOGO -->
+                <div class="logo-box">
+                    <a href="/home" class="logo text-center">
+                        <span class="logo-lg">
+                            <img src="/static/NewTemp/src/images/logo-dark.png" alt="" height="55">
+                            <!-- <span class="logo-lg-text-light">UBold</span> -->
+                        </span>
+                        <span class="logo-sm">
+                            <!-- <span class="logo-sm-text-dark">U</span> -->
+                            <img src="/static/NewTemp/src/images/logo-sm.png" alt="" height="50">
+                        </span>
+                    </a>
+                </div>
+
+            </div>
+            <!-- end container-fluid-->
+        </div>
+        <!-- end Topbar -->
+
+        <div class="topbar-menu">
+            <div class="container-fluid">
+                <div id="navigation">
+                    <!-- Navigation Menu-->
+                    <ul class="navigation-menu">
+
+                        <li>
+                            <a href="/home"><i class="mdi mdi-view-dashboard"></i>الرئيسية</a>
+                        </li>
+                        
+                                <li class="has-submenu">
+                                    <a id="M1" class="menulnk" href="/Registration">القبول و التسجيل</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                                <li>
+                                                    <a id="M18" title="تمكين الطالب من الاطلاع على خطته الدراسية" href="/Registration/study_plan">الخطة الدراسية</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M49" title="المساقات المسجلة للفصل الدراسي الحالي والفصول السابقة." href="/Registration/Registered_Subjects">المساقات المسجلة</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M9" title="تسجيل المساقات في الفصل الدراسي و السحب و الإضافة و تغيير الشعب" href="/Registration/semester_registration">التسجيل الفصلي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M10" title="يوضح الجدول الدراسي للطالب بالتفصيل الأيام و المواعيد و المساقات و الشعب" href="/Registration/semester_table">الجدول التفصيلي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M12" title="تحتوي على الأجندة الفصلية مثل بدء الدراسة و التسجيل و السحب و الإضافة" href="/Registration/academic_calendar">التقويم الأكاديمي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M57" title="تحتوي على جدول مواعيد الامتحانات النهائية." href="/Registration/exams_schedule">جدول الإمتحانات</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M19" title="عبارة عن جدول بدرجات الطالب مصنفة حسب الفصول الدراسية." href="/Registration/transcript">كشف الدرجات</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M25" title="تحتوي على مساقات الطالب المسجلة حاليا وتوصيفها" href="/Registration/course_descriptions">توصيف المساقات</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M208" title="للتسجيل في امتحانات المستوى مثل امتحان مستوى اللغة الانجليزية وامتحان مستوى القراءن وغيرها." href="#">تقديم لامتحانات المستوى</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M248" title="لاستعراض المواد والمساقات التي تم طرحها في الفصل الحالي , كذلك الفصلص القادم." href="/Registration/semester_subjects">المواد لهذا الفصل</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu">
+                                    <a id="M2" class="menulnk" href="/profile">ملف الطالب</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                                <li>
+                                                    <a id="M15" title="تمكين الطالب من تغيير كلمة المرور الخاصة به" href="/profile/change_password">تغيير كلمة المرور</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M48" title="يقوم الطالب بتعبئة بيانات طلب اقرار خريج حتى تتحول حالته الى خريج اذا كانت بياناته صحيحة." href="/profile/graduate_allowance_form">اقرار خريج</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M20" title="عبارة عن سجلات مالية تخص الطالب بحيث يعرف الطالب تاريخ الدفعات التي قام بها وتاريخ المستحقات لكل فصل دراسي" href="/profile/financial_profile">الملف المالي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M21" title="يتعرف الطالب من خلالها على مرشده المالي ويتلقى الرسائل التي يرسلها مرشده المالي." href="/profile/financial_advisor">المرشد المالي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M22" title="يتعرف الطالب من خلالها على مرشده الاكاديمي ويتلقى الرسائل التي يرسلها مرشده." href="/profile/academic_advisor">المرشد الأكاديمي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M16" title="تفعيل البريد الالكتروني وفحص حالة البريد." href="/profile/email">البريد الإلكتروني</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M17" title="قم من هذه الصفحة بمراجعة بياناتك واحرص ان تكون جميع بياناتك الاساسية سليمة وصحيحة." href="/profile/student_info">بيانات الطالب</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M288" title="للاستعلام عن المنح والقروض الخاصة بالطالب حسب الفصل." href="/profile/discounts_gifts">المنح والقروض</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M328" title="للاستعلام عن المنح والقروض المقدمة من التعليم العالي- برنامج إقراض." href="/profile/Iqrad">قروض التعليم العالي</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu">
+                                    <a id="M4" class="menulnk" href="/personal_apps">الطلبات الشخصية</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                                <li>
+                                                    <a id="M28" title="في حال اردت طلب مساعدة لتغطية الرسوم الدراسية او الحصول على منحة يمكنك استخدام هذه الصفحة لتعبئة بياناتك." href="/personal_apps/assistance_request">البحث الاجتماعي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M29" title="تمكين الطالب من استلام درجاته للمساقات المسجلة للفصل الحالي فور اعتمادها." href="#">إشتراك الرسائل القصيرة</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M150" title="تحتوي على طلبات الإفادات التي ممكن أن يحتاجها الطال مثل شهادة القيد و إفادة خريج." href="/personal_apps/Student_Informs">الإفادات</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M317" title="الذهاب الى حساب دريم سبارك" href="/personal_apps/UserVerification">حساب دريم سبارك</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu">
+                                    <a id="M5" class="menulnk" href="/issues_and_applications">القضايا و الطلبات</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                                <li>
+                                                    <a id="M32" title="من هنا يمكنك تقديم طلب احتساب من مئة او طلب غير مكتمل او طلب مراجعة لاي مساق من مساقات المسجلة لهذا الفصل." href="/issues_and_applications/courses_applications">طلبات المساقات</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M108" title="من هنا يمكنك تقديم طلب تأجيل الفصل الدراسي الحالي" href="/issues_and_applications/postponement">طلب تأجيل فصل</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M109" title="من هنا يمكنك تقديم طلب إعادة قيد الفصل الدراسي الحالي" href="/issues_and_applications/re_under">طلب إعادة قيد</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M168" title="استخدم هذه الصفحة لتحويل تخصصك الحالي الى تخصص اخر." href="/issues_and_applications/dept_trans">طلب تحويل تخصص</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M31" title="قضايا التسجيل" href="/issues_and_applications/registration_issues">قضايا التسجيل</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu">
+                                    <a id="M6" class="menulnk" href="/evaluation">تقييم المساقات</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                                <li>
+                                                    <a id="M44" title="تقييم الطالب للمساقات" href="/evaluation/teacher_eval">تقييم المساقات</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu">
+                                    <a id="M7" class="menulnk" href="/questionnair">استبانات عامة</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                                <li>
+                                                    <a id="M45" title="قائمة الاستبانات الحالية" href="/questionnair/general_questionnaires">استبانات عامة</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu last-elements">
+                                    <a id="M8" class="menulnk" href="/library">المكتبة</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                                <li>
+                                                    <a id="M47" title="يمكنك من هنا الحصول على نماذج الامتحانات لمساقات الفصل الحالي." href="/library/examinations_samples">نماذج الامتحانات</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M46" title="الاطلاع على الكتب المستعارة من المكتبة كما ويمكنه تجديد الاستعارة" href="/library/borrowed_books">الكتب المستعارة</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu last-elements">
+                                    <a id="M999" class="menulnk" href="#">برامج الطلبة</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                    </ul>
+                                    
+                                </li>
+                            
+
+
+
+
+                    </ul>
+                    <!-- End navigation menu -->
+
+                    <div class="clearfix"></div>
+                </div>
+                <!-- end #navigation -->
+            </div>
+            <!-- end container -->
+        </div>
+        <!-- end navbar-custom -->
+
+    </header>
+    <!-- End Navigation Bar-->
+
+    <div class="wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-12 col-md-12">
+                    <div class="card-box widget-user">
+                        <div>
+                            <div class="avatar-lg float-left mr-3">
+                                <img src="/static/NewTemp/src/images/fotlogo.png" style="width: 72px !important; height: 72px;" class="img-fluid rounded-circle" alt="user">
+                            </div>
+                            <div class="wid-u-info">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h5 id="lblStudentName" class="mt-2 font-18">عبدالله محمد أحمد سالم</h5>
+                                        <p id="lblStudentNo" class="text-muted mb-1 font-16 text-truncate">200000000</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="pull-left plfef float-right">
+                                            <small class="text-info"><b>التخصص :</b>
+                                                <span id="lblSpecial">أمن المعلومات</span>
+                                            </small>
+                                            <small class="text-info"><b>القسم :</b>
+                                                <span id="lblTaw_College">قسم هندسة الحاسوب - دبلوم متوسط</span>
+                                            </small>
+                                            <small class="text-info"><b>العمادة:</b>
+                                                <span id="lblDean">عمادة الهندسة والنظم الذكية</span>
+                                            </small>
+                                            <small id="smallEmail" class="text-info"><b>البريد :</b>
+                                                <span id="lblEmail" title="اضغط هنا لنسخ البريد الالكتروني" class="lblEmail">200000000@smail.ucas.edu.ps</span>
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="ADVISOR_DIV" class="col-xl-12 col-md-12">
+                    <div class="card-box">
+                        <h4>بيانات المرشد</h4>
+                        <div class="wid-u-info">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <small class="text-info"><b>الاسم  :</b>
+                                        <span id="ADVISOR_NAME">أحمد محمد المرشد</span>
+                                    </small>
+                                </div>
+                                <div class="col-md-4">
+                                    <small class="text-info"><b>القسم  :</b>
+                                        <span id="ADVISOR_DEPT_NAME">أمن المعلومات</span>
+                                    </small>
+                                </div>
+                                <div class="col-md-4">
+                                    <small class="text-info"><b>البريد الالكتروني :</b>
+                                        <span id="ADVISOR_MAIL">advisor@ucas.edu.ps</span>
+                                    </small>
+                                </div>
+                                <div class="col-md-4">
+                                    <small class="text-info"><b>رقم الواتس  :</b>
+                                        <span id="ADVISOR_WHATSAPP_NO">970599000000</span>
+                                    </small>
+                                </div>
+                                <div class="col-md-4">
+                                    <small class="text-info"><b>ساعات التواصل :</b>
+                                        <span id="TimeCon" class="redColor">من الساعة 9:00 صباحاً حتى 3:00 مساءً</span>
+                                    </small>
+                                </div>
+                                <div id="NOTES_div" class="col-md-12">
+                                    <small class="text-info"><b>الملاحظات  :</b>
+                                        <span id="NOTES">م. أحمد المرشد – مرشد دبلوم أمن المعلومات (طلاب وطالبات)</span>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- end row -->
+
+            <form method="post" action="#" id="form1">
+<div class="aspNetHidden">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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">
+</div>
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="DA142AA9">
+	<input type="hidden" name="__VIEWSTATEENCRYPTED" id="__VIEWSTATEENCRYPTED" value="">
+</div>
+                
+                
+                
+    
+<style>
+    .items_images{
+        width: 70px;
+        position: relative;
+        height: 60px;
+        margin-top: -12px;
+        overflow: hidden;
+    }
+    .items_image{
+        position: absolute;
+        left: 0;
+        top: 0%;
+        width: 82%;
+    }
+</style>
+    <div class="row">
+        
+                <div class="col-md-6">
+                    <a href="study_plan" class="user-list-item">
+                        <div class="card-box">
+                            <div class="user float-left mr-3 items_images">
+                                <img class="items_image" src="/static/NewTemp/src/icons/study_plan.png">
+                            </div>
+                            <div class="user-desc overflow-hidden">
+                                <h5 class="name mt-0 mb-1">الخطة الدراسية</h5>
+                                <span class="desc text-muted font-12 text-truncate d-block">تمكين الطالب من الاطلاع على خطته الدراسية</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            
+                <div class="col-md-6">
+                    <a href="Registered_Subjects" class="user-list-item">
+                        <div class="card-box">
+                            <div class="user float-left mr-3 items_images">
+                                <img class="items_image" src="/static/NewTemp/src/icons/Student_Marks.png">
+                            </div>
+                            <div class="user-desc overflow-hidden">
+                                <h5 class="name mt-0 mb-1">المساقات المسجلة</h5>
+                                <span class="desc text-muted font-12 text-truncate d-block">المساقات المسجلة للفصل الدراسي الحالي والفصول السابقة.</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            
+                <div class="col-md-6">
+                    <a href="semester_registration" class="user-list-item">
+                        <div class="card-box">
+                            <div class="user float-left mr-3 items_images">
+                                <img class="items_image" src="/static/NewTemp/src/icons/semester_registration.png">
+                            </div>
+                            <div class="user-desc overflow-hidden">
+                                <h5 class="name mt-0 mb-1">التسجيل الفصلي</h5>
+                                <span class="desc text-muted font-12 text-truncate d-block">تسجيل المساقات في الفصل الدراسي و السحب و الإضافة و تغيير الشعب</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            
+                <div class="col-md-6">
+                    <a href="semester_table" class="user-list-item">
+                        <div class="card-box">
+                            <div class="user float-left mr-3 items_images">
+                                <img class="items_image" src="/static/NewTemp/src/icons/semester_table.png">
+                            </div>
+                            <div class="user-desc overflow-hidden">
+                                <h5 class="name mt-0 mb-1">الجدول التفصيلي</h5>
+                                <span class="desc text-muted font-12 text-truncate d-block">يوضح الجدول الدراسي للطالب بالتفصيل الأيام و المواعيد و المساقات و الشعب</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            
+                <div class="col-md-6">
+                    <a href="academic_calendar" class="user-list-item">
+                        <div class="card-box">
+                            <div class="user float-left mr-3 items_images">
+                                <img class="items_image" src="/static/NewTemp/src/icons/academic_calendar.png">
+                            </div>
+                            <div class="user-desc overflow-hidden">
+                                <h5 class="name mt-0 mb-1">التقويم الأكاديمي</h5>
+                                <span class="desc text-muted font-12 text-truncate d-block">تحتوي على الأجندة الفصلية مثل بدء الدراسة و التسجيل و السحب و الإضافة</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            
+                <div class="col-md-6">
+                    <a href="exams_schedule" class="user-list-item">
+                        <div class="card-box">
+                            <div class="user float-left mr-3 items_images">
+                                <img class="items_image" src="/static/NewTemp/src/icons/exams_schedule.png">
+                            </div>
+                            <div class="user-desc overflow-hidden">
+                                <h5 class="name mt-0 mb-1">جدول الإمتحانات</h5>
+                                <span class="desc text-muted font-12 text-truncate d-block">تحتوي على جدول مواعيد الامتحانات النهائية.</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            
+                <div class="col-md-6">
+                    <a href="transcript" class="user-list-item">
+                        <div class="card-box">
+                            <div class="user float-left mr-3 items_images">
+                                <img class="items_image" src="/static/NewTemp/src/icons/Student_Marks.png">
+                            </div>
+                            <div class="user-desc overflow-hidden">
+                                <h5 class="name mt-0 mb-1">كشف الدرجات</h5>
+                                <span class="desc text-muted font-12 text-truncate d-block">عبارة عن جدول بدرجات الطالب مصنفة حسب الفصول الدراسية.</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            
+                <div class="col-md-6">
+                    <a href="course_descriptions" class="user-list-item">
+                        <div class="card-box">
+                            <div class="user float-left mr-3 items_images">
+                                <img class="items_image" src="/static/NewTemp/src/icons/course_descriptions.png">
+                            </div>
+                            <div class="user-desc overflow-hidden">
+                                <h5 class="name mt-0 mb-1">توصيف المساقات</h5>
+                                <span class="desc text-muted font-12 text-truncate d-block">تحتوي على مساقات الطالب المسجلة حاليا وتوصيفها</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            
+                <div class="col-md-6">
+                    <a href="exams_level" class="user-list-item">
+                        <div class="card-box">
+                            <div class="user float-left mr-3 items_images">
+                                <img class="items_image" src="/static/NewTemp/src/icons/Student_Marks.png">
+                            </div>
+                            <div class="user-desc overflow-hidden">
+                                <h5 class="name mt-0 mb-1">تقديم لامتحانات المستوى</h5>
+                                <span class="desc text-muted font-12 text-truncate d-block">للتسجيل في امتحانات المستوى مثل امتحان مستوى اللغة الانجليزية وامتحان مستوى القراءن وغيرها.</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            
+                <div class="col-md-6">
+                    <a href="semester_subjects" class="user-list-item">
+                        <div class="card-box">
+                            <div class="user float-left mr-3 items_images">
+                                <img class="items_image" src="/static/NewTemp/src/icons/Student_Marks.png">
+                            </div>
+                            <div class="user-desc overflow-hidden">
+                                <h5 class="name mt-0 mb-1">المواد لهذا الفصل</h5>
+                                <span class="desc text-muted font-12 text-truncate d-block">لاستعراض المواد والمساقات التي تم طرحها في الفصل الحالي , كذلك الفصلص القادم.</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            
+    </div>
+
+
+                <!-- end page title -->
+            </form>
+        </div>
+    </div>
+
+
+
+    <!-- Footer Start -->
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    2020 - 2022 © جميع الحقوق محفوظة لـ <a href="#">الكلية الجامعية</a>
+                </div>
+                
+            </div>
+        </div>
+    </footer>
+    <!-- end Footer -->
+    <div class="feedback">
+        <a href="/feedback.aspx" class="fb fancybox.iframe">الإبلاغ عن مشكلة
+        </a>
+    </div>
+
+    <!-- Right bar overlay-->
+    <div class="rightbar-overlay"></div>
+
+
+    <!-- knob plugin -->
+    
+
+    <!--Morris Chart-->
+    
+    
+
+
+
+    <!-- Dashboard init js-->
+    
+
+    <!-- App js-->
+    <script src="/static/NewTemp/src/js/app.js"></script>
+
+    <!-- Add mousewheel plugin (this is optional) -->
+    <script type="text/javascript" src="/static/NewTemp/src/libs/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+
+    <!-- Add fancyBox main JS and CSS files -->
+    <script type="text/javascript" src="/static/NewTemp/src/libs/fancybox/source/jquery.fancybox.js?v=2.1.5"></script>
+    <link rel="stylesheet" type="text/css" href="/static/NewTemp/src/libs/fancybox/source/jquery.fancybox.css?v=2.1.5" media="screen">
+
+    <!-- Add Button helper (this is optional) -->
+    <link rel="stylesheet" type="text/css" href="/static/NewTemp/src/libs/fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5">
+    <script type="text/javascript" src="/static/NewTemp/src/libs/fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+
+    <!-- Add Thumbnail helper (this is optional) -->
+    <link rel="stylesheet" type="text/css" href="/static/NewTemp/src/libs/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7">
+    <script type="text/javascript" src="/static/NewTemp/src/libs/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+
+    <!-- Add Media helper (this is optional) -->
+    <script type="text/javascript" src="/static/NewTemp/src/libs/fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
+    <script>
+        function getCookie(cname) {
+            let name = cname + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let ca = decodedCookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+        var themes_style = "light";
+        //console.log(themes_style);
+        if (themes_style == '') {
+            var themes_style = getCookie("themes_style");
+        }
+        //console.log(themes_style);
+        $(document).ready(function () {
+            $(".lblEmail").click(function () {
+                copyToClipboard($(this));
+            });
+            $('#notifys_New a').click(function () {
+                document.cookie = "notifys_New=true;path=/";
+                $('#notifys_New').removeClass('notifys_New');
+            });
+            $('.bg_NewJusts').click(function () {
+                document.cookie = "notifys_New=true;path=/";
+                $('#notifys_New').removeClass('notifys_New');
+            });
+            console.log("true");
+            $('.dark_btn_change').click(function () {
+                if (themes_style == 'dark') {
+                    themes_style = "light";
+                    document.cookie = "themes_style=light;path=/";
+                } else {
+                    themes_style = "dark";
+                    document.cookie = "themes_style=dark;path=/";
+                }
+                location.reload();
+            });
+            $(".fb").fancybox({
+                width: 1024,
+                autoScale: false,
+                afterClose: function () {
+                    // parent.location.reload(true);
+                }
+            });
+        });
+
+        function fnSaveData() {
+            var item = JSON.parse(window.localStorage.getItem("notifications"));
+            let unread = 0;
+            var notifList = document.getElementById("notList");
+            var notifyNum = document.getElementById("notify_number");
+            function viewItems() {
+                var templateItem = document.createElement("a");
+                templateItem.classList.add("fancybox.iframe");
+                templateItem.classList.add("dropdown-item");
+                templateItem.classList.add("fb");
+                templateItem.classList.add("notify-item");
+                templateItem.setAttribute("id", "_notify-item");
+                let notTitle = item[i].TITLE;
+                let notUrl = item[i].URL;
+                let notAdv = item[i].ADV_SIDE;
+                let notDate = item[i].START_DATE;
+                let notRead = item[i].IS_READ;
+                let notDetails = item[i].DETAILS;
+                if (notRead == 0)
+                    unread++;
+                templateItem.classList.add(notRead);
+                let title = document.createElement("p");
+                let adv = document.createElement("p");
+                let details = document.createElement("p");
+                let date = document.createElement("small");
+                templateItem.href = `/show.aspx?created_date= ${notDate}&title= ${notTitle}&url=${notUrl}`;
+                notRead == 0 ? templateItem.classList.add("active") : "";
+                title.innerHTML = notTitle;
+                adv.innerHTML = notAdv;
+                notRead == 0 ? adv.classList.add("font-weight-bold") : "";
+                date.classList.add("text-muted");
+                date.classList.add("d-flex");
+                date.classList.add("flex-row-reverse");
+                details.innerHTML = notDetails.substring(0, 15) + "...";
+                date.innerHTML = notDate
+                templateItem.appendChild(adv);
+                templateItem.appendChild(title);
+                templateItem.appendChild(details);
+                templateItem.appendChild(date);
+                notifList.appendChild(templateItem);
+            }
+            if (item != null) {
+                if (notifList.children[0]) {
+                    for (i = 0; i < item?.length; i++) {
+                        document.getElementById("_notify-item")?.remove();
+                        viewItems();
+                    }
+                }
+                else {
+                    for (i = 0; i < item?.length; i++) {
+                        viewItems();
+                    }
+
+                }
+
+
+                notifyNum.innerHTML = unread.toString();
+            }
+        }
+
+        function GET_STD_NOTIFICATIONS_SSP(currentdate) {
+            $.ajax({
+                type: "POST",
+                url: '/WebService.asmx/GET_STD_NOTIFICATIONS_SSP',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    localStorage.setItem('notifications', data.d);
+                    currentdate.setDate(currentdate.getDate() + 1);
+                    localStorage.setItem('expiryStartDate', currentdate);
+                    fnSaveData();
+                },
+                error: function (result) {
+                    msgget(2, "حدث خطأ أثناء عملية الحفظ");
+                }
+            });
+        }
+
+
+        function SET_STD_NOTIFICATIONS_READ() {
+
+            $.ajax({
+                type: "POST",
+                url: '/WebService.asmx/SET_STD_NOTIFICATIONS_READ',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+
+                },
+                error: function (result) {
+                    msgget(2, "حدث خطأ ما");
+
+                }
+            })
+        }
+        $(document).ready(function () {
+
+            $("#notifys_link").click(function (e) {
+                var _currentdate = new Date();
+                GET_STD_NOTIFICATIONS_SSP(_currentdate);
+                SET_STD_NOTIFICATIONS_READ();
+            });
+            var currentdate = new Date();
+            var expiryDate = new Date(localStorage.getItem('expiryStartDate'));
+            var IsNotif = localStorage.getItem('notifications');
+            if (isNaN(Date.parse(expiryDate)) || currentdate > expiryDate || !IsNotif) {
+                GET_STD_NOTIFICATIONS_SSP(currentdate);
+            } else {
+                fnSaveData();
+            }
+
+
+        });
+        function copyToClipboard(element) {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val($(element).html()).select();
+            document.execCommand("copy");
+            $temp.remove();
+            alert("تم نسخ البريد");
+        }
+
+    </script>
+
+    
+    
+
+
+</body></html>

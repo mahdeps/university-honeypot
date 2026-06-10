@@ -1,0 +1,2015 @@
+<!DOCTYPE html><html lang="ar" class="notranslate"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><title>
+	UCAS - التسجيل الفصلي
+</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta content="الكلية الجامعية للعلوم التطبيقية" name="description"><meta content="الكلية الجامعية للعلوم التطبيقية" name="author">
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="/static/NewTemp/src/images/favicon.ico">
+
+    <!--Morris Chart-->
+    <link rel="stylesheet" href="/static/NewTemp/src/libs/morris-js/morris.css">
+    <!-- Sweet Alert css -->
+    <link href="/static/NewTemp/src/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
+
+    <!-- App css -->
+    <link id="bootstrap" href="/static/NewTemp/src/css-light/bootstrap.min.css" rel="stylesheet" type="text/css"><link id="icons" href="/static/NewTemp/src/css-light/icons.min.css" rel="stylesheet" type="text/css"><link id="app_rtl" href="/static/NewTemp/src/css-light/app-rtl.min.css" rel="stylesheet" type="text/css"><link href="/static/NewTemp/src/libs/basictable-master/dist/css/basictable.min.css" rel="stylesheet" type="text/css"><link href="/static/NewTemp/src/style.css?v=3.11" rel="stylesheet" type="text/css"><link id="cus_style" href="/static/NewTemp/src/css-light/cusstyle.css" rel="stylesheet" type="text/css">
+
+    <!-- Vendor js -->
+    <script src="/static/NewTemp/src/js/vendor.min.js"></script>
+
+    <script src="/static/NewTemp/src/js/jquery-1.9.1.min.js"></script>
+    <script src="/static/NewTemp/src/libs/sweetalert2/sweetalert2.min.js"></script>
+    <script src="/static/NewTemp/src/libs/basictable-master/dist/js/basictable.min.js"></script>
+    <script src="/static/NewTemp/src/libs/basictable-master/dist/js/jquery.basictable.min.js"></script>
+
+    <style>:root{--swal2-outline: 0 0 0 3px rgba(100, 150, 200, 0.5);--swal2-container-padding: 0.625em;--swal2-backdrop: rgba(0, 0, 0, 0.4);--swal2-backdrop-transition: background-color 0.15s;--swal2-width: 32em;--swal2-padding: 0 0 1.25em;--swal2-border: none;--swal2-border-radius: 0.3125rem;--swal2-background: white;--swal2-color: #545454;--swal2-show-animation: swal2-show 0.3s;--swal2-hide-animation: swal2-hide 0.15s forwards;--swal2-icon-zoom: 1;--swal2-title-padding: 0.8em 1em 0;--swal2-html-container-padding: 1em 1.6em 0.3em;--swal2-input-border: 1px solid #d9d9d9;--swal2-input-border-radius: 0.1875em;--swal2-input-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06), 0 0 0 3px transparent;--swal2-input-background: transparent;--swal2-input-transition: border-color 0.2s, box-shadow 0.2s;--swal2-input-hover-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06), 0 0 0 3px transparent;--swal2-input-focus-border: 1px solid #b4dbed;--swal2-input-focus-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06), 0 0 0 3px rgba(100, 150, 200, 0.5);--swal2-progress-step-background: #add8e6;--swal2-validation-message-background: #f0f0f0;--swal2-validation-message-color: #666;--swal2-footer-border-color: #eee;--swal2-footer-background: transparent;--swal2-footer-color: inherit;--swal2-timer-progress-bar-background: rgba(0, 0, 0, 0.3);--swal2-close-button-position: initial;--swal2-close-button-inset: auto;--swal2-close-button-font-size: 2.5em;--swal2-close-button-color: #ccc;--swal2-close-button-transition: color 0.2s, box-shadow 0.2s;--swal2-close-button-outline: initial;--swal2-close-button-box-shadow: inset 0 0 0 3px transparent;--swal2-close-button-focus-box-shadow: inset var(--swal2-outline);--swal2-close-button-hover-transform: none;--swal2-actions-justify-content: center;--swal2-actions-width: auto;--swal2-actions-margin: 1.25em auto 0;--swal2-actions-padding: 0;--swal2-actions-border-radius: 0;--swal2-actions-background: transparent;--swal2-action-button-transition: background-color 0.2s, box-shadow 0.2s;--swal2-action-button-hover: black 10%;--swal2-action-button-active: black 10%;--swal2-confirm-button-box-shadow: none;--swal2-confirm-button-border-radius: 0.25em;--swal2-confirm-button-background-color: #7066e0;--swal2-confirm-button-color: #fff;--swal2-deny-button-box-shadow: none;--swal2-deny-button-border-radius: 0.25em;--swal2-deny-button-background-color: #dc3741;--swal2-deny-button-color: #fff;--swal2-cancel-button-box-shadow: none;--swal2-cancel-button-border-radius: 0.25em;--swal2-cancel-button-background-color: #6e7881;--swal2-cancel-button-color: #fff;--swal2-toast-show-animation: swal2-toast-show 0.5s;--swal2-toast-hide-animation: swal2-toast-hide 0.1s forwards;--swal2-toast-border: none;--swal2-toast-box-shadow: 0 0 1px hsl(0deg 0% 0% / 0.075), 0 1px 2px hsl(0deg 0% 0% / 0.075), 1px 2px 4px hsl(0deg 0% 0% / 0.075), 1px 3px 8px hsl(0deg 0% 0% / 0.075), 2px 4px 16px hsl(0deg 0% 0% / 0.075)}[data-swal2-theme=dark]{--swal2-dark-theme-black: #19191a;--swal2-dark-theme-white: #e1e1e1;--swal2-background: var(--swal2-dark-theme-black);--swal2-color: var(--swal2-dark-theme-white);--swal2-footer-border-color: #555;--swal2-input-background: color-mix(in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10%);--swal2-validation-message-background: color-mix( in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10% );--swal2-validation-message-color: var(--swal2-dark-theme-white);--swal2-timer-progress-bar-background: rgba(255, 255, 255, 0.7)}@media(prefers-color-scheme: dark){[data-swal2-theme=auto]{--swal2-dark-theme-black: #19191a;--swal2-dark-theme-white: #e1e1e1;--swal2-background: var(--swal2-dark-theme-black);--swal2-color: var(--swal2-dark-theme-white);--swal2-footer-border-color: #555;--swal2-input-background: color-mix(in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10%);--swal2-validation-message-background: color-mix( in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10% );--swal2-validation-message-color: var(--swal2-dark-theme-white);--swal2-timer-progress-bar-background: rgba(255, 255, 255, 0.7)}}body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown){overflow:hidden}body.swal2-height-auto{height:auto !important}body.swal2-no-backdrop .swal2-container{background-color:rgba(0,0,0,0) !important;pointer-events:none}body.swal2-no-backdrop .swal2-container .swal2-popup{pointer-events:auto}body.swal2-no-backdrop .swal2-container .swal2-modal{box-shadow:0 0 10px var(--swal2-backdrop)}body.swal2-toast-shown .swal2-container{box-sizing:border-box;width:360px;max-width:100%;background-color:rgba(0,0,0,0);pointer-events:none}body.swal2-toast-shown .swal2-container.swal2-top{inset:0 auto auto 50%;transform:translateX(-50%)}body.swal2-toast-shown .swal2-container.swal2-top-end,body.swal2-toast-shown .swal2-container.swal2-top-right{inset:0 0 auto auto}body.swal2-toast-shown .swal2-container.swal2-top-start,body.swal2-toast-shown .swal2-container.swal2-top-left{inset:0 auto auto 0}body.swal2-toast-shown .swal2-container.swal2-center-start,body.swal2-toast-shown .swal2-container.swal2-center-left{inset:50% auto auto 0;transform:translateY(-50%)}body.swal2-toast-shown .swal2-container.swal2-center{inset:50% auto auto 50%;transform:translate(-50%, -50%)}body.swal2-toast-shown .swal2-container.swal2-center-end,body.swal2-toast-shown .swal2-container.swal2-center-right{inset:50% 0 auto auto;transform:translateY(-50%)}body.swal2-toast-shown .swal2-container.swal2-bottom-start,body.swal2-toast-shown .swal2-container.swal2-bottom-left{inset:auto auto 0 0}body.swal2-toast-shown .swal2-container.swal2-bottom{inset:auto auto 0 50%;transform:translateX(-50%)}body.swal2-toast-shown .swal2-container.swal2-bottom-end,body.swal2-toast-shown .swal2-container.swal2-bottom-right{inset:auto 0 0 auto}@media print{body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown){overflow-y:scroll !important}body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown)>[aria-hidden=true]{display:none}body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown) .swal2-container{position:static !important}}div:where(.swal2-container){display:grid;position:fixed;z-index:1060;inset:0;box-sizing:border-box;grid-template-areas:"top-start     top            top-end" "center-start  center         center-end" "bottom-start  bottom-center  bottom-end";grid-template-rows:minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto);height:100%;padding:var(--swal2-container-padding);overflow-x:hidden;transition:var(--swal2-backdrop-transition);-webkit-overflow-scrolling:touch}div:where(.swal2-container).swal2-backdrop-show,div:where(.swal2-container).swal2-noanimation{background:var(--swal2-backdrop)}div:where(.swal2-container).swal2-backdrop-hide{background:rgba(0,0,0,0) !important}div:where(.swal2-container).swal2-top-start,div:where(.swal2-container).swal2-center-start,div:where(.swal2-container).swal2-bottom-start{grid-template-columns:minmax(0, 1fr) auto auto}div:where(.swal2-container).swal2-top,div:where(.swal2-container).swal2-center,div:where(.swal2-container).swal2-bottom{grid-template-columns:auto minmax(0, 1fr) auto}div:where(.swal2-container).swal2-top-end,div:where(.swal2-container).swal2-center-end,div:where(.swal2-container).swal2-bottom-end{grid-template-columns:auto auto minmax(0, 1fr)}div:where(.swal2-container).swal2-top-start>.swal2-popup{align-self:start}div:where(.swal2-container).swal2-top>.swal2-popup{grid-column:2;place-self:start center}div:where(.swal2-container).swal2-top-end>.swal2-popup,div:where(.swal2-container).swal2-top-right>.swal2-popup{grid-column:3;place-self:start end}div:where(.swal2-container).swal2-center-start>.swal2-popup,div:where(.swal2-container).swal2-center-left>.swal2-popup{grid-row:2;align-self:center}div:where(.swal2-container).swal2-center>.swal2-popup{grid-column:2;grid-row:2;place-self:center center}div:where(.swal2-container).swal2-center-end>.swal2-popup,div:where(.swal2-container).swal2-center-right>.swal2-popup{grid-column:3;grid-row:2;place-self:center end}div:where(.swal2-container).swal2-bottom-start>.swal2-popup,div:where(.swal2-container).swal2-bottom-left>.swal2-popup{grid-column:1;grid-row:3;align-self:end}div:where(.swal2-container).swal2-bottom>.swal2-popup{grid-column:2;grid-row:3;place-self:end center}div:where(.swal2-container).swal2-bottom-end>.swal2-popup,div:where(.swal2-container).swal2-bottom-right>.swal2-popup{grid-column:3;grid-row:3;place-self:end end}div:where(.swal2-container).swal2-grow-row>.swal2-popup,div:where(.swal2-container).swal2-grow-fullscreen>.swal2-popup{grid-column:1/4;width:100%}div:where(.swal2-container).swal2-grow-column>.swal2-popup,div:where(.swal2-container).swal2-grow-fullscreen>.swal2-popup{grid-row:1/4;align-self:stretch}div:where(.swal2-container).swal2-no-transition{transition:none !important}div:where(.swal2-container)[popover]{width:auto;border:0}div:where(.swal2-container) div:where(.swal2-popup){display:none;position:relative;box-sizing:border-box;grid-template-columns:minmax(0, 100%);width:var(--swal2-width);max-width:100%;padding:var(--swal2-padding);border:var(--swal2-border);border-radius:var(--swal2-border-radius);background:var(--swal2-background);color:var(--swal2-color);font-family:inherit;font-size:1rem}div:where(.swal2-container) div:where(.swal2-popup):focus{outline:none}div:where(.swal2-container) div:where(.swal2-popup).swal2-loading{overflow-y:hidden}div:where(.swal2-container) div:where(.swal2-popup).swal2-draggable{cursor:grab}div:where(.swal2-container) div:where(.swal2-popup).swal2-draggable div:where(.swal2-icon){cursor:grab}div:where(.swal2-container) div:where(.swal2-popup).swal2-dragging{cursor:grabbing}div:where(.swal2-container) div:where(.swal2-popup).swal2-dragging div:where(.swal2-icon){cursor:grabbing}div:where(.swal2-container) h2:where(.swal2-title){position:relative;max-width:100%;margin:0;padding:var(--swal2-title-padding);color:inherit;font-size:1.875em;font-weight:600;text-align:center;text-transform:none;overflow-wrap:break-word;cursor:initial}div:where(.swal2-container) div:where(.swal2-actions){display:flex;z-index:1;box-sizing:border-box;flex-wrap:wrap;align-items:center;justify-content:var(--swal2-actions-justify-content);width:var(--swal2-actions-width);margin:var(--swal2-actions-margin);padding:var(--swal2-actions-padding);border-radius:var(--swal2-actions-border-radius);background:var(--swal2-actions-background)}div:where(.swal2-container) div:where(.swal2-loader){display:none;align-items:center;justify-content:center;width:2.2em;height:2.2em;margin:0 1.875em;animation:swal2-rotate-loading 1.5s linear 0s infinite normal;border-width:.25em;border-style:solid;border-radius:100%;border-color:#2778c4 rgba(0,0,0,0) #2778c4 rgba(0,0,0,0)}div:where(.swal2-container) button:where(.swal2-styled){margin:.3125em;padding:.625em 1.1em;transition:var(--swal2-action-button-transition);border:none;box-shadow:0 0 0 3px rgba(0,0,0,0);font-weight:500}div:where(.swal2-container) button:where(.swal2-styled):not([disabled]){cursor:pointer}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm){border-radius:var(--swal2-confirm-button-border-radius);background:initial;background-color:var(--swal2-confirm-button-background-color);box-shadow:var(--swal2-confirm-button-box-shadow);color:var(--swal2-confirm-button-color);font-size:1em}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):hover{background-color:color-mix(in srgb, var(--swal2-confirm-button-background-color), var(--swal2-action-button-hover))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):active{background-color:color-mix(in srgb, var(--swal2-confirm-button-background-color), var(--swal2-action-button-active))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-deny){border-radius:var(--swal2-deny-button-border-radius);background:initial;background-color:var(--swal2-deny-button-background-color);box-shadow:var(--swal2-deny-button-box-shadow);color:var(--swal2-deny-button-color);font-size:1em}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-deny):hover{background-color:color-mix(in srgb, var(--swal2-deny-button-background-color), var(--swal2-action-button-hover))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-deny):active{background-color:color-mix(in srgb, var(--swal2-deny-button-background-color), var(--swal2-action-button-active))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel){border-radius:var(--swal2-cancel-button-border-radius);background:initial;background-color:var(--swal2-cancel-button-background-color);box-shadow:var(--swal2-cancel-button-box-shadow);color:var(--swal2-cancel-button-color);font-size:1em}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel):hover{background-color:color-mix(in srgb, var(--swal2-cancel-button-background-color), var(--swal2-action-button-hover))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel):active{background-color:color-mix(in srgb, var(--swal2-cancel-button-background-color), var(--swal2-action-button-active))}div:where(.swal2-container) button:where(.swal2-styled):focus-visible{outline:none;box-shadow:var(--swal2-action-button-focus-box-shadow)}div:where(.swal2-container) button:where(.swal2-styled)[disabled]:not(.swal2-loading){opacity:.4}div:where(.swal2-container) button:where(.swal2-styled)::-moz-focus-inner{border:0}div:where(.swal2-container) div:where(.swal2-footer){margin:1em 0 0;padding:1em 1em 0;border-top:1px solid var(--swal2-footer-border-color);background:var(--swal2-footer-background);color:var(--swal2-footer-color);font-size:1em;text-align:center;cursor:initial}div:where(.swal2-container) .swal2-timer-progress-bar-container{position:absolute;right:0;bottom:0;left:0;grid-column:auto !important;overflow:hidden;border-bottom-right-radius:var(--swal2-border-radius);border-bottom-left-radius:var(--swal2-border-radius)}div:where(.swal2-container) div:where(.swal2-timer-progress-bar){width:100%;height:.25em;background:var(--swal2-timer-progress-bar-background)}div:where(.swal2-container) img:where(.swal2-image){max-width:100%;margin:2em auto 1em;cursor:initial}div:where(.swal2-container) button:where(.swal2-close){position:var(--swal2-close-button-position);inset:var(--swal2-close-button-inset);z-index:2;align-items:center;justify-content:center;width:1.2em;height:1.2em;margin-top:0;margin-right:0;margin-bottom:-1.2em;padding:0;overflow:hidden;transition:var(--swal2-close-button-transition);border:none;border-radius:var(--swal2-border-radius);outline:var(--swal2-close-button-outline);background:rgba(0,0,0,0);color:var(--swal2-close-button-color);font-family:monospace;font-size:var(--swal2-close-button-font-size);cursor:pointer;justify-self:end}div:where(.swal2-container) button:where(.swal2-close):hover{transform:var(--swal2-close-button-hover-transform);background:rgba(0,0,0,0);color:#f27474}div:where(.swal2-container) button:where(.swal2-close):focus-visible{outline:none;box-shadow:var(--swal2-close-button-focus-box-shadow)}div:where(.swal2-container) button:where(.swal2-close)::-moz-focus-inner{border:0}div:where(.swal2-container) div:where(.swal2-html-container){z-index:1;justify-content:center;margin:0;padding:var(--swal2-html-container-padding);overflow:auto;color:inherit;font-size:1.125em;font-weight:normal;line-height:normal;text-align:center;overflow-wrap:break-word;word-break:break-word;cursor:initial}div:where(.swal2-container) input:where(.swal2-input),div:where(.swal2-container) input:where(.swal2-file),div:where(.swal2-container) textarea:where(.swal2-textarea),div:where(.swal2-container) select:where(.swal2-select),div:where(.swal2-container) div:where(.swal2-radio),div:where(.swal2-container) label:where(.swal2-checkbox){margin:1em 2em 3px}div:where(.swal2-container) input:where(.swal2-input),div:where(.swal2-container) input:where(.swal2-file),div:where(.swal2-container) textarea:where(.swal2-textarea){box-sizing:border-box;width:auto;transition:var(--swal2-input-transition);border:var(--swal2-input-border);border-radius:var(--swal2-input-border-radius);background:var(--swal2-input-background);box-shadow:var(--swal2-input-box-shadow);color:inherit;font-size:1.125em}div:where(.swal2-container) input:where(.swal2-input).swal2-inputerror,div:where(.swal2-container) input:where(.swal2-file).swal2-inputerror,div:where(.swal2-container) textarea:where(.swal2-textarea).swal2-inputerror{border-color:#f27474 !important;box-shadow:0 0 2px #f27474 !important}div:where(.swal2-container) input:where(.swal2-input):hover,div:where(.swal2-container) input:where(.swal2-file):hover,div:where(.swal2-container) textarea:where(.swal2-textarea):hover{box-shadow:var(--swal2-input-hover-box-shadow)}div:where(.swal2-container) input:where(.swal2-input):focus,div:where(.swal2-container) input:where(.swal2-file):focus,div:where(.swal2-container) textarea:where(.swal2-textarea):focus{border:var(--swal2-input-focus-border);outline:none;box-shadow:var(--swal2-input-focus-box-shadow)}div:where(.swal2-container) input:where(.swal2-input)::placeholder,div:where(.swal2-container) input:where(.swal2-file)::placeholder,div:where(.swal2-container) textarea:where(.swal2-textarea)::placeholder{color:#ccc}div:where(.swal2-container) .swal2-range{margin:1em 2em 3px;background:var(--swal2-background)}div:where(.swal2-container) .swal2-range input{width:80%}div:where(.swal2-container) .swal2-range output{width:20%;color:inherit;font-weight:600;text-align:center}div:where(.swal2-container) .swal2-range input,div:where(.swal2-container) .swal2-range output{height:2.625em;padding:0;font-size:1.125em;line-height:2.625em}div:where(.swal2-container) .swal2-input{height:2.625em;padding:0 .75em}div:where(.swal2-container) .swal2-file{width:75%;margin-right:auto;margin-left:auto;background:var(--swal2-input-background);font-size:1.125em}div:where(.swal2-container) .swal2-textarea{height:6.75em;padding:.75em}div:where(.swal2-container) .swal2-select{min-width:50%;max-width:100%;padding:.375em .625em;background:var(--swal2-input-background);color:inherit;font-size:1.125em}div:where(.swal2-container) .swal2-radio,div:where(.swal2-container) .swal2-checkbox{align-items:center;justify-content:center;background:var(--swal2-background);color:inherit}div:where(.swal2-container) .swal2-radio label,div:where(.swal2-container) .swal2-checkbox label{margin:0 .6em;font-size:1.125em}div:where(.swal2-container) .swal2-radio input,div:where(.swal2-container) .swal2-checkbox input{flex-shrink:0;margin:0 .4em}div:where(.swal2-container) label:where(.swal2-input-label){display:flex;justify-content:center;margin:1em auto 0}div:where(.swal2-container) div:where(.swal2-validation-message){align-items:center;justify-content:center;margin:1em 0 0;padding:.625em;overflow:hidden;background:var(--swal2-validation-message-background);color:var(--swal2-validation-message-color);font-size:1em;font-weight:300}div:where(.swal2-container) div:where(.swal2-validation-message)::before{content:"!";display:inline-block;width:1.5em;min-width:1.5em;height:1.5em;margin:0 .625em;border-radius:50%;background-color:#f27474;color:#fff;font-weight:600;line-height:1.5em;text-align:center}div:where(.swal2-container) .swal2-progress-steps{flex-wrap:wrap;align-items:center;max-width:100%;margin:1.25em auto;padding:0;background:rgba(0,0,0,0);font-weight:600}div:where(.swal2-container) .swal2-progress-steps li{display:inline-block;position:relative}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step{z-index:20;flex-shrink:0;width:2em;height:2em;border-radius:2em;background:#2778c4;color:#fff;line-height:2em;text-align:center}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step{background:#2778c4}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step~.swal2-progress-step{background:var(--swal2-progress-step-background);color:#fff}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step~.swal2-progress-step-line{background:var(--swal2-progress-step-background)}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step-line{z-index:10;flex-shrink:0;width:2.5em;height:.4em;margin:0 -1px;background:#2778c4}div:where(.swal2-icon){position:relative;box-sizing:content-box;justify-content:center;width:5em;height:5em;margin:2.5em auto .6em;zoom:var(--swal2-icon-zoom);border:.25em solid rgba(0,0,0,0);border-radius:50%;border-color:#000;font-family:inherit;line-height:5em;cursor:default;user-select:none}div:where(.swal2-icon) .swal2-icon-content{display:flex;align-items:center;font-size:3.75em}div:where(.swal2-icon).swal2-error{border-color:#f27474;color:#f27474}div:where(.swal2-icon).swal2-error .swal2-x-mark{position:relative;flex-grow:1}div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line]{display:block;position:absolute;top:2.3125em;width:2.9375em;height:.3125em;border-radius:.125em;background-color:#f27474}div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line][class$=left]{left:1.0625em;transform:rotate(45deg)}div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line][class$=right]{right:1em;transform:rotate(-45deg)}div:where(.swal2-icon).swal2-error.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-error.swal2-icon-show .swal2-x-mark{animation:swal2-animate-error-x-mark .5s}div:where(.swal2-icon).swal2-warning{border-color:#f8bb86;color:#f8bb86}div:where(.swal2-icon).swal2-warning.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-warning.swal2-icon-show .swal2-icon-content{animation:swal2-animate-i-mark .5s}div:where(.swal2-icon).swal2-info{border-color:#3fc3ee;color:#3fc3ee}div:where(.swal2-icon).swal2-info.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-info.swal2-icon-show .swal2-icon-content{animation:swal2-animate-i-mark .8s}div:where(.swal2-icon).swal2-question{border-color:#87adbd;color:#87adbd}div:where(.swal2-icon).swal2-question.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-question.swal2-icon-show .swal2-icon-content{animation:swal2-animate-question-mark .8s}div:where(.swal2-icon).swal2-success{border-color:#a5dc86;color:#a5dc86}div:where(.swal2-icon).swal2-success [class^=swal2-success-circular-line]{position:absolute;width:3.75em;height:7.5em;border-radius:50%}div:where(.swal2-icon).swal2-success [class^=swal2-success-circular-line][class$=left]{top:-0.4375em;left:-2.0635em;transform:rotate(-45deg);transform-origin:3.75em 3.75em;border-radius:7.5em 0 0 7.5em}div:where(.swal2-icon).swal2-success [class^=swal2-success-circular-line][class$=right]{top:-0.6875em;left:1.875em;transform:rotate(-45deg);transform-origin:0 3.75em;border-radius:0 7.5em 7.5em 0}div:where(.swal2-icon).swal2-success .swal2-success-ring{position:absolute;z-index:2;top:-0.25em;left:-0.25em;box-sizing:content-box;width:100%;height:100%;border:.25em solid rgba(165,220,134,.3);border-radius:50%}div:where(.swal2-icon).swal2-success .swal2-success-fix{position:absolute;z-index:1;top:.5em;left:1.625em;width:.4375em;height:5.625em;transform:rotate(-45deg)}div:where(.swal2-icon).swal2-success [class^=swal2-success-line]{display:block;position:absolute;z-index:2;height:.3125em;border-radius:.125em;background-color:#a5dc86}div:where(.swal2-icon).swal2-success [class^=swal2-success-line][class$=tip]{top:2.875em;left:.8125em;width:1.5625em;transform:rotate(45deg)}div:where(.swal2-icon).swal2-success [class^=swal2-success-line][class$=long]{top:2.375em;right:.5em;width:2.9375em;transform:rotate(-45deg)}div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-line-tip{animation:swal2-animate-success-line-tip .75s}div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-line-long{animation:swal2-animate-success-line-long .75s}div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-circular-line-right{animation:swal2-rotate-success-circular-line 4.25s ease-in}[class^=swal2]{-webkit-tap-highlight-color:rgba(0,0,0,0)}.swal2-show{animation:var(--swal2-show-animation)}.swal2-hide{animation:var(--swal2-hide-animation)}.swal2-noanimation{transition:none}.swal2-scrollbar-measure{position:absolute;top:-9999px;width:50px;height:50px;overflow:scroll}.swal2-rtl .swal2-close{margin-right:initial;margin-left:0}.swal2-rtl .swal2-timer-progress-bar{right:0;left:auto}.swal2-toast{box-sizing:border-box;grid-column:1/4 !important;grid-row:1/4 !important;grid-template-columns:min-content auto min-content;padding:1em;overflow-y:hidden;border:var(--swal2-toast-border);background:var(--swal2-background);box-shadow:var(--swal2-toast-box-shadow);pointer-events:auto}.swal2-toast>*{grid-column:2}.swal2-toast h2:where(.swal2-title){margin:.5em 1em;padding:0;font-size:1em;text-align:initial}.swal2-toast .swal2-loading{justify-content:center}.swal2-toast input:where(.swal2-input){height:2em;margin:.5em;font-size:1em}.swal2-toast .swal2-validation-message{font-size:1em}.swal2-toast div:where(.swal2-footer){margin:.5em 0 0;padding:.5em 0 0;font-size:.8em}.swal2-toast button:where(.swal2-close){grid-column:3/3;grid-row:1/99;align-self:center;width:.8em;height:.8em;margin:0;font-size:2em}.swal2-toast div:where(.swal2-html-container){margin:.5em 1em;padding:0;overflow:initial;font-size:1em;text-align:initial}.swal2-toast div:where(.swal2-html-container):empty{padding:0}.swal2-toast .swal2-loader{grid-column:1;grid-row:1/99;align-self:center;width:2em;height:2em;margin:.25em}.swal2-toast .swal2-icon{grid-column:1;grid-row:1/99;align-self:center;width:2em;min-width:2em;height:2em;margin:0 .5em 0 0}.swal2-toast .swal2-icon .swal2-icon-content{display:flex;align-items:center;font-size:1.8em;font-weight:bold}.swal2-toast .swal2-icon.swal2-success .swal2-success-ring{width:2em;height:2em}.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line]{top:.875em;width:1.375em}.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=left]{left:.3125em}.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=right]{right:.3125em}.swal2-toast div:where(.swal2-actions){justify-content:flex-start;height:auto;margin:0;margin-top:.5em;padding:0 .5em}.swal2-toast button:where(.swal2-styled){margin:.25em .5em;padding:.4em .6em;font-size:1em}.swal2-toast .swal2-success{border-color:#a5dc86}.swal2-toast .swal2-success [class^=swal2-success-circular-line]{position:absolute;width:1.6em;height:3em;border-radius:50%}.swal2-toast .swal2-success [class^=swal2-success-circular-line][class$=left]{top:-0.8em;left:-0.5em;transform:rotate(-45deg);transform-origin:2em 2em;border-radius:4em 0 0 4em}.swal2-toast .swal2-success [class^=swal2-success-circular-line][class$=right]{top:-0.25em;left:.9375em;transform-origin:0 1.5em;border-radius:0 4em 4em 0}.swal2-toast .swal2-success .swal2-success-ring{width:2em;height:2em}.swal2-toast .swal2-success .swal2-success-fix{top:0;left:.4375em;width:.4375em;height:2.6875em}.swal2-toast .swal2-success [class^=swal2-success-line]{height:.3125em}.swal2-toast .swal2-success [class^=swal2-success-line][class$=tip]{top:1.125em;left:.1875em;width:.75em}.swal2-toast .swal2-success [class^=swal2-success-line][class$=long]{top:.9375em;right:.1875em;width:1.375em}.swal2-toast .swal2-success.swal2-icon-show .swal2-success-line-tip{animation:swal2-toast-animate-success-line-tip .75s}.swal2-toast .swal2-success.swal2-icon-show .swal2-success-line-long{animation:swal2-toast-animate-success-line-long .75s}.swal2-toast.swal2-show{animation:var(--swal2-toast-show-animation)}.swal2-toast.swal2-hide{animation:var(--swal2-toast-hide-animation)}@keyframes swal2-show{0%{transform:translate3d(0, -50px, 0) scale(0.9);opacity:0}100%{transform:translate3d(0, 0, 0) scale(1);opacity:1}}@keyframes swal2-hide{0%{transform:translate3d(0, 0, 0) scale(1);opacity:1}100%{transform:translate3d(0, -50px, 0) scale(0.9);opacity:0}}@keyframes swal2-animate-success-line-tip{0%{top:1.1875em;left:.0625em;width:0}54%{top:1.0625em;left:.125em;width:0}70%{top:2.1875em;left:-0.375em;width:3.125em}84%{top:3em;left:1.3125em;width:1.0625em}100%{top:2.8125em;left:.8125em;width:1.5625em}}@keyframes swal2-animate-success-line-long{0%{top:3.375em;right:2.875em;width:0}65%{top:3.375em;right:2.875em;width:0}84%{top:2.1875em;right:0;width:3.4375em}100%{top:2.375em;right:.5em;width:2.9375em}}@keyframes swal2-rotate-success-circular-line{0%{transform:rotate(-45deg)}5%{transform:rotate(-45deg)}12%{transform:rotate(-405deg)}100%{transform:rotate(-405deg)}}@keyframes swal2-animate-error-x-mark{0%{margin-top:1.625em;transform:scale(0.4);opacity:0}50%{margin-top:1.625em;transform:scale(0.4);opacity:0}80%{margin-top:-0.375em;transform:scale(1.15)}100%{margin-top:0;transform:scale(1);opacity:1}}@keyframes swal2-animate-error-icon{0%{transform:rotateX(100deg);opacity:0}100%{transform:rotateX(0deg);opacity:1}}@keyframes swal2-rotate-loading{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}@keyframes swal2-animate-question-mark{0%{transform:rotateY(-360deg)}100%{transform:rotateY(0)}}@keyframes swal2-animate-i-mark{0%{transform:rotateZ(45deg);opacity:0}25%{transform:rotateZ(-25deg);opacity:.4}50%{transform:rotateZ(15deg);opacity:.8}75%{transform:rotateZ(-5deg);opacity:1}100%{transform:rotateX(0);opacity:1}}@keyframes swal2-toast-show{0%{transform:translateY(-0.625em) rotateZ(2deg)}33%{transform:translateY(0) rotateZ(-2deg)}66%{transform:translateY(0.3125em) rotateZ(2deg)}100%{transform:translateY(0) rotateZ(0deg)}}@keyframes swal2-toast-hide{100%{transform:rotateZ(1deg);opacity:0}}@keyframes swal2-toast-animate-success-line-tip{0%{top:.5625em;left:.0625em;width:0}54%{top:.125em;left:.125em;width:0}70%{top:.625em;left:-0.25em;width:1.625em}84%{top:1.0625em;left:.75em;width:.5em}100%{top:1.125em;left:.1875em;width:.75em}}@keyframes swal2-toast-animate-success-line-long{0%{top:1.625em;right:1.375em;width:0}65%{top:1.25em;right:.9375em;width:0}84%{top:.9375em;right:0;width:1.125em}100%{top:.9375em;right:.1875em;width:1.375em}}</style>
+    <script>
+
+        function getMsgY(msgid, msgtitle) {
+            Swal.fire({
+                title:"عذرا",
+                html: " بيانات الطالب الجامعيه غير مكتمله برجاء اكمال بيانات النزوح في تفاصيل العنوان والإتصال",
+                icon: 'error',
+                showCancelButton: false,
+                showconfirmButton: true,
+                confirmButtonText: 'انتقال'
+            }).then((result) => {
+                if (result.isConfirmed || result.isDismissed) {
+                    window.location.replace(
+                        window.location.origin + "/profile/student_info"
+                    );
+                    //window.location.replace("https://my.ucas.edu.ps/profile/student_info");
+                }
+            });
+        }
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $('.lines').click(function () {
+                //$('#navigation').toggle();
+            });
+            $('.has-submenu>a').click(function (event) {
+                event.stopPropagation();
+                $('.submenu').toggle();
+            });
+            $('.responsive_table').basictable();
+        });
+
+        $(document).ready(function () { // Add your event handlers inside ready block
+            $(".btn-noref").click(function (event) { // button event handler
+                event.preventDefault(); // prevent page from redirecting
+            });
+            $(".topbtn").each(function (index) {
+                var attr = $(this).attr('href');
+                var hclass = $(this).hasClass('fb');
+                var iframe = $(this).hasClass('fancybox.iframe');
+                var fancybox = $(this).hasClass('fancybox');
+                if ((typeof attr !== 'undefined' && attr !== false) || hclass || iframe || fancybox) {
+                } else {
+                    $(this).addClass("ChangeIt");
+                }
+            });
+        });
+    </script>
+    <script>
+        $(window).load(function () {
+            $('#loader').hide();
+        });
+    </script>
+
+    
+    <title>التسجيل الفصلي</title>
+    <style>
+        .fancybox-inner , .fancybox-outer {
+            min-width: 80% !important;
+            max-width: 100% !important;
+            width: 100% !important;
+        }
+        .ClassRoom,.ClassRoom:hover {
+            display: inline-block;
+            padding: 6px 12px 4px;
+            border-radius: 8px;
+            background: #000;
+            color: #fff;
+            cursor:pointer;
+        }
+        .ClassRoom.Active {
+            background: #009700 !important;
+        }
+        .ClassRoom.Active {
+            background: #009700 !important;
+        }
+        span.bt-content .delSub, td>span.bt-content p {
+            float: right;
+            margin-bottom: 4px;
+            width: 50%;
+        }
+            span.bt-content > a.btn {
+            width:100%;
+            }
+        span.bt-content {
+            min-width: 150px;
+        }
+        span.bt-content p img, span.bt-content a img {
+            float: right;
+            margin-left: 6px;
+            width: 16px;
+        }
+        
+.runnotify {
+    animation: mymove 4s infinite;
+}
+
+@keyframes mymove {
+  from {background-color: hsl(45deg 100% 51% / 50%);}
+  to {background-color: "#F8F8F8";}
+}
+
+    </style>
+    <script>
+        $(document).ready(function () {
+            function encodeHTML(str) {
+                return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+            }
+            $(".fb").fancybox({
+                padding: 0,
+                openEffect: 'elastic',
+                openSpeed: 250,
+                closeEffect: 'elastic',
+                width: '600px',
+                autoSize: false,
+                fitToView: false,
+                closeSpeed: 250
+            });
+            $(".fb2").fancybox({
+                padding: 0,
+                openEffect: 'elastic',
+                openSpeed: 250,
+                closeEffect: 'elastic',
+                closeSpeed: 250,
+                autoSize: false,
+                fitToView: false,
+                width: '600px',
+                type: 'iframe'
+            });
+            function loadBranch(SMTRNO, SUBNO) {
+                clearMsg();
+                $('#divBodyBranch').html('<div class="alert alert-info">' +
+                    '<img class="small_img d_right" src="/static/NewTemp/src/images/ajax-loader.gif" /><p>جاري عرض الشعب المتاحة</p> </div>');
+                $.ajax({
+                    type: "POST",
+                    url: "/WebService.asmx/Load_Subject_Branches",
+                    data: "{SMTRNO:" + SMTRNO + ",SUBNO:" + SUBNO + "}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        var result = response.d;
+                        if (result.length == 0) {
+                            $('#divHeadBranch').hide();
+                            $('#divBodyBranch').html('<div class="alert alert-info"> <p  class="c_orang">لا يوجد شعب متوفرة لهذا المساق</p></div>');
+                        }
+                        else {
+                            $('#divHeadBranch').show();
+                            var rows = '';
+
+                            $.each(result, function (index, res) {
+                                rows = rows + '' +
+                                    '<tr class="rowtds" id="reg' + res.SUB_NO + res.BRANCH_NO + '" data-type="' + res.BRANCH_PLACE_STATUS+'">' +
+                                        '<td class="hdnSUB_NO">' + res.SUB_NO + '</td>' +
+                                        '<td>' + res.BRANCH_NO + '</td>' +
+                                        '<td style="width:150px;">' + encodeHTML(res.DAYNAME) + '<span class="nomobile"> ' + encodeHTML(res.TIMETEXT) + ' </span></td>' +
+                                        '<td>' + encodeHTML(res.TRNAME) + '</td>' +
+                                    '<td>' + encodeHTML(res.PLACE_NO) + '</td>' +
+                                        '<td> <a class="rowlink c_green addSub"> <span>' + res.BRANCH_NO + '</span><img src="/static/NewTemp/src/icons/add.png" />اضافة</a> </td >' +
+                                    '</tr >';
+                            });
+
+                            $('#divBodyBranch').html(rows);
+                        }
+                    },
+                    error: function (msg) {
+                        $('#divHeadBranch').hide();
+                        $('#divBodyBranch').html('<div class="alert alert-info"><p  class="c_red">حدث خطأ غير متوقع الرجاء مراجعة القبول والتسجيل</p></div>');
+                    }
+                });
+            }
+
+            $('#btnAutoReg').click(function () {
+                var SMTRNO = $('#ContentPlaceHolder1_hdnSmtrNo').val();
+                clearMsg();
+
+                setMsg('divRegisteredMsg', 'جاري عملية تسجيل المساقات آليا', 4);
+                $.ajax({
+                    type: "POST",
+                    url: "/WebService.asmx/SET_STD_AUTO_REG",
+                    data: "{SMTRNO:" + SMTRNO + "}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        var result = response.d;
+
+                        if (result.item_obj.length > 0) {
+                            setMsg('divRegisteredMsg', 'تمت عملية تسجيل المساقات آليا بنجاح', 3);
+
+                            $('#ContentPlaceHolder1_MsgReg_divMsg').hide();
+                            var rows = '';
+
+                            $.each(result.item_obj, function (index, res) {
+                                rows = rows + '' +
+                                    '<tr class="rowtds" id="reg' + res.SUB_NO + res.BRANCH_NO + '">' +
+                                    '<td>' + res.SUBJECT_NO + '</td>' +
+                                    '<td class="subject_a_name">' + encodeHTML(res.SUBJECT_A_NAME) + ' </td>' +
+                                    '<td class="branch">' + res.BRANCH_NO + '</td>' +
+                                    '<td class="emp">' +
+                                    '<a class="rowlink fb2 fancybox.iframe" href="teacherinfo.aspx?t_no=' + res.EMP_NO + '"> ' + encodeHTML(res.TRNAME) + '</a> </td>' +
+                                    '<td>' +
+                                    res.CHANGE_BRANCH +
+                                    '<a class="rowlink c_red delSub" style="display: ' + (res.POD == '' ? 'none' : 'block') + '">' +
+                                    '<span class="subno">' + res.SUB_NO + '</span>' +
+                                    '<span class="deltype">' + (res.POD == 'سحب' ? 'pull' : 'del') + '</span>' +
+                                    '<span class="delmsg">' + 'هل انت متأكد من انك تريد ' + encodeHTML(res.POD) + ' مساق ' + encodeHTML(res.SUBJECT_A_NAME) + '؟' + '</span>' +
+                                    '<img src="/static/NewTemp/src/icons/Delete.png" />' + encodeHTML(res.POD) +
+                                    '</a>' +
+                                    '</td >' +
+                                    '</tr >';
+                            });
+                            //std_avg,avg_smtr,reg_hr,stdy_hrs,success_hrs
+                            getstdinfo(result.item_info);
+                            $('.divBodyRegistered').html(rows);
+                            $('#lnkSubCurr').click();
+                            $('#ContentPlaceHolder1_divNewSub').show();
+
+                        }
+                        else {
+                            var msg = 'عذرا لا يوجد مساقات متوفرة حاليا';
+                            if (result.item_msg != null) { 
+                                msg = result.item_msg;
+                            }
+                            setMsg('divRegisteredMsg', msg, 2);
+                        }
+                    },
+                    error: function (msg) {
+                        setMsg('divMsgBranch', 'حدث خطأ غير متوقع الرجاء مراجعة القبول والتسجيل', 2);
+                    }
+                });
+            });
+            function getstdinfo(d) {
+                $('.std_avg').html(d.std_avg);
+                $('.avg_smtr').html(d.avg_smtr);
+                $('.reg_hr').html(d.reg_hr);
+                $('.stdy_hrs').html(d.stdy_hrs);
+                $('.success_hrs').html(d.success_hrs);
+            }
+            function add_sub_branch(SMTRNO, SUBNO, BRANCHNO, EMP) {
+
+                clearMsg();
+                $.ajax({
+                    type: "POST",
+                    url: "/WebService.asmx/SET_STD_SUBJECT",
+                    data: "{SMTRNO:" + SMTRNO + ",SUBNO:" + SUBNO + ",BRANCHNO:" + BRANCHNO + "}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        var result = response.d;
+
+                        if (result.item_msg == 'PASS') {
+                            setMsg('divRegisteredMsg', 'تمت عملية اضافة المساق بنجاح', 3);
+
+                            $('#ContentPlaceHolder1_MsgReg_divMsg').hide();
+                            var rows = '';
+
+                            $.each(result.item_obj, function (index, res) {
+
+                                rows = rows + '' +
+                                    '<tr class="rowtds" id="reg' + res.SUB_NO + res.BRANCH_NO + '">' +
+                                    '<td>' + res.SUBJECT_NO + '</td>' +
+                                    '<td class="subject_a_name">' + encodeHTML(res.SUBJECT_A_NAME) + ' </td>' +
+                                    '<td class="branch">' + res.BRANCH_NO + '</td>' +
+                                    '<td class="emp">' +
+                                    '<a class="rowlink fb2 fancybox.iframe" href="teacherinfo.aspx?t_no=' + res.EMP_NO + '">'+encodeHTML(res.TRNAME)+'</a></td>' +
+                                    '<td ></td >' +
+                                    '<td>' +
+                                    res.CHANGE_BRANCH +
+                                    '<a class="rowlink c_red delSub" style="display: ' + (res.POD == '' ? 'none' : 'block') + '">' +
+                                    '<span class="subno">' + res.SUB_NO + '</span>' +
+                                    '<span class="deltype">' + (res.POD == 'سحب' ? 'del' : 'pull') + '</span>' +
+                                    '<span class="delmsg">' + 'هل انت متأكد من انك تريد ' + encodeHTML(res.POD) + ' مساق ' + encodeHTML(res.SUBJECT_A_NAME) + '؟' + '</span>' +
+                                    '<img src="/static/NewTemp/src/icons/Delete.png" />' + encodeHTML(res.POD) +
+                                    '</a>' +
+                                    '</td >' +
+                                    '</tr >';
+                            });
+
+                            $('.divBodyRegistered').html(rows);
+                            $.fancybox.close();
+
+                            getstdinfo(result.item_info);
+                            notify("reg" + SUBNO + BRANCHNO);
+                        }
+                        else {
+                            //SMTRNO, SUBNO, BRANCHNO, EMP
+                            var ermsg = '<span>' + result.item_msg + '</span>';
+                            if (result.item_no != -1)
+                                ermsg += ' <a class="btn_blue btn_sm d_left btnRegCase" data-caseid="' + result.item_no + '"\
+                                data-subno="' + SUBNO + '" data-branchno="' + BRANCHNO + '">تقديم قضية</a>';
+                            setMsg('divMsgBranch', ermsg, 2);
+                        }
+                    },
+                    error: function (msg) {
+                        setMsg('divMsgBranch', 'حدث خطأ غير متوقع الرجاء مراجعة القبول والتسجيل', 2);
+                    }
+                });
+            }
+            function notify(row) {
+                $("#" + row).addClass('runnotify');
+            }
+
+
+            function getSubjects(t, SMTRNO) {
+                var url = "/WebService.asmx/GET_STD_AVALIABLE_SUBJECT";
+                var data = "{SMTRNO:" + SMTRNO + "}";
+
+                if (t == 2) {
+                    url = "/WebService.asmx/GET_SUBJECT";
+                    data = "{SMTRNO:" + SMTRNO + ",SEARCH:'" + $('#ContentPlaceHolder1_txtsub').val() + "'}";
+                }
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        var result = response.d;
+                        if (result.length == 0 || result == null) {
+                            $('#divSubjectsHead').hide();
+                            setMsg('divSubjectsMsg', 'لاتوجد مساقات متاحة لهذا الفصل', 5);
+                        }
+                        else {
+                            $('#divSubjectsHead').show();
+                            var rows = '';
+                            var notes = '';
+                            //if (1 = 1)
+                            notes = 'هذا المساق يحتوي على شعبة تعليم مدمج برقم (181/ 281) الذي يساعد الطلبة على حل مشكلة الغياب عن المحاضرات بسبب ظرف خاص أو تعارض في المساقات وذلك من خلال حضور 30% فقط من المحاضرات والحصول على باقي المحاضرات مصورة فيديو عبر القناة التعليمية الخاصة بالكلية على موقع اليوتيوب، لمزيد من التفاصيل يمكن الرجوع لمكتب التعليم المدمج A301'
+                            $.each(result, function (index, res) {
+
+                                rows = rows + '' +
+                                    '<tr class="rowtd" id="rowav' + res.SUB_NO + '">' +
+                                        '<td>' + res.SUBJECT_NO + '</td>' +
+                                        '<td class="subject_a_name">' + encodeHTML(res.SUBJECT_A_NAME) + ' </td>' +
+                                        '<td class="branch">' + encodeHTML(res.SUB_TYPE) + '</td>' +
+                                        '<td><a class="btn btn-info selectSub">' +
+                                            '<span class="hidden">' + res.SUB_NO + '</span>' +
+                                    '<i class="fa fa-check-circle" aria-hidden="true"></i> تسجيل</a>' +
+                                    '<div id="rowavs' + res.SUB_NO + '" class="hid alert alert-info w100m">' + notes + '</div>'+
+                                    '<a href="#rowavs' + res.SUB_NO + '" id="btn_rowavs" class="btn-m btn btn-circle btn-blue ml-1 w100m"><i class="fas fa-info-circle"></i></a>'+
+                                        '</td >' +
+                                    '</tr >';
+                            });
+
+                            $('#divBodySubjects').html(rows);
+
+                            $('#divSubjectsMsg').html("");
+                        }
+                    },
+                    error: function (msg) {
+                        $('#divSubjectsHead').hide();
+                        setMsg('divSubjectsMsg', 'حدث خطأ غير متوقع الرجاء مراجعة القبول والتسجيل', 2);
+                    }
+                });
+            }
+
+            $("#btn_rowavs").fancybox();
+            $("#keys_exam_btn").fancybox();
+
+            function clearMsg() {
+                $('#divMsgBranch').hide();
+                $('#divRegisteredMsg').hide();
+                $('#divSubjectsMsg').hide();
+                $('#divApplyCaseMsg').hide();
+            }
+            $(document).on('click', '.selectSub', function (e) {
+                clearMsg();
+                $('#divRegisteredMsg').html("");
+                var SMTRNO = $('#ContentPlaceHolder1_hdnSmtrNo').val();
+                var SUBNO = $(this).find('span').html();
+                $('#ContentPlaceHolder1_hdnRow').val($(this).parent().parent().attr("id"));
+                $.fancybox.open({ href: "#divBranch" }, {
+                    padding: 0,
+                    autoSize: false,
+                    fitToView: false,
+                    openEffect: 'elastic',
+                    openSpeed: 250,
+                    closeEffect: 'elastic',
+                    width: '600px',
+                    closeSpeed: 250
+                });
+
+                loadBranch(SMTRNO, SUBNO);
+            });
+            $('#divBodyBranch').on('click', '.addSub', function (e) {
+                var SMTRNO = $('#ContentPlaceHolder1_hdnSmtrNo').val();
+                var SUBNO = $(this).parent().parent().find('.hdnSUB_NO').html();
+                var BRANCHNO = $(this).find('span').html();
+                var EMP = $(this).parent().parent().find('.emp').html();
+                var btptype = $(this).closest('tr').data('type');
+                if (btptype == "N") {
+                    for (let i = 1; i <= 3; i++) {
+                        if (!confirm(`تحذير ${i}/3: انت تحاول التسجيل بشعبة تختلف عن مكان نزوحك`)) {
+                            return;
+                        }
+                    }
+                }
+                clearMsg();
+                setMsg('divMsgBranch', 'جاري عملية الإضافة', 4);
+                add_sub_branch(SMTRNO, SUBNO, BRANCHNO, EMP);
+            });
+
+            $('body').on('click', '.delSub', function (e) {
+                $('#divRegisteredMsg').html("");
+                var SMTRNO = $('#ContentPlaceHolder1_hdnSmtrNo').val();
+                var SUBNO = $(this).find('.subno').html();
+                var msg = $(this).find('.delmsg').html();
+                var deltype = $(this).find('.deltype').html();
+                var delName = deltype == "del" ? "سحب" : "انسحاب";
+                var subject_a_name = $(this).parent().parent().find('.subject_a_name').html();
+                if (!confirm(msg))
+                    return;
+                setMsg('divRegisteredMsg', 'جاري عملية ' + delName + ' مساق ' + subject_a_name, 4);
+                $('#ContentPlaceHolder1_hdnRow').val($(this).parent().parent().attr("id"));
+                $.ajax({
+                    type: "POST",
+                    url: "/WebService.asmx/PULL_SUBJECT",
+                    data: "{del:'" + deltype + "',SMTRNO:" + SMTRNO + ",SUBNO:" + SUBNO + "}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.d.item_msg == 'PASS') {
+                            setMsg('divRegisteredMsg', 'تمت عملية ' + delName + ' مساق ' + subject_a_name + ' بنجاح ', 3);
+                            $('#' + $('#ContentPlaceHolder1_hdnRow').val()).remove();
+                            getstdinfo(response.d.item_info);
+                        }
+                        else {
+                            console.log(response.d.item_msg);
+                            setMsg('divRegisteredMsg', response.d.item_msg, 2);
+                        }
+                    },
+                    error: function (msg) {
+                        setMsg('divRegisteredMsg', 'حدث خطأ غير متوقع الرجاء مراجعة القبول والتسجيل', 2);
+                    }
+                });
+            });
+
+            $('#divBranch').on('click', '.btnRegCase', function (e) {
+                clearMsg();
+                //setMsg('divMsgBranch', 'جاري عملية تقديم قضية تسجيل', 4);
+                var smtrno = $('#ContentPlaceHolder1_hdnSmtrNo').val();
+                var caseid = $(this).data('caseid');
+                var subno = $(this).data('subno');
+                var branchno = $(this).data('branchno');
+                var casemsg = $(this).parent().find('span').html();
+                $.fancybox.open({ href: "#divApplyCase" }, {
+                    padding: 0,
+                    autoSize: false,
+                    fitToView: false,
+                    openEffect: 'elastic',
+                    openSpeed: 250,
+                    closeEffect: 'elastic',
+                    width: '600px',
+                    closeSpeed: 250
+                });
+                $('#txtCaseDetail').val(casemsg);
+                $('.ApplyCase').show();
+                $('#btnApplyCase').attr('data-smtrno', smtrno).attr('data-caseid', caseid).attr('data-subno', subno).attr('data-branchno', branchno);
+                $.ajax({
+                    type: "POST",
+                    url: "/WebService.asmx/GET_REG_CASE_REASON",
+                    data: "{ REG_CASENO: " + caseid + " }",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+
+                        //$('#divApplyCase').find('.ApplyCase').show();
+                        //$('#divApplyCase').find('.ApplyCase').show();
+                        console.log(response.d);
+                        var result = response.d.item_obj;
+                        if (result) {
+                            var option = '<option value="">اختر سبب</option>';
+                            $.each(result, function (index, res) {
+                                option += '<option value="' + res.item_value + '">' + res.item_text + '</option>';
+                            });
+                            $('#ddlCaseReason').html(option);
+                        }
+                        else
+                            //$('#divApplyCase').find('.ApplyCase').hide();
+                            //$('#divApplyCase').find('.ApplyCase').hide();
+                            $('#ddlCaseReason').html('<option value="">لاتوجد أسباب لهذه القضية</option>');
+                        ////txtCaseDetail,divApplyCase,
+                        $('#ddlCaseReason').prop('disabled', false);
+                    },
+                    error: function (jqXHR) {
+                        $('#ddlCaseReason').prop('disabled', false);
+                        setMsg('divApplyCaseMsg', jQuery.parseJSON(jqXHR.responseText).Message, 2);
+                    }
+                });
+                //setMsg('divMsgBranch', 'تم تقديم القضية بنجاح،، سيتم دراسة الطلب', 3);
+
+                //$('#divBodyBranch').html('<div class="row c_bg_info loader"><p>قضايا التسجيل يتم دراستها في قسم القبول والتسجيل والرد عليها وسيتم ابلاغكم عن طريق خدمات الطلبة</p></div>');
+                //$.ajax({
+                //    type: "POST",
+                //    url: "/WebService.asmx/applyCase",
+                //    data: "{SMTRNO:" + SMTRNO + ",CASENO:" + caseid + ",CASETEXT:'" + casemsg + "'}",
+                //    contentType: "application/json; charset=utf-8",
+                //    dataType: "json",
+                //    success: function (response) {
+                //        if (response.d == 'PASS') {
+                //            setMsg('divMsgBranch', 'تم تقديم القضية بنجاح،، سيتم دراسة الطلب', 3);
+                //        }
+                //        else {
+                //            setMsg('divRegisteredMsg', response.d, 2);
+                //        }
+                //    },
+                //    error: function (msg) {
+                //        setMsg('divRegisteredMsg', 'حدث خطأ غير متوقع الرجاء مراجعة القبول والتسجيل', 2);
+                //    }
+                //});
+            });
+
+            $('body').on('click', '#btnApplyCase', function (e) {
+                var smtrno = $(this).data('smtrno');
+                var caseid = $(this).data('caseid');
+                var subno = $(this).data('subno');
+                var branchno = $(this).data('branchno');
+                $.ajax({
+                    type: "POST",
+                    url: "/WebService.asmx/applyCase",
+                    data: "{SMTRNO:" + smtrno + ",CASENO:" + caseid + ",SUBNO:'" + subno + "'\
+                        ,BRANCHNO:" + branchno + ",CaseDetail:'" + $('#txtCaseDetail').val() + "',CaseReason:" + $('#ddlCaseReason').val() + "}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.d == 'PASS') {
+                            setMsg('divApplyCaseMsg', 'تم تقديم القضية بنجاح،، سيتم دراسة الطلب', 3);
+                        }
+                        else {
+                            setMsg('divApplyCaseMsg', response.d, 2);
+                        }
+
+                        $('.ApplyCase').hide();
+                    },
+                    error: function (msg) {
+                        setMsg('divApplyCaseMsg', 'حدث خطأ غير متوقع الرجاء مراجعة القبول والتسجيل', 2);
+                    }
+                });
+            });
+
+            $('#lnkSubCurr').click(function () {
+                $('#divBodySubjects').html("");
+                $('#divSubjectsHead').hide();
+                setMsg('divSubjectsMsg', 'جاري تحميل المساقات المتاحة حاليا', 4);
+                var SMTRNO = $('#ContentPlaceHolder1_hdnSmtrNo').val();
+                getSubjects(1, SMTRNO);
+            });
+            $('#lnkSubSearch').click(function () {
+                $('#divBodySubjects').html("");
+                $('#divSubjectsHead').hide();
+                var txt = $('#ContentPlaceHolder1_txtsub').val();
+                var SMTRNO = $('#ContentPlaceHolder1_hdnSmtrNo').val();
+                if (txt == "") {
+                    setMsg('divSubjectsMsg', 'أدخل اسم المساق أو جزء منه أو رقم المساق!', 2);
+                    return;
+                }
+                setMsg('divSubjectsMsg', 'جاري البحث عن ' + txt, 4);
+                getSubjects(2, SMTRNO);
+            });
+
+            $('#ContentPlaceHolder1_txtsub').keypress(function (e) {
+                if (e.which == 13) {
+                    e.preventDefault();
+                    $('#lnkSubSearch').click();
+                }
+            });
+            function setMsg(div, msg, type) {
+                var color = "";
+                var img = "";
+                if (type == 1) {
+                    color = "c_orang";
+                    img = "Orange.png";
+                }
+                if (type == 2) {
+                    color = "c_red";
+                    img = "error.png";
+                }
+                if (type == 3) {
+                    color = "c_green";
+                    img = "accept.png";
+                }
+                if (type == 4) {
+                    color = "";
+                    img = "ajax-loader.gif";
+                }
+                if (type == 5) {
+                    color = "c_blue";
+                    img = "info.png";
+                }
+                $('#' + div).show();
+                $('#' + div).html('<div class="alert alert-info"><img src="/static/NewTemp/src/icons/' + img + '" class="small_img d_right">' +
+                    '<p class="msg ' + color + '">' + msg + '</p></div>');
+
+            }
+            $('body').on('click', '.sendcode', function (e) {
+                var smtrno = $('#ContentPlaceHolder1_hdnSmtrNo').val();
+                var stdno = $('#ContentPlaceHolder1_hdstdno').val();
+                var subno = $(this).data('subno');
+                var x = $(this);
+                $.ajax({
+                    type: "POST",
+                    url: "/WebService.asmx/SEND_SUBJECT_CODE",
+                    data: "{SMTRNO:" + smtrno + ",STDNO:" + stdno + ",SUB_NO:" + subno + "}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.d == 1) {
+                            setMsg('divApplyCaseMsg', 'تم إرسال رمز الامتحان بنجاح', 3);
+                            x.attr("disabled", "disabled");
+                            x.text("تم إرسال رمز الامتحان ");
+
+                        }
+                        else {
+                            setMsg('divApplyCaseMsg', response.d, 2);
+                        }
+                    },
+                    error: function (msg) {
+                        setMsg('divApplyCaseMsg', 'حدث خطأ غير متوقع ', 2);
+                    }
+                });
+            });
+            function hide(div) {
+                $('#' + div).html("");
+            }
+
+            $('#lnkSubCurr').click();
+        });
+
+    </script>
+
+    <style>
+        .col-sm-3.has_valid:before,
+        .col-sm-4.has_valid:before,
+        .col-sm-5.has_valid:before,
+        .col-sm-6.has_valid:before,
+        .col-sm-7.has_valid:before,
+        .col-sm-8.has_valid:before,
+        .col-sm-9.has_valid:before,
+        .col-sm-10.has_valid:before,
+        .col-sm-11.has_valid:before,
+        .col-sm-12.has_valid:before,
+        .col-sm-1.has_valid:before,
+        .col-sm-2.has_valid:before{
+            left:17px;
+        }
+        .redColor{
+            color: red !important;
+        }
+        span.reqspan:before , .has_valid:before {
+            content: "";
+            background-image: url(../NewTemp/src/icons/req.png);
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 10px;
+            height: 10px;
+            position: absolute;
+            left: 2px;
+            top: 2px;
+            background-size: contain;
+        }
+        span.reqspan {
+            float: left;
+            position: relative;
+        }
+        .lblEmail{
+            cursor:pointer;
+        }
+        .swal2-html-container, button.swal2-confirm.swal2-styled {
+            font-family: Fon !important;
+        }
+    </style>
+
+<style type="text/css">.fancybox-margin{margin-right:0px;}</style></head>
+<body class="webstyle-light">
+    <div id="loader" style="display: none;">
+        <div class="loader"></div>
+    </div>
+    <!-- Navigation Bar-->
+    <header id="topnav" class="light">
+
+        <!-- Topbar Start -->
+        <div class="navbar-custom">
+            <div class="container-fluid">
+                <ul class="list-unstyled topnav-menu float-right mb-0">
+
+                    <li class="dropdown notification-list">
+                        <!-- Mobile menu toggle-->
+                        <a class="navbar-toggle nav-link">
+                            <div class="lines">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </a>
+                        <!-- End mobile menu toggle-->
+                    </li>
+
+                    <li id="notifys_New" class="dropdown notification-list notifys_New">
+                        <a class="nav-link dropdown-toggle waves-effect" id="notifys_link" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            <i class="fe-bell noti-icon"></i>
+                            <span id="notify_number" class="badge badge-danger rounded-circle noti-icon-badge">0</span>
+                        </a>
+                        
+                        <div class="dropdown-menu dropdown-menu-right dropdown-lg" id="notify-dropdown">
+                            <!-- item-->
+                            <div class="dropdown-item noti-title">
+                                <h5 class="m-0">
+                                    <span class="float-right">
+                                        
+                                    </span>التنبيهات
+                                </h5>
+                            </div>
+
+                            <div class="slimscroll noti-scroll" id="notList">
+                                
+                                        <a href="#" class="dropdown-item notify-item fb fancybox.iframe active">
+                                            <p class="">القبول والتسجيل</p>
+                                            <p class="text-muted mb-0 user-msg">
+                                                <small>رابط القضايا الطلابية </small>
+                                            </p>
+                                        </a>
+                                    
+                                
+                                
+                            </div>
+
+                            <!-- All-->
+                            
+                        </div>
+                    </li>
+
+                    <li class="dropdown notification-list">
+                        <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            <img src="/static/NewTemp/src/images/fotlogo.png" alt="user-image" class="rounded-circle">
+                            <span class="pro-user-name ml-1">
+                                عبدالله محمد أحمد سالم <i class="mdi mdi-chevron-down"></i>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                            <!-- item-->
+
+                            <!-- item-->
+                            
+
+                            <!-- item-->
+                            <a href="#" class="dropdown-item notify-item">
+                                <i class="fe-settings"></i>
+                                <span>بياناتي</span>
+                            </a>
+
+                            <!-- item-->
+                            <a href="/profile/change_password" class="dropdown-item notify-item">
+                                <i class="fe-lock"></i>
+                                <span>تغير كلمه المرور</span>
+                            </a>
+
+                            <div class="dropdown-divider"></div>
+
+                            <!-- item-->
+                            
+                            <!-- item-->
+                            <a href="/logout" class="dropdown-item notify-item">
+                                <i class="fe-log-out"></i>
+                                <span>تسجيل الخروج</span>
+                            </a>
+
+
+                        </div>
+                    </li>
+                    <li class="dropdown notification-list">
+                        <a href="javascript:void(0);" class="nav-link waves-effect dark_btn_change light">
+                            <i class="mdi mdi-white-balance-sunny"></i>
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- LOGO -->
+                <div class="logo-box">
+                    <a href="/home" class="logo text-center">
+                        <span class="logo-lg">
+                            <img src="/static/NewTemp/src/images/logo-dark.png" alt="" height="55">
+                            <!-- <span class="logo-lg-text-light">UBold</span> -->
+                        </span>
+                        <span class="logo-sm">
+                            <!-- <span class="logo-sm-text-dark">U</span> -->
+                            <img src="/static/NewTemp/src/images/logo-sm.png" alt="" height="50">
+                        </span>
+                    </a>
+                </div>
+
+            </div>
+            <!-- end container-fluid-->
+        </div>
+        <!-- end Topbar -->
+
+        <div class="topbar-menu">
+            <div class="container-fluid">
+                <div id="navigation" class="active">
+                    <!-- Navigation Menu-->
+                    <ul class="navigation-menu in">
+
+                        <li>
+                            <a href="/home"><i class="mdi mdi-view-dashboard"></i>الرئيسية</a>
+                        </li>
+                        
+                                <li class="has-submenu active">
+                                    <a id="M1" class="menulnk active" href="/Registration">القبول و التسجيل</a>
+
+                                    
+                                    <ul class="submenu in">
+                                        
+                                                <li>
+                                                    <a id="M18" title="تمكين الطالب من الاطلاع على خطته الدراسية" href="/Registration/study_plan">الخطة الدراسية</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M49" title="المساقات المسجلة للفصل الدراسي الحالي والفصول السابقة." href="/Registration/Registered_Subjects">المساقات المسجلة</a>
+                                                </li>
+                                            
+                                                <li class="active">
+                                                    <a id="M9" title="تسجيل المساقات في الفصل الدراسي و السحب و الإضافة و تغيير الشعب" href="/Registration/semester_registration" class="active">التسجيل الفصلي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M10" title="يوضح الجدول الدراسي للطالب بالتفصيل الأيام و المواعيد و المساقات و الشعب" href="/Registration/semester_table">الجدول التفصيلي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M12" title="تحتوي على الأجندة الفصلية مثل بدء الدراسة و التسجيل و السحب و الإضافة" href="/Registration/academic_calendar">التقويم الأكاديمي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M57" title="تحتوي على جدول مواعيد الامتحانات النهائية." href="/Registration/exams_schedule">جدول الإمتحانات</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M19" title="عبارة عن جدول بدرجات الطالب مصنفة حسب الفصول الدراسية." href="/Registration/transcript">كشف الدرجات</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M25" title="تحتوي على مساقات الطالب المسجلة حاليا وتوصيفها" href="/Registration/course_descriptions">توصيف المساقات</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M208" title="للتسجيل في امتحانات المستوى مثل امتحان مستوى اللغة الانجليزية وامتحان مستوى القراءن وغيرها." href="#">تقديم لامتحانات المستوى</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M248" title="لاستعراض المواد والمساقات التي تم طرحها في الفصل الحالي , كذلك الفصلص القادم." href="/Registration/semester_subjects">المواد لهذا الفصل</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu">
+                                    <a id="M2" class="menulnk" href="/profile">ملف الطالب</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                                <li>
+                                                    <a id="M15" title="تمكين الطالب من تغيير كلمة المرور الخاصة به" href="/profile/change_password">تغيير كلمة المرور</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M48" title="يقوم الطالب بتعبئة بيانات طلب اقرار خريج حتى تتحول حالته الى خريج اذا كانت بياناته صحيحة." href="/profile/graduate_allowance_form">اقرار خريج</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M20" title="عبارة عن سجلات مالية تخص الطالب بحيث يعرف الطالب تاريخ الدفعات التي قام بها وتاريخ المستحقات لكل فصل دراسي" href="/profile/financial_profile">الملف المالي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M21" title="يتعرف الطالب من خلالها على مرشده المالي ويتلقى الرسائل التي يرسلها مرشده المالي." href="/profile/financial_advisor">المرشد المالي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M22" title="يتعرف الطالب من خلالها على مرشده الاكاديمي ويتلقى الرسائل التي يرسلها مرشده." href="/profile/academic_advisor">المرشد الأكاديمي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M16" title="تفعيل البريد الالكتروني وفحص حالة البريد." href="/profile/email">البريد الإلكتروني</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M17" title="قم من هذه الصفحة بمراجعة بياناتك واحرص ان تكون جميع بياناتك الاساسية سليمة وصحيحة." href="/profile/student_info">بيانات الطالب</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M288" title="للاستعلام عن المنح والقروض الخاصة بالطالب حسب الفصل." href="/profile/discounts_gifts">المنح والقروض</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M328" title="للاستعلام عن المنح والقروض المقدمة من التعليم العالي- برنامج إقراض." href="/profile/Iqrad">قروض التعليم العالي</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu">
+                                    <a id="M4" class="menulnk" href="/personal_apps">الطلبات الشخصية</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                                <li>
+                                                    <a id="M28" title="في حال اردت طلب مساعدة لتغطية الرسوم الدراسية او الحصول على منحة يمكنك استخدام هذه الصفحة لتعبئة بياناتك." href="/personal_apps/assistance_request">البحث الاجتماعي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M29" title="تمكين الطالب من استلام درجاته للمساقات المسجلة للفصل الحالي فور اعتمادها." href="#">إشتراك الرسائل القصيرة</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M150" title="تحتوي على طلبات الإفادات التي ممكن أن يحتاجها الطال مثل شهادة القيد و إفادة خريج." href="/personal_apps/Student_Informs">الإفادات</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M317" title="الذهاب الى حساب دريم سبارك" href="/personal_apps/UserVerification">حساب دريم سبارك</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu">
+                                    <a id="M5" class="menulnk" href="/issues_and_applications">القضايا و الطلبات</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                                <li>
+                                                    <a id="M32" title="من هنا يمكنك تقديم طلب احتساب من مئة او طلب غير مكتمل او طلب مراجعة لاي مساق من مساقات المسجلة لهذا الفصل." href="/issues_and_applications/courses_applications">طلبات المساقات</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M108" title="من هنا يمكنك تقديم طلب تأجيل الفصل الدراسي الحالي" href="/issues_and_applications/postponement">طلب تأجيل فصل</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M109" title="من هنا يمكنك تقديم طلب إعادة قيد الفصل الدراسي الحالي" href="/issues_and_applications/re_under">طلب إعادة قيد</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M168" title="استخدم هذه الصفحة لتحويل تخصصك الحالي الى تخصص اخر." href="/issues_and_applications/dept_trans">طلب تحويل تخصص</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M31" title="قضايا التسجيل" href="/issues_and_applications/registration_issues">قضايا التسجيل</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu">
+                                    <a id="M6" class="menulnk" href="/evaluation">تقييم المساقات</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                                <li>
+                                                    <a id="M44" title="تقييم الطالب للمساقات" href="/evaluation/teacher_eval">تقييم المساقات</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu">
+                                    <a id="M7" class="menulnk" href="/questionnair">استبانات عامة</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                                <li>
+                                                    <a id="M45" title="قائمة الاستبانات الحالية" href="/questionnair/general_questionnaires">استبانات عامة</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu last-elements">
+                                    <a id="M8" class="menulnk" href="/library">المكتبة</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                                <li>
+                                                    <a id="M47" title="يمكنك من هنا الحصول على نماذج الامتحانات لمساقات الفصل الحالي." href="/library/examinations_samples">نماذج الامتحانات</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M46" title="الاطلاع على الكتب المستعارة من المكتبة كما ويمكنه تجديد الاستعارة" href="/library/borrowed_books">الكتب المستعارة</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu last-elements">
+                                    <a id="M999" class="menulnk" href="#">برامج الطلبة</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                    </ul>
+                                    
+                                </li>
+                            
+
+
+
+
+                    </ul>
+                    <!-- End navigation menu -->
+
+                    <div class="clearfix"></div>
+                </div>
+                <!-- end #navigation -->
+            </div>
+            <!-- end container -->
+        </div>
+        <!-- end navbar-custom -->
+
+    </header>
+    <!-- End Navigation Bar-->
+
+    <div class="wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-12 col-md-12">
+                    <div class="card-box widget-user">
+                        <div>
+                            <div class="avatar-lg float-left mr-3">
+                                <img src="/static/NewTemp/src/images/fotlogo.png" style="width: 72px !important; height: 72px;" class="img-fluid rounded-circle" alt="user">
+                            </div>
+                            <div class="wid-u-info">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h5 id="lblStudentName" class="mt-2 font-18">عبدالله محمد أحمد سالم</h5>
+                                        <p id="lblStudentNo" class="text-muted mb-1 font-16 text-truncate">200000000</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="pull-left plfef float-right">
+                                            <small class="text-info"><b>التخصص :</b>
+                                                <span id="lblSpecial">أمن المعلومات</span>
+                                            </small>
+                                            <small class="text-info"><b>القسم :</b>
+                                                <span id="lblTaw_College">قسم هندسة الحاسوب - دبلوم متوسط</span>
+                                            </small>
+                                            <small class="text-info"><b>العمادة:</b>
+                                                <span id="lblDean">عمادة الهندسة والنظم الذكية</span>
+                                            </small>
+                                            <small id="smallEmail" class="text-info"><b>البريد :</b>
+                                                <span id="lblEmail" title="اضغط هنا لنسخ البريد الالكتروني" class="lblEmail">200000000@smail.ucas.edu.ps</span>
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="ADVISOR_DIV" class="col-xl-12 col-md-12">
+                    <div class="card-box">
+                        <h4>بيانات المرشد</h4>
+                        <div class="wid-u-info">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <small class="text-info"><b>الاسم  :</b>
+                                        <span id="ADVISOR_NAME">أحمد محمد المرشد</span>
+                                    </small>
+                                </div>
+                                <div class="col-md-4">
+                                    <small class="text-info"><b>القسم  :</b>
+                                        <span id="ADVISOR_DEPT_NAME">أمن المعلومات</span>
+                                    </small>
+                                </div>
+                                <div class="col-md-4">
+                                    <small class="text-info"><b>البريد الالكتروني :</b>
+                                        <span id="ADVISOR_MAIL">advisor@ucas.edu.ps</span>
+                                    </small>
+                                </div>
+                                <div class="col-md-4">
+                                    <small class="text-info"><b>رقم الواتس  :</b>
+                                        <span id="ADVISOR_WHATSAPP_NO">970599000000</span>
+                                    </small>
+                                </div>
+                                <div class="col-md-4">
+                                    <small class="text-info"><b>ساعات التواصل :</b>
+                                        <span id="TimeCon" class="redColor">من الساعة 9:00 صباحاً حتى 3:00 مساءً</span>
+                                    </small>
+                                </div>
+                                <div id="NOTES_div" class="col-md-12">
+                                    <small class="text-info"><b>الملاحظات  :</b>
+                                        <span id="NOTES">م. أحمد المرشد – مرشد دبلوم أمن المعلومات (طلاب وطالبات)</span>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- end row -->
+
+            <form method="post" action="#" id="form1">
+<div class="aspNetHidden">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="">
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="">
+<input type="hidden" name="__LASTFOCUS" id="__LASTFOCUS" value="">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['form1'];
+if (!theForm) {
+    theForm = document.form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="96CA8610">
+	<input type="hidden" name="__VIEWSTATEENCRYPTED" id="__VIEWSTATEENCRYPTED" value="">
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="rEnBJW+KTl3J14PXWd0Td2riHuC72Bh8rd8xerSc4jCuRbICJH+QaBzojd6GKud+GMG6CrnVN8Lsd3oHscejvDeXomicNldg1aU5bpTngaJ7wlcasaWBPSv52EAT588ImCklVrx3F9nfyXrH8oNpZcS5sfMJ1VlvRhSQgwFRPB6Y4MZib6tONqeDZEnAtz4WayO0bZdsItVzS/tIXDy8DPqaM33CiJbvM/eqHIk5D0gaUlxcA41PKZXTJs1rMxDMcVkRdUf2L//BKNo6/e721NnH8ti3Sop/uRczL9AR4GQaDmClLErGQjA7x3DcyRiY9cLsDn/gp2oEiNEHqYI7jBt5RvVlG/64p0H7HCzojIvtYou27VywmFiDWF0wcW3hqFt15YyfqFu69yRpWK9r1DgtejCrrY4u1SkmpMhoU8glel7Xeudhd6K9Q3Pka2wCX01By+o6pp+XJTNBxxkIKc7VX8wFASiNpgAWEDnK4i9aEToVHyAa2z9r/a5WCJkuTh81h4d0Gz6dsIydn3ARXfVb6P5PtelPvXIhWhi04QNpXqXNYpnh4ekDxT9QpYMNF6SR8TLiTs+c9tMFbSrCDpBMxVbYCcmuHDfgou2SVg26ihWnJbYF/8ebjMxuvkDdB3fgHaO9zYfenPppsMi0dB+a0n7vQF77EvgNDUgFfPOMt7HYcvkaXvLvQFPSKhMywUzs1oJMsCtr+yhX6yVHEnMAqu1S/Wiw3UWwLGTsALbGmykqovWdVf1ikua3dLIgrAul2a2r8bWJdJGNNzRVQeBFPA7RrV/ppSUXMq/0OjCVhMDpdQVS6mnKJAzItANzzFh2BJXK5F/dvZ5LHICpKt3kX5zxKtg0yqTFqdJws90/6WHCoYonmof+WtPno614mET4+1nYsQSXLkmx7oGbzbGyojwqYk/xxBVU3nf50XyWGb9G6XUe2qQwJYTy7mmfx8kSDRuJMTdJYqLrbNGCz8XbzebY1b49Dj/jCMgkb4dCsrqTaOPJPx9JfMSdQJ40A4EwWS6/lqnoJ369zDcpTfrOPPl6gmq5+jm7K0I2ABwEBPuy2OdFa0Ks0Wbo0HXhFrxH25so0EY7ke8PO9N7JY6u55SLxqgm4O2I3PcXTD3/Ql2ZKAngb2JpXKE3WnJPczulymXqZk1g93VmrCvjSpw14a+E/p5bEFx/aqW0CTArhSlw2RDng8+pPxiCzSN0Ihm7UE5ec1jr2hjntMvK0iLHsRctucn3bfhne3h++T1coSekbsIKSxDTPd6VPlVPtic4V7wFRL0v8pqQgmzIAHYl8bPQQIRAvHBiOeMBhLfJ8NWqyXvpzeJMm6GVvmoXkQRuB2O/+2w7QZmIDdbCWN8yopN27DR5kuGvGvEtTlaWnDSdZM4s8dKDcjEnfO1CZYSIuWTebevUUTWiVNsujPkHJVG9hWtRVNOyD+FXMUuH8H2cmymR5l3XQUJDegyCHHa1iv3VtQycQ4UZGUCcR86IyZMkuG2WgZJGkgj83Ioq8Unm78LABB9vPaH4v3KsfQqHksfYOaQYTN/LttKbD3DVuRaBLQuKmC8GmzcsN8N3kMFtGwEk1j+MOynV/8Qz84bCvCyFFRKXC8FYFUl10P9BNCBHlLsXBjXjbiQhP4GPR6GV25imkKrXfq55KQkg9RIaYRuM3jntDzXUBXoZtas+KpAPIP43paGaRy0q2pG0n9FBmG+7ll9p/gbAPCTK29T8as/xjfAVayOlw6XqwEroLQ0irgj7mF5Xrs2iZHb1fwkrVVEwUTLSj1kdN5PWtamVARo2i6MNOYhNAxU1xA==">
+</div>
+                
+                
+                
+    
+
+    <input type="hidden" name="ctl00$ContentPlaceHolder1$hdnSmtrNo" id="ContentPlaceHolder1_hdnSmtrNo" value="20262">
+    <input type="hidden" name="ctl00$ContentPlaceHolder1$hdnSmtrName" id="ContentPlaceHolder1_hdnSmtrName" value="التسجيل في  الفصل الدراسي الثاني للعام الجامعي 2025-2026">
+    <input type="hidden" name="ctl00$ContentPlaceHolder1$hdnRow" id="ContentPlaceHolder1_hdnRow" value="0">
+    <input type="hidden" name="ctl00$ContentPlaceHolder1$hdstdno" id="ContentPlaceHolder1_hdstdno" value="200000000">
+    <input type="hidden" name="ctl00$ContentPlaceHolder1$HiddenField1" id="ContentPlaceHolder1_HiddenField1" value="0">
+    <div class="card-box">
+        <h4 class="header-title">التسجيل الفصلي</h4>
+        <div class="card-boxs">
+            <div class="form-group row">
+                <label class="col-sm-3  col-form-label">حدد الفصل الدراسي الذي تود التسجيل  فيه.</label>
+                <div class="col-sm-6">
+                    <select name="ctl00$ContentPlaceHolder1$drp_SMTRS" onchange="javascript:setTimeout('__doPostBack(\'ctl00$ContentPlaceHolder1$drp_SMTRS\',\'\')', 0)" id="ContentPlaceHolder1_drp_SMTRS" class="form-control w100m" style="width: 350px;max-width:100%;">
+	<option value="20241"> الفصل الدراسي الأول للعام الجامعي 2024-2025</option>
+	<option value="20251"> الفصل الدراسي الأول للعام الجامعي 2025-2026</option>
+	<option value="20253"> الفصل الدراسي الصيفي للعام الجامعي 2024-2025</option>
+	<option value="20261"> الفصل الدراسي الأول للعام الجامعي 2026/2027</option>
+	<option selected="selected" value="20262"> الفصل الدراسي الثاني للعام الجامعي 2025-2026</option>
+	<option value="20263"> الفصل الدراسي الصيفي للعام الجامعي 2025-2026</option>
+
+</select>
+                </div>
+                <div class="col-sm-3">
+                    <a class="btn btn-success fb mb-mobil w100m" href="#divAcad" style="float:left;margin-right: 20px;">
+                        <img src="/static/NewTemp/src/icons/calender.png">عرض التقويم الأكاديمي</a>
+                </div>
+            </div>
+        </div>
+        <div class="card-boxs">
+            <h4 class="header-title">المساقات المسجلة</h4>
+            <div id="divRegisteredMsg"></div>
+            
+
+            <div class="card-boxs">
+                <div class="table-responsive">
+                    <table class="table responsive_table mb-0">
+                        <thead>
+                            <tr class="bg-info text-white">
+                                <td>رقم المساق</td>
+                                <td>اسم المساق</td>
+                                <td>الشعبة</td>
+                                <td>اسم المدرس</td>
+                                
+                                <td>طبيعة الإمتحان</td>
+                                <td>كلاس روم</td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody id="ContentPlaceHolder1_div_results" class="divBodyRegistered">
+                            
+
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl00$hfstudentNo" id="ContentPlaceHolder1_rptRegisteredSubjects_hfstudentNo_0" value="200000000">
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl00$hfTeacherNo" id="ContentPlaceHolder1_rptRegisteredSubjects_hfTeacherNo_0" value="1210">
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl00$hfSubNo" id="ContentPlaceHolder1_rptRegisteredSubjects_hfSubNo_0" value="7624">
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl00$hfBranchNo" id="ContentPlaceHolder1_rptRegisteredSubjects_hfBranchNo_0" value="301">
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl00$hfIsClassRoom" id="ContentPlaceHolder1_rptRegisteredSubjects_hfIsClassRoom_0" value="Y">
+
+                                    <tr class="rowtd" id="reg7624301">
+                                        <td data-th="رقم المساق"><span class="bt-content">DNET 2309</span></td>
+                                        <td class="subject_a_name" data-th="اسم المساق"><span class="bt-content">
+                                            أمن الشبكات
+                                            
+                                        </span></td>
+                                        <td class="branch" data-th="الشعبة"><span class="bt-content">301</span></td>
+                                        <td class="emp" data-th="اسم المدرس"><span class="bt-content">
+                                            <a class="rowlink fb2 fancybox.iframe" href="teacherinfo.aspx?t_no=QY+wGix65Tk=">
+                                                عيد عدنان عيد الآغا 
+                                            </a>
+                                        </span></td>
+                                        
+                                        <td href="#keys_exam" id="keys_exam_btn" class="color-danger a_center  " data-th="طبيعة الإمتحان"><span class="bt-content">
+                                            
+                                        </span></td>
+                                        <td data-th="كلاس روم"><span class="bt-content">
+                                            <a onclick="if(!confirm('هل أنت متأكد من اضافة او ازالة الكلاس روم؟')) return false; $('#loader').show();" id="ContentPlaceHolder1_rptRegisteredSubjects_activeClass_0" class="ClassRoom Active" href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl00$activeClass','')">ازالة الكلاس روم</a>
+                                        </span></td>
+                                        <td data-th=""><span class="bt-content">
+                                            
+                                            <a class="rowlink c_red delSub" style="display: block">
+                                                <span class="subno">7624</span>
+                                                <span class="deltype">del</span>
+                                                <span class="delmsg">هل انت متأكد من انك تريد إنسحاب مساق أمن الشبكات؟</span>
+                                                <img src="/static/NewTemp/src/icons/Delete.png">إنسحاب
+                                            </a>
+                                            
+                                            
+                                            <a id="ContentPlaceHolder1_rptRegisteredSubjects_LinkButton1_0" class="btn-sm btn btn-success a_center" href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl00$LinkButton1','')"> إدخال الحضور</a>
+                                            
+                                        </span></td>
+                                    </tr>
+                                
+
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl01$hfstudentNo" id="ContentPlaceHolder1_rptRegisteredSubjects_hfstudentNo_1" value="200000000">
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl01$hfTeacherNo" id="ContentPlaceHolder1_rptRegisteredSubjects_hfTeacherNo_1" value="5428">
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl01$hfSubNo" id="ContentPlaceHolder1_rptRegisteredSubjects_hfSubNo_1" value="16209">
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl01$hfBranchNo" id="ContentPlaceHolder1_rptRegisteredSubjects_hfBranchNo_1" value="101">
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl01$hfIsClassRoom" id="ContentPlaceHolder1_rptRegisteredSubjects_hfIsClassRoom_1" value="Y">
+
+                                    <tr class="rowtd" id="reg16209101">
+                                        <td data-th="رقم المساق"><span class="bt-content">ISSE 5319</span></td>
+                                        <td class="subject_a_name" data-th="اسم المساق"><span class="bt-content">
+                                            القرصنة الأخلاقية
+                                            
+                                        </span></td>
+                                        <td class="branch" data-th="الشعبة"><span class="bt-content">101</span></td>
+                                        <td class="emp" data-th="اسم المدرس"><span class="bt-content">
+                                            <a class="rowlink fb2 fancybox.iframe" href="teacherinfo.aspx?t_no=VrYe+ESEa6s=">
+                                                عبد الرحمن حمدي سلمان معمر 
+                                            </a>
+                                        </span></td>
+                                        
+                                        <td href="#keys_exam" id="keys_exam_btn" class="color-danger a_center  " data-th="طبيعة الإمتحان"><span class="bt-content">
+                                            
+                                        </span></td>
+                                        <td data-th="كلاس روم"><span class="bt-content">
+                                            <a onclick="if(!confirm('هل أنت متأكد من اضافة او ازالة الكلاس روم؟')) return false; $('#loader').show();" id="ContentPlaceHolder1_rptRegisteredSubjects_activeClass_1" class="ClassRoom Active" href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl01$activeClass','')">ازالة الكلاس روم</a>
+                                        </span></td>
+                                        <td data-th=""><span class="bt-content">
+                                            
+                                            <a class="rowlink c_red delSub" style="display: block">
+                                                <span class="subno">16209</span>
+                                                <span class="deltype">del</span>
+                                                <span class="delmsg">هل انت متأكد من انك تريد إنسحاب مساق القرصنة الأخلاقية؟</span>
+                                                <img src="/static/NewTemp/src/icons/Delete.png">إنسحاب
+                                            </a>
+                                            
+                                            
+                                            <a id="ContentPlaceHolder1_rptRegisteredSubjects_LinkButton1_1" class="btn-sm btn btn-success a_center" href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl01$LinkButton1','')"> إدخال الحضور</a>
+                                            
+                                        </span></td>
+                                    </tr>
+                                
+
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl02$hfstudentNo" id="ContentPlaceHolder1_rptRegisteredSubjects_hfstudentNo_2" value="200000000">
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl02$hfTeacherNo" id="ContentPlaceHolder1_rptRegisteredSubjects_hfTeacherNo_2" value="5471">
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl02$hfSubNo" id="ContentPlaceHolder1_rptRegisteredSubjects_hfSubNo_2" value="25402">
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl02$hfBranchNo" id="ContentPlaceHolder1_rptRegisteredSubjects_hfBranchNo_2" value="301">
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl02$hfIsClassRoom" id="ContentPlaceHolder1_rptRegisteredSubjects_hfIsClassRoom_2" value="Y">
+
+                                    <tr class="rowtd" id="reg25402301">
+                                        <td data-th="رقم المساق"><span class="bt-content">SYBS 1302</span></td>
+                                        <td class="subject_a_name" data-th="اسم المساق"><span class="bt-content">
+                                            الوعي المجتمعي والهندسة الاجتماعية
+                                            
+                                        </span></td>
+                                        <td class="branch" data-th="الشعبة"><span class="bt-content">301</span></td>
+                                        <td class="emp" data-th="اسم المدرس"><span class="bt-content">
+                                            <a class="rowlink fb2 fancybox.iframe" href="teacherinfo.aspx?t_no=Op+zyvs/9gM=">
+                                                محمود غازي صالح الجمل 
+                                            </a>
+                                        </span></td>
+                                        
+                                        <td href="#keys_exam" id="keys_exam_btn" class="color-danger a_center  " data-th="طبيعة الإمتحان"><span class="bt-content">
+                                            
+                                        </span></td>
+                                        <td data-th="كلاس روم"><span class="bt-content">
+                                            <a onclick="if(!confirm('هل أنت متأكد من اضافة او ازالة الكلاس روم؟')) return false; $('#loader').show();" id="ContentPlaceHolder1_rptRegisteredSubjects_activeClass_2" class="ClassRoom Active" href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl02$activeClass','')">ازالة الكلاس روم</a>
+                                        </span></td>
+                                        <td data-th=""><span class="bt-content">
+                                            
+                                            <a class="rowlink c_red delSub" style="display: block">
+                                                <span class="subno">25402</span>
+                                                <span class="deltype">del</span>
+                                                <span class="delmsg">هل انت متأكد من انك تريد إنسحاب مساق الوعي المجتمعي والهندسة الاجتماعية؟</span>
+                                                <img src="/static/NewTemp/src/icons/Delete.png">إنسحاب
+                                            </a>
+                                            
+                                            
+                                            <a id="ContentPlaceHolder1_rptRegisteredSubjects_LinkButton1_2" class="btn-sm btn btn-success a_center" href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl02$LinkButton1','')"> إدخال الحضور</a>
+                                            
+                                        </span></td>
+                                    </tr>
+                                
+
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl03$hfstudentNo" id="ContentPlaceHolder1_rptRegisteredSubjects_hfstudentNo_3" value="200000000">
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl03$hfTeacherNo" id="ContentPlaceHolder1_rptRegisteredSubjects_hfTeacherNo_3" value="5307">
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl03$hfSubNo" id="ContentPlaceHolder1_rptRegisteredSubjects_hfSubNo_3" value="25409">
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl03$hfBranchNo" id="ContentPlaceHolder1_rptRegisteredSubjects_hfBranchNo_3" value="101">
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl03$hfIsClassRoom" id="ContentPlaceHolder1_rptRegisteredSubjects_hfIsClassRoom_3" value="Y">
+
+                                    <tr class="rowtd" id="reg25409101">
+                                        <td data-th="رقم المساق"><span class="bt-content">SYBS 2306</span></td>
+                                        <td class="subject_a_name" data-th="اسم المساق"><span class="bt-content">
+                                            أمن نظم تشغيل متقدم
+                                            
+                                        </span></td>
+                                        <td class="branch" data-th="الشعبة"><span class="bt-content">101</span></td>
+                                        <td class="emp" data-th="اسم المدرس"><span class="bt-content">
+                                            <a class="rowlink fb2 fancybox.iframe" href="teacherinfo.aspx?t_no=GLPz3sgI0DQ=">
+                                                محمد جهاد عوض الله احمد 
+                                            </a>
+                                        </span></td>
+                                        
+                                        <td href="#keys_exam" id="keys_exam_btn" class="color-danger a_center  " data-th="طبيعة الإمتحان"><span class="bt-content">
+                                            
+                                        </span></td>
+                                        <td data-th="كلاس روم"><span class="bt-content">
+                                            <a onclick="if(!confirm('هل أنت متأكد من اضافة او ازالة الكلاس روم؟')) return false; $('#loader').show();" id="ContentPlaceHolder1_rptRegisteredSubjects_activeClass_3" class="ClassRoom Active" href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl03$activeClass','')">ازالة الكلاس روم</a>
+                                        </span></td>
+                                        <td data-th=""><span class="bt-content">
+                                            
+                                            <a class="rowlink c_red delSub" style="display: block">
+                                                <span class="subno">25409</span>
+                                                <span class="deltype">del</span>
+                                                <span class="delmsg">هل انت متأكد من انك تريد إنسحاب مساق أمن نظم تشغيل متقدم؟</span>
+                                                <img src="/static/NewTemp/src/icons/Delete.png">إنسحاب
+                                            </a>
+                                            
+                                            
+                                            <a id="ContentPlaceHolder1_rptRegisteredSubjects_LinkButton1_3" class="btn-sm btn btn-success a_center" href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl03$LinkButton1','')"> إدخال الحضور</a>
+                                            
+                                        </span></td>
+                                    </tr>
+                                
+
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl04$hfstudentNo" id="ContentPlaceHolder1_rptRegisteredSubjects_hfstudentNo_4" value="200000000">
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl04$hfTeacherNo" id="ContentPlaceHolder1_rptRegisteredSubjects_hfTeacherNo_4" value="5429">
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl04$hfSubNo" id="ContentPlaceHolder1_rptRegisteredSubjects_hfSubNo_4" value="25412">
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl04$hfBranchNo" id="ContentPlaceHolder1_rptRegisteredSubjects_hfBranchNo_4" value="301">
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl04$hfIsClassRoom" id="ContentPlaceHolder1_rptRegisteredSubjects_hfIsClassRoom_4" value="Y">
+
+                                    <tr class="rowtd" id="reg25412301">
+                                        <td data-th="رقم المساق"><span class="bt-content">SYBS 2201</span></td>
+                                        <td class="subject_a_name" data-th="اسم المساق"><span class="bt-content">
+                                            التدريب الميداني
+                                            
+                                        </span></td>
+                                        <td class="branch" data-th="الشعبة"><span class="bt-content">301</span></td>
+                                        <td class="emp" data-th="اسم المدرس"><span class="bt-content">
+                                            <a class="rowlink fb2 fancybox.iframe" href="teacherinfo.aspx?t_no=wk1puFB5r3w=">
+                                                أحمد محمد المرشد 
+                                            </a>
+                                        </span></td>
+                                        
+                                        <td href="#keys_exam" id="keys_exam_btn" class="color-danger a_center  " data-th="طبيعة الإمتحان"><span class="bt-content">
+                                            
+                                        </span></td>
+                                        <td data-th="كلاس روم"><span class="bt-content">
+                                            <a onclick="if(!confirm('هل أنت متأكد من اضافة او ازالة الكلاس روم؟')) return false; $('#loader').show();" id="ContentPlaceHolder1_rptRegisteredSubjects_activeClass_4" class="ClassRoom Active" href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl04$activeClass','')">ازالة الكلاس روم</a>
+                                        </span></td>
+                                        <td data-th=""><span class="bt-content">
+                                            
+                                            <a class="rowlink c_red delSub" style="display: block">
+                                                <span class="subno">25412</span>
+                                                <span class="deltype">del</span>
+                                                <span class="delmsg">هل انت متأكد من انك تريد إنسحاب مساق التدريب الميداني؟</span>
+                                                <img src="/static/NewTemp/src/icons/Delete.png">إنسحاب
+                                            </a>
+                                            
+                                            
+                                            <a id="ContentPlaceHolder1_rptRegisteredSubjects_LinkButton1_4" class="btn-sm btn btn-success a_center" href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl04$LinkButton1','')"> إدخال الحضور</a>
+                                            
+                                        </span></td>
+                                    </tr>
+                                
+
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl05$hfstudentNo" id="ContentPlaceHolder1_rptRegisteredSubjects_hfstudentNo_5" value="200000000">
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl05$hfTeacherNo" id="ContentPlaceHolder1_rptRegisteredSubjects_hfTeacherNo_5" value="0">
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl05$hfSubNo" id="ContentPlaceHolder1_rptRegisteredSubjects_hfSubNo_5" value="25413">
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl05$hfBranchNo" id="ContentPlaceHolder1_rptRegisteredSubjects_hfBranchNo_5" value="101">
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl05$hfIsClassRoom" id="ContentPlaceHolder1_rptRegisteredSubjects_hfIsClassRoom_5" value="N">
+
+                                    <tr class="rowtd" id="reg25413101">
+                                        <td data-th="رقم المساق"><span class="bt-content">SYBS 2202</span></td>
+                                        <td class="subject_a_name" data-th="اسم المساق"><span class="bt-content">
+                                            مشروع تخرج
+                                            
+                                        </span></td>
+                                        <td class="branch" data-th="الشعبة"><span class="bt-content">101</span></td>
+                                        <td class="emp" data-th="اسم المدرس"><span class="bt-content">
+                                            <a class="rowlink fb2 fancybox.iframe" href="teacherinfo.aspx?t_no=uqP+RN3kR40=">
+                                                5252 
+                                            </a>
+                                        </span></td>
+                                        
+                                        <td href="#keys_exam" id="keys_exam_btn" class="color-danger a_center  " data-th="طبيعة الإمتحان"><span class="bt-content">
+                                            
+                                        </span></td>
+                                        <td data-th="كلاس روم"><span class="bt-content">
+                                            <a onclick="if(!confirm('هل أنت متأكد من اضافة او ازالة الكلاس روم؟')) return false; $('#loader').show();" id="ContentPlaceHolder1_rptRegisteredSubjects_activeClass_5" class="ClassRoom NotActive" href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl05$activeClass','')">اضعط لاضافة الكلاس روم</a>
+                                        </span></td>
+                                        <td data-th=""><span class="bt-content">
+                                            
+                                            <a class="rowlink c_red delSub" style="display: block">
+                                                <span class="subno">25413</span>
+                                                <span class="deltype">del</span>
+                                                <span class="delmsg">هل انت متأكد من انك تريد إنسحاب مساق مشروع تخرج؟</span>
+                                                <img src="/static/NewTemp/src/icons/Delete.png">إنسحاب
+                                            </a>
+                                            
+                                            
+                                            <a id="ContentPlaceHolder1_rptRegisteredSubjects_LinkButton1_5" class="btn-sm btn btn-success a_center" href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl05$LinkButton1','')"> إدخال الحضور</a>
+                                            
+                                        </span></td>
+                                    </tr>
+                                
+
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl06$hfstudentNo" id="ContentPlaceHolder1_rptRegisteredSubjects_hfstudentNo_6" value="200000000">
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl06$hfTeacherNo" id="ContentPlaceHolder1_rptRegisteredSubjects_hfTeacherNo_6" value="1210">
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl06$hfSubNo" id="ContentPlaceHolder1_rptRegisteredSubjects_hfSubNo_6" value="25822">
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl06$hfBranchNo" id="ContentPlaceHolder1_rptRegisteredSubjects_hfBranchNo_6" value="101">
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl06$hfIsClassRoom" id="ContentPlaceHolder1_rptRegisteredSubjects_hfIsClassRoom_6" value="Y">
+
+                                    <tr class="rowtd" id="reg25822101">
+                                        <td data-th="رقم المساق"><span class="bt-content">DINF 1315</span></td>
+                                        <td class="subject_a_name" data-th="اسم المساق"><span class="bt-content">
+                                             شبكات متقدمة
+                                            
+                                        </span></td>
+                                        <td class="branch" data-th="الشعبة"><span class="bt-content">101</span></td>
+                                        <td class="emp" data-th="اسم المدرس"><span class="bt-content">
+                                            <a class="rowlink fb2 fancybox.iframe" href="teacherinfo.aspx?t_no=QY+wGix65Tk=">
+                                                عيد عدنان عيد الآغا 
+                                            </a>
+                                        </span></td>
+                                        
+                                        <td href="#keys_exam" id="keys_exam_btn" class="color-danger a_center  " data-th="طبيعة الإمتحان"><span class="bt-content">
+                                            
+                                        </span></td>
+                                        <td data-th="كلاس روم"><span class="bt-content">
+                                            <a onclick="if(!confirm('هل أنت متأكد من اضافة او ازالة الكلاس روم؟')) return false; $('#loader').show();" id="ContentPlaceHolder1_rptRegisteredSubjects_activeClass_6" class="ClassRoom Active" href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl06$activeClass','')">ازالة الكلاس روم</a>
+                                        </span></td>
+                                        <td data-th=""><span class="bt-content">
+                                            
+                                            <a class="rowlink c_red delSub" style="display: block">
+                                                <span class="subno">25822</span>
+                                                <span class="deltype">del</span>
+                                                <span class="delmsg">هل انت متأكد من انك تريد إنسحاب مساق  شبكات متقدمة؟</span>
+                                                <img src="/static/NewTemp/src/icons/Delete.png">إنسحاب
+                                            </a>
+                                            
+                                            
+                                            <a id="ContentPlaceHolder1_rptRegisteredSubjects_LinkButton1_6" class="btn-sm btn btn-success a_center" href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl06$LinkButton1','')"> إدخال الحضور</a>
+                                            
+                                        </span></td>
+                                    </tr>
+                                
+
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl07$hfstudentNo" id="ContentPlaceHolder1_rptRegisteredSubjects_hfstudentNo_7" value="200000000">
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl07$hfTeacherNo" id="ContentPlaceHolder1_rptRegisteredSubjects_hfTeacherNo_7" value="5912">
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl07$hfSubNo" id="ContentPlaceHolder1_rptRegisteredSubjects_hfSubNo_7" value="27661">
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl07$hfBranchNo" id="ContentPlaceHolder1_rptRegisteredSubjects_hfBranchNo_7" value="101">
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl07$hfIsClassRoom" id="ContentPlaceHolder1_rptRegisteredSubjects_hfIsClassRoom_7" value="Y">
+
+                                    <tr class="rowtd" id="reg27661101">
+                                        <td data-th="رقم المساق"><span class="bt-content">DINF 1215</span></td>
+                                        <td class="subject_a_name" data-th="اسم المساق"><span class="bt-content">
+                                            شبكات متقدمة (عملي)
+                                            
+                                        </span></td>
+                                        <td class="branch" data-th="الشعبة"><span class="bt-content">101</span></td>
+                                        <td class="emp" data-th="اسم المدرس"><span class="bt-content">
+                                            <a class="rowlink fb2 fancybox.iframe" href="teacherinfo.aspx?t_no=OE51Wzt1kcI=">
+                                                عبدالجواد سمير قديح شحادة 
+                                            </a>
+                                        </span></td>
+                                        
+                                        <td href="#keys_exam" id="keys_exam_btn" class="color-danger a_center  " data-th="طبيعة الإمتحان"><span class="bt-content">
+                                            
+                                        </span></td>
+                                        <td data-th="كلاس روم"><span class="bt-content">
+                                            <a onclick="if(!confirm('هل أنت متأكد من اضافة او ازالة الكلاس روم؟')) return false; $('#loader').show();" id="ContentPlaceHolder1_rptRegisteredSubjects_activeClass_7" class="ClassRoom Active" href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl07$activeClass','')">ازالة الكلاس روم</a>
+                                        </span></td>
+                                        <td data-th=""><span class="bt-content">
+                                            
+                                            <a class="rowlink c_red delSub" style="display: block">
+                                                <span class="subno">27661</span>
+                                                <span class="deltype">del</span>
+                                                <span class="delmsg">هل انت متأكد من انك تريد إنسحاب مساق شبكات متقدمة (عملي)؟</span>
+                                                <img src="/static/NewTemp/src/icons/Delete.png">إنسحاب
+                                            </a>
+                                            
+                                            
+                                            <a id="ContentPlaceHolder1_rptRegisteredSubjects_LinkButton1_7" class="btn-sm btn btn-success a_center" href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$rptRegisteredSubjects$ctl07$LinkButton1','')"> إدخال الحضور</a>
+                                            
+                                        </span></td>
+                                    </tr>
+                                
+                        </tbody>
+                        <tfoot>
+                            <tr class="bg-success text-white noresponsive">
+                                <td colspan="5" data-th="رقم المساق"><span class="bt-content">
+                                    ساعات مسجلة: <span class="reg_hr mr-5">21</span><b></b>
+                                    ساعات دراسة: <span class="stdy_hrs mr-5">43</span><b></b>
+                                    ساعات نجاح: <span class="success_hrs mr-5">43</span><b></b>
+                                </span></td>
+                                <td style="text-align:left;" data-th="اسم المساق"><span class="bt-content">المعدل التراكمي: <span class="std_avg">87.93%</span></span></td>
+                                <td style="text-align:left;" data-th="الشعبة"><span class="bt-content">المعدل الفصلي: <span class="avg_smtr">%</span></span></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <br>
+                
+
+                <br>
+                <div class="row">
+                    <div class="col-md-4 col-offset-8">
+                        <div id="keys_exam" class="alert alert-info form-horizontal hid">
+                            <div class="form-group">
+                                
+                                
+                                    <table class="table  hover">
+                                        <thead class="">
+                                            <tr>
+                                                <th class="text-center" colspan="2"><strong>مفتاح طبيعة الإمتحان</strong></th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody class="">
+                                            <tr>
+                                                <td class="color-primary text-center"><strong>A</strong></td>
+                                                <td class="color-primary text-center">مساق مشمول بالتعليم الإلكتروني و له تقييم إلكتروني</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="color-success text-center"><strong>B</strong></td>
+                                                <td class="color-success text-center ">مساق مشمول بالتعليم الإلكتروني و تقييمه يؤجل لاحقا</td>
+                                            </tr>
+                                            <tr>
+                                                <td class=" color-danger text-center"><strong>C</strong></td>
+                                                <td class=" color-danger text-center ">مساق غير مشمول و يعوض لاحقا</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div style="display: none;">
+        <div id="divBranch" class="block d_right" style="margin: 0 !important;">
+            <div class="card-box">
+                <h4 class="header-title">شعب المساق</h4>
+                <div id="divMsgBranch"></div>
+                <div class="table-responsive">
+                    <table class="table mb-0">
+                        <thead id="divHeadBranch">
+                            <tr class="bg-info text-white">
+                                <th>الشعبة</th>
+                                <th>المواعيد</th>
+                                <th>المدرس</th>
+                                <th>المكان</th>
+                                <th>الاجراء</th>
+                            </tr>
+                        </thead>
+                        <tbody class="showbransh" id="divBodyBranch">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="divApplyCase" class="block" style="margin: 0 !important;">
+            <div class="card-box">
+                <h4 class="header-title">تقديم قضية</h4>
+                <div id="divApplyCaseMsg"></div>
+                <div class="form-group row ApplyCase">
+                    <p class="col-sm-2  col-form-label">السبب</p>
+                    <div class="col-sm-10">
+                        <select class="form-control" id="ddlCaseReason">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row ApplyCase">
+                    <p class="col-sm-2  col-form-label">تفاصيل</p>
+                    <div class="col-sm-10">
+                        <textarea id="txtCaseDetail" class="form-control" style="width: 98%; height: 130px" maxlength="2000">                        </textarea>
+                    </div>
+                </div>
+                <div class="block-footer">
+                    <a id="btnApplyCase" class="btn btn-danger btn_orange ApplyCase">تقديم القضية</a>
+                </div>
+            </div>
+        </div>
+        <div id="divAcad" class="block" style="margin: 0 !important;">
+            <div class="card-box">
+                <h4 class="header-title">التقويم الفصلي الحالي</h4>
+                <div class="table-responsive">
+                    <table class="table mb-0 noresponsive">
+                        
+                                <thead>
+                                    <tr class="bg-success text-white">
+                                        <th>البيان</th>
+                                        <th>التاريخ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                            
+                                <tr>
+                                    <td>بداية التسجيل</td>
+                                    <td>17/02/2026</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td>بداية الدراسة</td>
+                                    <td>18/04/2026</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td>بداية السحب و الإضافة</td>
+                                    <td>18/04/2026</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td>نهاية الإضافة</td>
+                                    <td>21/05/2026</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td>انتهاء السحب</td>
+                                    <td>22/05/2026</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td>انتهاء التسجيل</td>
+                                    <td>15/04/2026</td>
+                                </tr>
+                            
+                                </tbody>
+                            
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade autoclosemodal" id="model-addatteend" data-animation="fadein" tabindex="-1" role="dialog" aria-labelledby="إضافة حضور للمحاضرات الإلكترونية" aria-hidden="true">
+        <div class="modal-dialog modal-lg" "="">
+            <div class="modal-content">
+                <div class="modal-header  no-margin">
+                    <h4 class="modal-title" id="lblBookEditHeader">إضافة حضور</h4>
+                    <button type="button" class="close d_left" data-dismiss="modal" aria-hidden="true">×</button>
+                    
+                </div>
+                <div class="modal-body">
+                    <div class="rowheader">
+                        <p class="btn btn-info btn-block">أيام الأسبوع </p>
+                    </div>
+                    <div class="card-box">
+                        <input type="hidden" name="ctl00$ContentPlaceHolder1$hdn_sub_no" id="ContentPlaceHolder1_hdn_sub_no">
+                        <input type="hidden" name="ctl00$ContentPlaceHolder1$hdn_branch_no" id="ContentPlaceHolder1_hdn_branch_no">
+                        <p class="d_left" style="width: 100%;"> 
+                            </p><table id="ContentPlaceHolder1_cblist" class="radioButtonList" style="width: 100%;">
+	<tbody><tr>
+		<td><div class="icheckbox_square-red checkbox" aria-checked="false" aria-disabled="false" style="position: relative;"><input id="ContentPlaceHolder1_cblist_0" type="checkbox" name="ctl00$ContentPlaceHolder1$cblist$0" value="" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div></td><td><div class="icheckbox_square-red checkbox" aria-checked="false" aria-disabled="false" style="position: relative;"><input id="ContentPlaceHolder1_cblist_1" type="checkbox" name="ctl00$ContentPlaceHolder1$cblist$1" value="" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div></td><td><div class="icheckbox_square-red checkbox" aria-checked="false" aria-disabled="false" style="position: relative;"><input id="ContentPlaceHolder1_cblist_2" type="checkbox" name="ctl00$ContentPlaceHolder1$cblist$2" value="" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div></td><td><div class="icheckbox_square-red checkbox" aria-checked="false" aria-disabled="false" style="position: relative;"><input id="ContentPlaceHolder1_cblist_3" type="checkbox" name="ctl00$ContentPlaceHolder1$cblist$3" value="" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div></td><td><div class="icheckbox_square-red checkbox" aria-checked="false" aria-disabled="false" style="position: relative;"><input id="ContentPlaceHolder1_cblist_4" type="checkbox" name="ctl00$ContentPlaceHolder1$cblist$4" value="" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div></td><td><div class="icheckbox_square-red checkbox" aria-checked="false" aria-disabled="false" style="position: relative;"><input id="ContentPlaceHolder1_cblist_5" type="checkbox" name="ctl00$ContentPlaceHolder1$cblist$5" value="" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div></td><td><div class="icheckbox_square-red checkbox" aria-checked="false" aria-disabled="false" style="position: relative;"><input id="ContentPlaceHolder1_cblist_6" type="checkbox" name="ctl00$ContentPlaceHolder1$cblist$6" value="" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div></td>
+	</tr>
+</tbody></table>
+                            
+                        <p></p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-default" data-dismiss="modal">إلغاء</a>
+                    <a id="ContentPlaceHolder1_btnSaveStdattend" autopostback="true" class="btn btn-primary btnSaveStdattend " href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$btnSaveStdattend','')"><i class="fa fa-save "></i> حفظ</a>
+                    
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+                <!-- end page title -->
+            </form>
+        </div>
+    </div>
+
+
+
+    <!-- Footer Start -->
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    2020 - 2022 © جميع الحقوق محفوظة لـ <a href="#">الكلية الجامعية</a>
+                </div>
+                
+            </div>
+        </div>
+    </footer>
+    <!-- end Footer -->
+    <div class="feedback">
+        <a href="/feedback.aspx" class="fb fancybox.iframe">الإبلاغ عن مشكلة
+        </a>
+    </div>
+
+    <!-- Right bar overlay-->
+    <div class="rightbar-overlay"></div>
+
+
+    <!-- knob plugin -->
+    
+
+    <!--Morris Chart-->
+    
+    
+
+
+
+    <!-- Dashboard init js-->
+    
+
+    <!-- App js-->
+    <script src="/static/NewTemp/src/js/app.js"></script>
+
+    <!-- Add mousewheel plugin (this is optional) -->
+    <script type="text/javascript" src="/static/NewTemp/src/libs/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+
+    <!-- Add fancyBox main JS and CSS files -->
+    <script type="text/javascript" src="/static/NewTemp/src/libs/fancybox/source/jquery.fancybox.js?v=2.1.5"></script>
+    <link rel="stylesheet" type="text/css" href="/static/NewTemp/src/libs/fancybox/source/jquery.fancybox.css?v=2.1.5" media="screen">
+
+    <!-- Add Button helper (this is optional) -->
+    <link rel="stylesheet" type="text/css" href="/static/NewTemp/src/libs/fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5">
+    <script type="text/javascript" src="/static/NewTemp/src/libs/fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+
+    <!-- Add Thumbnail helper (this is optional) -->
+    <link rel="stylesheet" type="text/css" href="/static/NewTemp/src/libs/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7">
+    <script type="text/javascript" src="/static/NewTemp/src/libs/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+
+    <!-- Add Media helper (this is optional) -->
+    <script type="text/javascript" src="/static/NewTemp/src/libs/fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
+    <script>
+        function getCookie(cname) {
+            let name = cname + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let ca = decodedCookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+        var themes_style = "light";
+        //console.log(themes_style);
+        if (themes_style == '') {
+            var themes_style = getCookie("themes_style");
+        }
+        //console.log(themes_style);
+        $(document).ready(function () {
+            $(".lblEmail").click(function () {
+                copyToClipboard($(this));
+            });
+            $('#notifys_New a').click(function () {
+                document.cookie = "notifys_New=true;path=/";
+                $('#notifys_New').removeClass('notifys_New');
+            });
+            $('.bg_NewJusts').click(function () {
+                document.cookie = "notifys_New=true;path=/";
+                $('#notifys_New').removeClass('notifys_New');
+            });
+            console.log("true");
+            $('.dark_btn_change').click(function () {
+                if (themes_style == 'dark') {
+                    themes_style = "light";
+                    document.cookie = "themes_style=light;path=/";
+                } else {
+                    themes_style = "dark";
+                    document.cookie = "themes_style=dark;path=/";
+                }
+                location.reload();
+            });
+            $(".fb").fancybox({
+                width: 1024,
+                autoScale: false,
+                afterClose: function () {
+                    // parent.location.reload(true);
+                }
+            });
+        });
+
+        function fnSaveData() {
+            var item = JSON.parse(window.localStorage.getItem("notifications"));
+            let unread = 0;
+            var notifList = document.getElementById("notList");
+            var notifyNum = document.getElementById("notify_number");
+            function viewItems() {
+                var templateItem = document.createElement("a");
+                templateItem.classList.add("fancybox.iframe");
+                templateItem.classList.add("dropdown-item");
+                templateItem.classList.add("fb");
+                templateItem.classList.add("notify-item");
+                templateItem.setAttribute("id", "_notify-item");
+                let notTitle = item[i].TITLE;
+                let notUrl = item[i].URL;
+                let notAdv = item[i].ADV_SIDE;
+                let notDate = item[i].START_DATE;
+                let notRead = item[i].IS_READ;
+                let notDetails = item[i].DETAILS;
+                if (notRead == 0)
+                    unread++;
+                templateItem.classList.add(notRead);
+                let title = document.createElement("p");
+                let adv = document.createElement("p");
+                let details = document.createElement("p");
+                let date = document.createElement("small");
+                templateItem.href = `/show.aspx?created_date= ${notDate}&title= ${notTitle}&url=${notUrl}`;
+                notRead == 0 ? templateItem.classList.add("active") : "";
+                title.innerHTML = notTitle;
+                adv.innerHTML = notAdv;
+                notRead == 0 ? adv.classList.add("font-weight-bold") : "";
+                date.classList.add("text-muted");
+                date.classList.add("d-flex");
+                date.classList.add("flex-row-reverse");
+                details.innerHTML = notDetails.substring(0, 15) + "...";
+                date.innerHTML = notDate
+                templateItem.appendChild(adv);
+                templateItem.appendChild(title);
+                templateItem.appendChild(details);
+                templateItem.appendChild(date);
+                notifList.appendChild(templateItem);
+            }
+            if (item != null) {
+                if (notifList.children[0]) {
+                    for (i = 0; i < item?.length; i++) {
+                        document.getElementById("_notify-item")?.remove();
+                        viewItems();
+                    }
+                }
+                else {
+                    for (i = 0; i < item?.length; i++) {
+                        viewItems();
+                    }
+
+                }
+
+
+                notifyNum.innerHTML = unread.toString();
+            }
+        }
+
+        function GET_STD_NOTIFICATIONS_SSP(currentdate) {
+            $.ajax({
+                type: "POST",
+                url: '/WebService.asmx/GET_STD_NOTIFICATIONS_SSP',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    localStorage.setItem('notifications', data.d);
+                    currentdate.setDate(currentdate.getDate() + 1);
+                    localStorage.setItem('expiryStartDate', currentdate);
+                    fnSaveData();
+                },
+                error: function (result) {
+                    msgget(2, "حدث خطأ أثناء عملية الحفظ");
+                }
+            });
+        }
+
+
+        function SET_STD_NOTIFICATIONS_READ() {
+
+            $.ajax({
+                type: "POST",
+                url: '/WebService.asmx/SET_STD_NOTIFICATIONS_READ',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+
+                },
+                error: function (result) {
+                    msgget(2, "حدث خطأ ما");
+
+                }
+            })
+        }
+        $(document).ready(function () {
+
+            $("#notifys_link").click(function (e) {
+                var _currentdate = new Date();
+                GET_STD_NOTIFICATIONS_SSP(_currentdate);
+                SET_STD_NOTIFICATIONS_READ();
+            });
+            var currentdate = new Date();
+            var expiryDate = new Date(localStorage.getItem('expiryStartDate'));
+            var IsNotif = localStorage.getItem('notifications');
+            if (isNaN(Date.parse(expiryDate)) || currentdate > expiryDate || !IsNotif) {
+                GET_STD_NOTIFICATIONS_SSP(currentdate);
+            } else {
+                fnSaveData();
+            }
+
+
+        });
+        function copyToClipboard(element) {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val($(element).html()).select();
+            document.execCommand("copy");
+            $temp.remove();
+            alert("تم نسخ البريد");
+        }
+
+    </script>
+
+    
+    <script src="/static/NewTemp/src/js/bootstrap.min.js"></script> 
+    <script type="text/javascript" src="/static/NewTemp/src/js/jquery.icheck/icheck.min.js"></script>
+
+    <script>
+
+        var custemSetting = function () {
+
+            $('input[type=checkbox]').iCheck({
+                checkboxClass: 'icheckbox_square-red checkbox',
+                radioClass: 'iradio_square-red'
+            });
+        };
+
+
+
+
+        var addattendtmodel = function () {
+
+            $(document).on('click', '.addattend', function () {
+                $('#model-addatteend').modal('show').addClass('show');
+            });
+        }
+
+        $(document).ready(function () {
+            custemSetting();
+            var prmGlobal = Sys.WebForms.PageRequestManager.getInstance();
+
+            prmGlobal.add_endRequest(function (sender, args) {
+                custemSetting();
+
+            });
+        });
+
+
+
+    </script>
+
+
+
+</body></html>

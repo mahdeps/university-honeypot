@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>لوحة الإدارة — نظام معلومات الجامعة</title>
+  <style>
+    /* Self-contained admin bait panel. Looks like a real internal console to
+       tempt an attacker; every action is logged as high signal. Fabricated data. */
+    *{box-sizing:border-box} body{margin:0;font-family:"Segoe UI",Tahoma,Arial,sans-serif;background:#0e1626;color:#e2e8f0}
+    .wrap{max-width:1000px;margin:0 auto;padding:24px}
+    .hd{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #243049;padding-bottom:14px}
+    .hd h1{font-size:18px;margin:0;color:#7dd3fc}
+    .hd span{font-size:12px;color:#94a3b8}
+    .alert{margin-top:16px;background:#3a1d1d;border:1px solid #6b2b2b;color:#fca5a5;padding:11px 14px;border-radius:8px;font-size:13px}
+    .card{margin:30px auto;width:380px;background:#152033;border:1px solid #243049;border-radius:12px;overflow:hidden}
+    .card .top{background:#0b1322;padding:22px;text-align:center}
+    .card .top .logo{width:54px;height:54px;border-radius:14px;background:#1f6feb;color:#fff;display:grid;place-items:center;font-weight:800;font-size:24px;margin:0 auto 10px}
+    .card .top h2{font-size:16px;margin:0;color:#e2e8f0}
+    .card .body{padding:22px}
+    .row{margin-bottom:14px}
+    .row label{display:block;font-size:13px;color:#94a3b8;margin-bottom:6px}
+    .row input{width:100%;padding:10px 12px;border:1px solid #2b3b57;border-radius:8px;background:#0e1626;color:#e2e8f0;font-size:14px}
+    .btn{width:100%;padding:10px;border:0;border-radius:8px;background:#1f6feb;color:#fff;font-size:14px;cursor:pointer}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hd">
+      <h1>⚙️ لوحة إدارة النظام</h1>
+      <span>admin · جلسة #{{ '%06d'|format(8472) }}</span>
+    </div>
+    {% if error %}
+    <div class="alert">{{ error }}</div>
+    <div class="card">
+      <div class="top"><div class="logo">A</div><h2>دخول المسؤول</h2></div>
+      <div class="body">
+        <form method="POST" action="/admin">
+          <div class="row"><label>اسم المستخدم</label><input name="username" autofocus></div>
+          <div class="row"><label>كلمة المرور</label><input name="password" type="password"></div>
+          <button class="btn" type="submit">دخول</button>
+        </form>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</body>
+</html>

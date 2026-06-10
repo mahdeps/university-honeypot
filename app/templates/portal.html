@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Portal</title>
+  <style>
+    body { margin:0; font-family:"Segoe UI",Tahoma,Arial,sans-serif; background:#eef2f5; color:#1f2933; }
+    header { background:#0b4f6c; color:#fff; padding:16px 24px; display:flex; justify-content:space-between; align-items:center; }
+    header a { color:#cfe3ec; font-size:13px; text-decoration:none; }
+    .grid { max-width:920px; margin:30px auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px; padding:0 16px; }
+    .card { background:#fff; border-radius:10px; padding:20px; box-shadow:0 6px 20px rgba(0,0,0,.06); }
+    .card h3 { margin:0 0 8px; font-size:15px; color:#0b4f6c; }
+    .card a { display:inline-block; margin-top:10px; font-size:13px; color:#0b4f6c; }
+    .welcome { max-width:920px; margin:24px auto 0; padding:0 16px; }
+  </style>
+</head>
+<body>
+  <header>
+    <strong>University Information System</strong>
+    <span>Signed in as {{ user }} &nbsp;·&nbsp; <a href="/logout">Sign out</a></span>
+  </header>
+
+  <div class="welcome"><h2>Welcome, {{ user }}</h2><p>Student ID: {{ sid }}</p></div>
+
+  <div class="grid">
+    <div class="card"><h3>My Grades</h3><p>View your transcript and current grades.</p><a href="/grades">Open »</a></div>
+    <div class="card"><h3>Course Registration</h3><p>Register for the upcoming semester.</p><a href="/grades?student_id={{ sid }}">Open »</a></div>
+    <div class="card"><h3>Financial Account</h3><p>Tuition balance and payments.</p><a href="#">Open »</a></div>
+    <div class="card"><h3>Schedule</h3><p>Weekly class timetable.</p><a href="#">Open »</a></div>
+  </div>
+</body>
+</html>

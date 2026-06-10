@@ -1,0 +1,24 @@
+# Logs and captured attacker data — never commit
+logs/
+*.log
+*.jsonl
+
+# Decoy database (regenerated on startup)
+*.sqlite
+*.db
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Scratch / test artifacts (never commit — may hold creds or screenshots)
+# (only root-level scratch; portal image assets under app/static must stay)
+/_*

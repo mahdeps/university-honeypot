@@ -1,0 +1,42 @@
+# Isolated deployment for the university honeypot.
+#
+# Safety posture:
+#   * The container runs on its own bridge network with NO link to any other
+#     service you own. It cannot reach your real infrastructure.
+#   * It drops Linux capabilities and runs read-only except for the logs volume.
+#   * Memory/PID limits cap the damage if an attacker finds a way to run code.
+#   * Only the honeypot port is published. The monitor is reachable on the same
+#     port at /_monitor — for a real deployment, put the monitor behind a VPN or
+#     bind it to localhost instead of publishing it.
+#
+# Run inside a dedicated VM or a segmented lab VLAN. Do NOT place it on a network
+# that can route to production or to a domain that impersonates a real org.
+
+services:
+  honeypot:
+    build: .
+    container_name: university-honeypot
+    restart: unless-stopped
+    ports:
+      - "8080:8080"          # attacker-facing portal (+ /_monitor)
+    volumes:
+      - ./logs:/opt/honeypot/logs   # persist captured events to the host
+    networks:
+      - honeynet
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 256m
+    pids_limit: 128
+    environment:
+      - HONEYPOT_LOG_DIR=/opt/honeypot/logs
+      - HONEYPOT_DB=/tmp/decoy.sqlite   # /tmp is tmpfs (writable on a read-only FS)
+
+networks:
+  honeynet:
+    driver: bridge
+    internal: false   # set to true to fully isolate (no outbound) once tested

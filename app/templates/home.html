@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}لوحة التحكم — نظام معلومات الجامعة{% endblock %}
+{% block crumb %}لوحة التحكم{% endblock %}
+{% block content %}
+<h2 class="page-title">مرحباً، {{ user }}</h2>
+<p class="page-sub">الرقم الجامعي {{ sid }} · كلية تكنولوجيا المعلومات · المستوى الثالث</p>
+
+<div class="grid cols-4">
+  <div class="stat"><div class="ic">📊</div><div><div class="n">{{ gpa }}</div><div class="l">المعدل التراكمي</div></div></div>
+  <div class="stat"><div class="ic">✅</div><div><div class="n">{{ credits_done }}</div><div class="l">ساعة مجتازة</div></div></div>
+  <div class="stat"><div class="ic">📚</div><div><div class="n">{{ courses|length }}</div><div class="l">مواد الفصل الحالي</div></div></div>
+  <div class="stat"><div class="ic">💳</div><div><div class="n">{{ balance }}₪</div><div class="l">الرصيد المستحق</div></div></div>
+</div>
+
+<div class="grid cols-2 mt">
+  <div class="card">
+    <div class="hd">مواد الفصل الحالي <a href="/schedule" class="muted" style="font-size:12px">عرض الجدول »</a></div>
+    <div class="bd" style="padding:0">
+      <table class="table">
+        <tr><th>رمز المادة</th><th>اسم المادة</th><th>الساعات</th><th>المدرّس</th></tr>
+        {% for c in courses %}
+        <tr><td>{{ c.code }}</td><td>{{ c.title }}</td><td>{{ c.credits }}</td><td>{{ c.instructor }}</td></tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="hd">آخر الإعلانات <a href="/announcements" class="muted" style="font-size:12px">الكل »</a></div>
+    <div class="bd">
+      {% for a in announcements[:4] %}
+      <div class="announce"><div class="dot"></div><div>
+        <div class="t">{{ a.title }}</div><div class="m">{{ a.body }}</div><div class="d">{{ a.date }}</div>
+      </div></div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<div class="card mt">
+  <div class="hd">تقدّم الخطة الدراسية</div>
+  <div class="bd">
+    <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px">
+      <span>{{ credits_done }} من {{ credits_total }} ساعة معتمدة</span><span>{{ progress }}%</span>
+    </div>
+    <div class="progress"><i style="width:{{ progress }}%"></i></div>
+  </div>
+</div>
+{% endblock %}

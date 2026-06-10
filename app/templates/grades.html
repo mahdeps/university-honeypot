@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}العلامات والنتائج{% endblock %}
+{% block crumb %}العلامات والنتائج{% endblock %}
+{% block content %}
+<h2 class="page-title">العلامات والنتائج</h2>
+<p class="page-sub">كشف الدرجات للفصل الحالي والسجل الأكاديمي</p>
+
+{% if error %}<div class="alert alert-err">خطأ في قاعدة البيانات: {{ error }}</div>{% endif %}
+
+<div class="card">
+  <div class="hd">البحث عن نتائج طالب</div>
+  <div class="bd">
+    <form class="form" method="GET" action="/grades" style="display:flex;gap:10px;max-width:none">
+      <input name="student_id" value="{{ sid }}" placeholder="الرقم الجامعي">
+      <button class="btn btn-primary" type="submit">عرض</button>
+    </form>
+  </div>
+</div>
+
+<div class="card mt">
+  <div class="hd">درجات الفصل الثاني 2025/2026</div>
+  <div class="bd" style="padding:0">
+    <table class="table">
+      <tr><th>الرمز</th><th>المادة</th><th>أعمال فصلية</th><th>نهائي</th><th>المجموع</th><th>التقدير</th></tr>
+      {% for r in rows %}
+      <tr>
+        <td>{{ r.code }}</td><td>{{ r.title }}</td>
+        <td>{{ r.cw if r.cw is defined else '—' }}</td>
+        <td>{{ r.final if r.final is defined else '—' }}</td>
+        <td>{{ r.total if r.total is defined else '—' }}</td>
+        <td><span class="badge {{ 'b-ok' if r.grade and r.grade[0] in 'AB' else 'b-warn' }}">{{ r.grade }}</span></td>
+      </tr>
+      {% else %}
+      <tr><td colspan="6" class="muted">لا توجد نتائج لعرضها.</td></tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+
+<div class="grid cols-3 mt">
+  <div class="stat"><div class="ic">📈</div><div><div class="n">{{ gpa }}</div><div class="l">معدل الفصل</div></div></div>
+  <div class="stat"><div class="ic">🎯</div><div><div class="n">{{ cgpa }}</div><div class="l">المعدل التراكمي</div></div></div>
+  <div class="stat"><div class="ic">⭐</div><div><div class="n">{{ rank }}</div><div class="l">الترتيب على الدفعة</div></div></div>
+</div>
+{% endblock %}

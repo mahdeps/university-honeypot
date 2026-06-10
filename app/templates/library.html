@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}المكتبة{% endblock %}
+{% block crumb %}المكتبة الإلكترونية{% endblock %}
+{% block content %}
+<h2 class="page-title">المكتبة الإلكترونية</h2>
+<p class="page-sub">البحث في فهرس المكتبة والإعارات</p>
+
+<div class="card">
+  <div class="hd">بحث في الفهرس</div>
+  <div class="bd">
+    <form class="form" method="GET" action="/library" style="display:flex;gap:10px;max-width:none">
+      <input name="q" value="{{ q }}" placeholder="اسم الكتاب، المؤلف، أو الرقم التصنيفي">
+      <button class="btn btn-primary">بحث</button>
+    </form>
+  </div>
+</div>
+
+<div class="card mt">
+  <div class="hd">نتائج البحث</div>
+  <div class="bd" style="padding:0">
+    <table class="table">
+      <tr><th>العنوان</th><th>المؤلف</th><th>التصنيف</th><th>الحالة</th></tr>
+      {% for b in books %}
+      <tr><td>{{ b.title }}</td><td>{{ b.author }}</td><td>{{ b.call }}</td>
+        <td><span class="badge {{ 'b-ok' if b.available else 'b-bad' }}">{{ 'متاح' if b.available else 'مُعار' }}</span></td></tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+
+<div class="card mt">
+  <div class="hd">إعاراتي الحالية</div>
+  <div class="bd" style="padding:0">
+    <table class="table">
+      <tr><th>الكتاب</th><th>تاريخ الإعارة</th><th>تاريخ الاستحقاق</th></tr>
+      {% for l in loans %}
+      <tr><td>{{ l.title }}</td><td>{{ l.from }}</td><td>{{ l.due }}</td></tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}الخطة الدراسية{% endblock %}
+{% block crumb %}الخطة الدراسية{% endblock %}
+{% block content %}
+<h2 class="page-title">الخطة الدراسية</h2>
+<p class="page-sub">تخصص هندسة البرمجيات · خطة 2023 · {{ credits_total }} ساعة معتمدة</p>
+
+<div class="grid cols-3">
+  <div class="stat"><div class="ic">✅</div><div><div class="n">{{ done }}</div><div class="l">ساعة مجتازة</div></div></div>
+  <div class="stat"><div class="ic">🔄</div><div><div class="n">{{ current }}</div><div class="l">ساعة قيد الدراسة</div></div></div>
+  <div class="stat"><div class="ic">⏳</div><div><div class="n">{{ remaining }}</div><div class="l">ساعة متبقية</div></div></div>
+</div>
+
+{% for sem in plan %}
+<div class="card mt">
+  <div class="hd">{{ sem.name }} <span class="badge {{ sem.badge_class }}">{{ sem.status }}</span></div>
+  <div class="bd" style="padding:0">
+    <table class="table">
+      <tr><th>الرمز</th><th>المادة</th><th>ساعات</th><th>المتطلب السابق</th><th>الحالة</th></tr>
+      {% for c in sem.courses %}
+      <tr>
+        <td>{{ c.code }}</td><td>{{ c.title }}</td><td>{{ c.credits }}</td><td class="muted">{{ c.prereq or '—' }}</td>
+        <td><span class="badge {{ c.cls }}">{{ c.state }}</span></td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}

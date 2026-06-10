@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ar" class="notranslate">
+<head>
+  <meta charset="utf-8" />
+  <title>استعادة كلمة المرور - الكلية الجامعية للعلوم التطبيقية</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='NewTemp/src/images/favicon.ico') }}">
+  <link href="{{ url_for('static', filename='NewTemp/src/css-light/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ url_for('static', filename='NewTemp/src/css-light/icons.min.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ url_for('static', filename='NewTemp/src/css-light/app-rtl.min.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ url_for('static', filename='NewTemp/src/style.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ url_for('static', filename='NewTemp/src/css-light/cusstyle.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body class="authentication-bg">
+  <div class="account-pages mt-4 mb-2">
+    <div class="container">
+      <div class="col-md-12" style="margin-bottom:25px;">
+        <div class="text-center">
+          <a href="/login"><span><img src="{{ url_for('static', filename='NewTemp/src/images/logo-light.png') }}" alt="" height="78"></span></a>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6 col-xl-5">
+          <div class="card">
+            <div class="card-body p-4">
+              <div class="text-center mb-3">
+                <h4 class="text-uppercase mt-0">استعادة كلمة المرور</h4>
+                <p class="text-muted mb-0">أدخل رقمك الجامعي وبريدك المسجّل لإرسال رابط الاستعادة</p>
+              </div>
+
+              {% if msg %}<div class="alert alert-success text-center mb-3" role="alert">{{ msg }}</div>{% endif %}
+
+              <form method="post" action="/forgot-password">
+                <div class="form-group mb-2">
+                  <label>الرقم الجامعي</label>
+                  <input name="student_id" type="text" class="form-control" placeholder="الرقم الجامعي" autofocus required />
+                </div>
+                <div class="form-group mb-3">
+                  <label>البريد الإلكتروني المسجّل</label>
+                  <input name="email" type="email" class="form-control" placeholder="name@smail.ucas.edu.ps" />
+                </div>
+                <div class="form-group mb-0 text-center">
+                  <button type="submit" class="btn btn-primary btn-block">إرسال رابط الاستعادة</button>
+                </div>
+              </form>
+              <div class="text-center mt-3">
+                <a href="/login" class="text-muted"><i class="fa fa-arrow-right mr-1"></i>العودة لتسجيل الدخول</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,986 @@
+<!DOCTYPE html><html lang="ar" class="notranslate"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><title>
+	UCAS - تقييم المساقات
+</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta content="الكلية الجامعية للعلوم التطبيقية" name="description"><meta content="الكلية الجامعية للعلوم التطبيقية" name="author">
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="/static/NewTemp/src/images/favicon.ico">
+
+    <!--Morris Chart-->
+    <link rel="stylesheet" href="/static/NewTemp/src/libs/morris-js/morris.css">
+    <!-- Sweet Alert css -->
+    <link href="/static/NewTemp/src/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
+
+    <!-- App css -->
+    <link id="bootstrap" href="/static/NewTemp/src/css-light/bootstrap.min.css" rel="stylesheet" type="text/css"><link id="icons" href="/static/NewTemp/src/css-light/icons.min.css" rel="stylesheet" type="text/css"><link id="app_rtl" href="/static/NewTemp/src/css-light/app-rtl.min.css" rel="stylesheet" type="text/css"><link href="/static/NewTemp/src/libs/basictable-master/dist/css/basictable.min.css" rel="stylesheet" type="text/css"><link href="/static/NewTemp/src/style.css?v=3.11" rel="stylesheet" type="text/css"><link id="cus_style" href="/static/NewTemp/src/css-light/cusstyle.css" rel="stylesheet" type="text/css">
+
+    <!-- Vendor js -->
+    <script src="/static/NewTemp/src/js/vendor.min.js"></script>
+
+    <script src="/static/NewTemp/src/js/jquery-1.9.1.min.js"></script>
+    <script src="/static/NewTemp/src/libs/sweetalert2/sweetalert2.min.js"></script>
+    <script src="/static/NewTemp/src/libs/basictable-master/dist/js/basictable.min.js"></script>
+    <script src="/static/NewTemp/src/libs/basictable-master/dist/js/jquery.basictable.min.js"></script>
+
+    <style>:root{--swal2-outline: 0 0 0 3px rgba(100, 150, 200, 0.5);--swal2-container-padding: 0.625em;--swal2-backdrop: rgba(0, 0, 0, 0.4);--swal2-backdrop-transition: background-color 0.15s;--swal2-width: 32em;--swal2-padding: 0 0 1.25em;--swal2-border: none;--swal2-border-radius: 0.3125rem;--swal2-background: white;--swal2-color: #545454;--swal2-show-animation: swal2-show 0.3s;--swal2-hide-animation: swal2-hide 0.15s forwards;--swal2-icon-zoom: 1;--swal2-title-padding: 0.8em 1em 0;--swal2-html-container-padding: 1em 1.6em 0.3em;--swal2-input-border: 1px solid #d9d9d9;--swal2-input-border-radius: 0.1875em;--swal2-input-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06), 0 0 0 3px transparent;--swal2-input-background: transparent;--swal2-input-transition: border-color 0.2s, box-shadow 0.2s;--swal2-input-hover-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06), 0 0 0 3px transparent;--swal2-input-focus-border: 1px solid #b4dbed;--swal2-input-focus-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06), 0 0 0 3px rgba(100, 150, 200, 0.5);--swal2-progress-step-background: #add8e6;--swal2-validation-message-background: #f0f0f0;--swal2-validation-message-color: #666;--swal2-footer-border-color: #eee;--swal2-footer-background: transparent;--swal2-footer-color: inherit;--swal2-timer-progress-bar-background: rgba(0, 0, 0, 0.3);--swal2-close-button-position: initial;--swal2-close-button-inset: auto;--swal2-close-button-font-size: 2.5em;--swal2-close-button-color: #ccc;--swal2-close-button-transition: color 0.2s, box-shadow 0.2s;--swal2-close-button-outline: initial;--swal2-close-button-box-shadow: inset 0 0 0 3px transparent;--swal2-close-button-focus-box-shadow: inset var(--swal2-outline);--swal2-close-button-hover-transform: none;--swal2-actions-justify-content: center;--swal2-actions-width: auto;--swal2-actions-margin: 1.25em auto 0;--swal2-actions-padding: 0;--swal2-actions-border-radius: 0;--swal2-actions-background: transparent;--swal2-action-button-transition: background-color 0.2s, box-shadow 0.2s;--swal2-action-button-hover: black 10%;--swal2-action-button-active: black 10%;--swal2-confirm-button-box-shadow: none;--swal2-confirm-button-border-radius: 0.25em;--swal2-confirm-button-background-color: #7066e0;--swal2-confirm-button-color: #fff;--swal2-deny-button-box-shadow: none;--swal2-deny-button-border-radius: 0.25em;--swal2-deny-button-background-color: #dc3741;--swal2-deny-button-color: #fff;--swal2-cancel-button-box-shadow: none;--swal2-cancel-button-border-radius: 0.25em;--swal2-cancel-button-background-color: #6e7881;--swal2-cancel-button-color: #fff;--swal2-toast-show-animation: swal2-toast-show 0.5s;--swal2-toast-hide-animation: swal2-toast-hide 0.1s forwards;--swal2-toast-border: none;--swal2-toast-box-shadow: 0 0 1px hsl(0deg 0% 0% / 0.075), 0 1px 2px hsl(0deg 0% 0% / 0.075), 1px 2px 4px hsl(0deg 0% 0% / 0.075), 1px 3px 8px hsl(0deg 0% 0% / 0.075), 2px 4px 16px hsl(0deg 0% 0% / 0.075)}[data-swal2-theme=dark]{--swal2-dark-theme-black: #19191a;--swal2-dark-theme-white: #e1e1e1;--swal2-background: var(--swal2-dark-theme-black);--swal2-color: var(--swal2-dark-theme-white);--swal2-footer-border-color: #555;--swal2-input-background: color-mix(in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10%);--swal2-validation-message-background: color-mix( in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10% );--swal2-validation-message-color: var(--swal2-dark-theme-white);--swal2-timer-progress-bar-background: rgba(255, 255, 255, 0.7)}@media(prefers-color-scheme: dark){[data-swal2-theme=auto]{--swal2-dark-theme-black: #19191a;--swal2-dark-theme-white: #e1e1e1;--swal2-background: var(--swal2-dark-theme-black);--swal2-color: var(--swal2-dark-theme-white);--swal2-footer-border-color: #555;--swal2-input-background: color-mix(in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10%);--swal2-validation-message-background: color-mix( in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10% );--swal2-validation-message-color: var(--swal2-dark-theme-white);--swal2-timer-progress-bar-background: rgba(255, 255, 255, 0.7)}}body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown){overflow:hidden}body.swal2-height-auto{height:auto !important}body.swal2-no-backdrop .swal2-container{background-color:rgba(0,0,0,0) !important;pointer-events:none}body.swal2-no-backdrop .swal2-container .swal2-popup{pointer-events:auto}body.swal2-no-backdrop .swal2-container .swal2-modal{box-shadow:0 0 10px var(--swal2-backdrop)}body.swal2-toast-shown .swal2-container{box-sizing:border-box;width:360px;max-width:100%;background-color:rgba(0,0,0,0);pointer-events:none}body.swal2-toast-shown .swal2-container.swal2-top{inset:0 auto auto 50%;transform:translateX(-50%)}body.swal2-toast-shown .swal2-container.swal2-top-end,body.swal2-toast-shown .swal2-container.swal2-top-right{inset:0 0 auto auto}body.swal2-toast-shown .swal2-container.swal2-top-start,body.swal2-toast-shown .swal2-container.swal2-top-left{inset:0 auto auto 0}body.swal2-toast-shown .swal2-container.swal2-center-start,body.swal2-toast-shown .swal2-container.swal2-center-left{inset:50% auto auto 0;transform:translateY(-50%)}body.swal2-toast-shown .swal2-container.swal2-center{inset:50% auto auto 50%;transform:translate(-50%, -50%)}body.swal2-toast-shown .swal2-container.swal2-center-end,body.swal2-toast-shown .swal2-container.swal2-center-right{inset:50% 0 auto auto;transform:translateY(-50%)}body.swal2-toast-shown .swal2-container.swal2-bottom-start,body.swal2-toast-shown .swal2-container.swal2-bottom-left{inset:auto auto 0 0}body.swal2-toast-shown .swal2-container.swal2-bottom{inset:auto auto 0 50%;transform:translateX(-50%)}body.swal2-toast-shown .swal2-container.swal2-bottom-end,body.swal2-toast-shown .swal2-container.swal2-bottom-right{inset:auto 0 0 auto}@media print{body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown){overflow-y:scroll !important}body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown)>[aria-hidden=true]{display:none}body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown) .swal2-container{position:static !important}}div:where(.swal2-container){display:grid;position:fixed;z-index:1060;inset:0;box-sizing:border-box;grid-template-areas:"top-start     top            top-end" "center-start  center         center-end" "bottom-start  bottom-center  bottom-end";grid-template-rows:minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto);height:100%;padding:var(--swal2-container-padding);overflow-x:hidden;transition:var(--swal2-backdrop-transition);-webkit-overflow-scrolling:touch}div:where(.swal2-container).swal2-backdrop-show,div:where(.swal2-container).swal2-noanimation{background:var(--swal2-backdrop)}div:where(.swal2-container).swal2-backdrop-hide{background:rgba(0,0,0,0) !important}div:where(.swal2-container).swal2-top-start,div:where(.swal2-container).swal2-center-start,div:where(.swal2-container).swal2-bottom-start{grid-template-columns:minmax(0, 1fr) auto auto}div:where(.swal2-container).swal2-top,div:where(.swal2-container).swal2-center,div:where(.swal2-container).swal2-bottom{grid-template-columns:auto minmax(0, 1fr) auto}div:where(.swal2-container).swal2-top-end,div:where(.swal2-container).swal2-center-end,div:where(.swal2-container).swal2-bottom-end{grid-template-columns:auto auto minmax(0, 1fr)}div:where(.swal2-container).swal2-top-start>.swal2-popup{align-self:start}div:where(.swal2-container).swal2-top>.swal2-popup{grid-column:2;place-self:start center}div:where(.swal2-container).swal2-top-end>.swal2-popup,div:where(.swal2-container).swal2-top-right>.swal2-popup{grid-column:3;place-self:start end}div:where(.swal2-container).swal2-center-start>.swal2-popup,div:where(.swal2-container).swal2-center-left>.swal2-popup{grid-row:2;align-self:center}div:where(.swal2-container).swal2-center>.swal2-popup{grid-column:2;grid-row:2;place-self:center center}div:where(.swal2-container).swal2-center-end>.swal2-popup,div:where(.swal2-container).swal2-center-right>.swal2-popup{grid-column:3;grid-row:2;place-self:center end}div:where(.swal2-container).swal2-bottom-start>.swal2-popup,div:where(.swal2-container).swal2-bottom-left>.swal2-popup{grid-column:1;grid-row:3;align-self:end}div:where(.swal2-container).swal2-bottom>.swal2-popup{grid-column:2;grid-row:3;place-self:end center}div:where(.swal2-container).swal2-bottom-end>.swal2-popup,div:where(.swal2-container).swal2-bottom-right>.swal2-popup{grid-column:3;grid-row:3;place-self:end end}div:where(.swal2-container).swal2-grow-row>.swal2-popup,div:where(.swal2-container).swal2-grow-fullscreen>.swal2-popup{grid-column:1/4;width:100%}div:where(.swal2-container).swal2-grow-column>.swal2-popup,div:where(.swal2-container).swal2-grow-fullscreen>.swal2-popup{grid-row:1/4;align-self:stretch}div:where(.swal2-container).swal2-no-transition{transition:none !important}div:where(.swal2-container)[popover]{width:auto;border:0}div:where(.swal2-container) div:where(.swal2-popup){display:none;position:relative;box-sizing:border-box;grid-template-columns:minmax(0, 100%);width:var(--swal2-width);max-width:100%;padding:var(--swal2-padding);border:var(--swal2-border);border-radius:var(--swal2-border-radius);background:var(--swal2-background);color:var(--swal2-color);font-family:inherit;font-size:1rem}div:where(.swal2-container) div:where(.swal2-popup):focus{outline:none}div:where(.swal2-container) div:where(.swal2-popup).swal2-loading{overflow-y:hidden}div:where(.swal2-container) div:where(.swal2-popup).swal2-draggable{cursor:grab}div:where(.swal2-container) div:where(.swal2-popup).swal2-draggable div:where(.swal2-icon){cursor:grab}div:where(.swal2-container) div:where(.swal2-popup).swal2-dragging{cursor:grabbing}div:where(.swal2-container) div:where(.swal2-popup).swal2-dragging div:where(.swal2-icon){cursor:grabbing}div:where(.swal2-container) h2:where(.swal2-title){position:relative;max-width:100%;margin:0;padding:var(--swal2-title-padding);color:inherit;font-size:1.875em;font-weight:600;text-align:center;text-transform:none;overflow-wrap:break-word;cursor:initial}div:where(.swal2-container) div:where(.swal2-actions){display:flex;z-index:1;box-sizing:border-box;flex-wrap:wrap;align-items:center;justify-content:var(--swal2-actions-justify-content);width:var(--swal2-actions-width);margin:var(--swal2-actions-margin);padding:var(--swal2-actions-padding);border-radius:var(--swal2-actions-border-radius);background:var(--swal2-actions-background)}div:where(.swal2-container) div:where(.swal2-loader){display:none;align-items:center;justify-content:center;width:2.2em;height:2.2em;margin:0 1.875em;animation:swal2-rotate-loading 1.5s linear 0s infinite normal;border-width:.25em;border-style:solid;border-radius:100%;border-color:#2778c4 rgba(0,0,0,0) #2778c4 rgba(0,0,0,0)}div:where(.swal2-container) button:where(.swal2-styled){margin:.3125em;padding:.625em 1.1em;transition:var(--swal2-action-button-transition);border:none;box-shadow:0 0 0 3px rgba(0,0,0,0);font-weight:500}div:where(.swal2-container) button:where(.swal2-styled):not([disabled]){cursor:pointer}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm){border-radius:var(--swal2-confirm-button-border-radius);background:initial;background-color:var(--swal2-confirm-button-background-color);box-shadow:var(--swal2-confirm-button-box-shadow);color:var(--swal2-confirm-button-color);font-size:1em}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):hover{background-color:color-mix(in srgb, var(--swal2-confirm-button-background-color), var(--swal2-action-button-hover))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):active{background-color:color-mix(in srgb, var(--swal2-confirm-button-background-color), var(--swal2-action-button-active))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-deny){border-radius:var(--swal2-deny-button-border-radius);background:initial;background-color:var(--swal2-deny-button-background-color);box-shadow:var(--swal2-deny-button-box-shadow);color:var(--swal2-deny-button-color);font-size:1em}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-deny):hover{background-color:color-mix(in srgb, var(--swal2-deny-button-background-color), var(--swal2-action-button-hover))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-deny):active{background-color:color-mix(in srgb, var(--swal2-deny-button-background-color), var(--swal2-action-button-active))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel){border-radius:var(--swal2-cancel-button-border-radius);background:initial;background-color:var(--swal2-cancel-button-background-color);box-shadow:var(--swal2-cancel-button-box-shadow);color:var(--swal2-cancel-button-color);font-size:1em}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel):hover{background-color:color-mix(in srgb, var(--swal2-cancel-button-background-color), var(--swal2-action-button-hover))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel):active{background-color:color-mix(in srgb, var(--swal2-cancel-button-background-color), var(--swal2-action-button-active))}div:where(.swal2-container) button:where(.swal2-styled):focus-visible{outline:none;box-shadow:var(--swal2-action-button-focus-box-shadow)}div:where(.swal2-container) button:where(.swal2-styled)[disabled]:not(.swal2-loading){opacity:.4}div:where(.swal2-container) button:where(.swal2-styled)::-moz-focus-inner{border:0}div:where(.swal2-container) div:where(.swal2-footer){margin:1em 0 0;padding:1em 1em 0;border-top:1px solid var(--swal2-footer-border-color);background:var(--swal2-footer-background);color:var(--swal2-footer-color);font-size:1em;text-align:center;cursor:initial}div:where(.swal2-container) .swal2-timer-progress-bar-container{position:absolute;right:0;bottom:0;left:0;grid-column:auto !important;overflow:hidden;border-bottom-right-radius:var(--swal2-border-radius);border-bottom-left-radius:var(--swal2-border-radius)}div:where(.swal2-container) div:where(.swal2-timer-progress-bar){width:100%;height:.25em;background:var(--swal2-timer-progress-bar-background)}div:where(.swal2-container) img:where(.swal2-image){max-width:100%;margin:2em auto 1em;cursor:initial}div:where(.swal2-container) button:where(.swal2-close){position:var(--swal2-close-button-position);inset:var(--swal2-close-button-inset);z-index:2;align-items:center;justify-content:center;width:1.2em;height:1.2em;margin-top:0;margin-right:0;margin-bottom:-1.2em;padding:0;overflow:hidden;transition:var(--swal2-close-button-transition);border:none;border-radius:var(--swal2-border-radius);outline:var(--swal2-close-button-outline);background:rgba(0,0,0,0);color:var(--swal2-close-button-color);font-family:monospace;font-size:var(--swal2-close-button-font-size);cursor:pointer;justify-self:end}div:where(.swal2-container) button:where(.swal2-close):hover{transform:var(--swal2-close-button-hover-transform);background:rgba(0,0,0,0);color:#f27474}div:where(.swal2-container) button:where(.swal2-close):focus-visible{outline:none;box-shadow:var(--swal2-close-button-focus-box-shadow)}div:where(.swal2-container) button:where(.swal2-close)::-moz-focus-inner{border:0}div:where(.swal2-container) div:where(.swal2-html-container){z-index:1;justify-content:center;margin:0;padding:var(--swal2-html-container-padding);overflow:auto;color:inherit;font-size:1.125em;font-weight:normal;line-height:normal;text-align:center;overflow-wrap:break-word;word-break:break-word;cursor:initial}div:where(.swal2-container) input:where(.swal2-input),div:where(.swal2-container) input:where(.swal2-file),div:where(.swal2-container) textarea:where(.swal2-textarea),div:where(.swal2-container) select:where(.swal2-select),div:where(.swal2-container) div:where(.swal2-radio),div:where(.swal2-container) label:where(.swal2-checkbox){margin:1em 2em 3px}div:where(.swal2-container) input:where(.swal2-input),div:where(.swal2-container) input:where(.swal2-file),div:where(.swal2-container) textarea:where(.swal2-textarea){box-sizing:border-box;width:auto;transition:var(--swal2-input-transition);border:var(--swal2-input-border);border-radius:var(--swal2-input-border-radius);background:var(--swal2-input-background);box-shadow:var(--swal2-input-box-shadow);color:inherit;font-size:1.125em}div:where(.swal2-container) input:where(.swal2-input).swal2-inputerror,div:where(.swal2-container) input:where(.swal2-file).swal2-inputerror,div:where(.swal2-container) textarea:where(.swal2-textarea).swal2-inputerror{border-color:#f27474 !important;box-shadow:0 0 2px #f27474 !important}div:where(.swal2-container) input:where(.swal2-input):hover,div:where(.swal2-container) input:where(.swal2-file):hover,div:where(.swal2-container) textarea:where(.swal2-textarea):hover{box-shadow:var(--swal2-input-hover-box-shadow)}div:where(.swal2-container) input:where(.swal2-input):focus,div:where(.swal2-container) input:where(.swal2-file):focus,div:where(.swal2-container) textarea:where(.swal2-textarea):focus{border:var(--swal2-input-focus-border);outline:none;box-shadow:var(--swal2-input-focus-box-shadow)}div:where(.swal2-container) input:where(.swal2-input)::placeholder,div:where(.swal2-container) input:where(.swal2-file)::placeholder,div:where(.swal2-container) textarea:where(.swal2-textarea)::placeholder{color:#ccc}div:where(.swal2-container) .swal2-range{margin:1em 2em 3px;background:var(--swal2-background)}div:where(.swal2-container) .swal2-range input{width:80%}div:where(.swal2-container) .swal2-range output{width:20%;color:inherit;font-weight:600;text-align:center}div:where(.swal2-container) .swal2-range input,div:where(.swal2-container) .swal2-range output{height:2.625em;padding:0;font-size:1.125em;line-height:2.625em}div:where(.swal2-container) .swal2-input{height:2.625em;padding:0 .75em}div:where(.swal2-container) .swal2-file{width:75%;margin-right:auto;margin-left:auto;background:var(--swal2-input-background);font-size:1.125em}div:where(.swal2-container) .swal2-textarea{height:6.75em;padding:.75em}div:where(.swal2-container) .swal2-select{min-width:50%;max-width:100%;padding:.375em .625em;background:var(--swal2-input-background);color:inherit;font-size:1.125em}div:where(.swal2-container) .swal2-radio,div:where(.swal2-container) .swal2-checkbox{align-items:center;justify-content:center;background:var(--swal2-background);color:inherit}div:where(.swal2-container) .swal2-radio label,div:where(.swal2-container) .swal2-checkbox label{margin:0 .6em;font-size:1.125em}div:where(.swal2-container) .swal2-radio input,div:where(.swal2-container) .swal2-checkbox input{flex-shrink:0;margin:0 .4em}div:where(.swal2-container) label:where(.swal2-input-label){display:flex;justify-content:center;margin:1em auto 0}div:where(.swal2-container) div:where(.swal2-validation-message){align-items:center;justify-content:center;margin:1em 0 0;padding:.625em;overflow:hidden;background:var(--swal2-validation-message-background);color:var(--swal2-validation-message-color);font-size:1em;font-weight:300}div:where(.swal2-container) div:where(.swal2-validation-message)::before{content:"!";display:inline-block;width:1.5em;min-width:1.5em;height:1.5em;margin:0 .625em;border-radius:50%;background-color:#f27474;color:#fff;font-weight:600;line-height:1.5em;text-align:center}div:where(.swal2-container) .swal2-progress-steps{flex-wrap:wrap;align-items:center;max-width:100%;margin:1.25em auto;padding:0;background:rgba(0,0,0,0);font-weight:600}div:where(.swal2-container) .swal2-progress-steps li{display:inline-block;position:relative}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step{z-index:20;flex-shrink:0;width:2em;height:2em;border-radius:2em;background:#2778c4;color:#fff;line-height:2em;text-align:center}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step{background:#2778c4}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step~.swal2-progress-step{background:var(--swal2-progress-step-background);color:#fff}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step~.swal2-progress-step-line{background:var(--swal2-progress-step-background)}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step-line{z-index:10;flex-shrink:0;width:2.5em;height:.4em;margin:0 -1px;background:#2778c4}div:where(.swal2-icon){position:relative;box-sizing:content-box;justify-content:center;width:5em;height:5em;margin:2.5em auto .6em;zoom:var(--swal2-icon-zoom);border:.25em solid rgba(0,0,0,0);border-radius:50%;border-color:#000;font-family:inherit;line-height:5em;cursor:default;user-select:none}div:where(.swal2-icon) .swal2-icon-content{display:flex;align-items:center;font-size:3.75em}div:where(.swal2-icon).swal2-error{border-color:#f27474;color:#f27474}div:where(.swal2-icon).swal2-error .swal2-x-mark{position:relative;flex-grow:1}div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line]{display:block;position:absolute;top:2.3125em;width:2.9375em;height:.3125em;border-radius:.125em;background-color:#f27474}div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line][class$=left]{left:1.0625em;transform:rotate(45deg)}div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line][class$=right]{right:1em;transform:rotate(-45deg)}div:where(.swal2-icon).swal2-error.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-error.swal2-icon-show .swal2-x-mark{animation:swal2-animate-error-x-mark .5s}div:where(.swal2-icon).swal2-warning{border-color:#f8bb86;color:#f8bb86}div:where(.swal2-icon).swal2-warning.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-warning.swal2-icon-show .swal2-icon-content{animation:swal2-animate-i-mark .5s}div:where(.swal2-icon).swal2-info{border-color:#3fc3ee;color:#3fc3ee}div:where(.swal2-icon).swal2-info.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-info.swal2-icon-show .swal2-icon-content{animation:swal2-animate-i-mark .8s}div:where(.swal2-icon).swal2-question{border-color:#87adbd;color:#87adbd}div:where(.swal2-icon).swal2-question.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-question.swal2-icon-show .swal2-icon-content{animation:swal2-animate-question-mark .8s}div:where(.swal2-icon).swal2-success{border-color:#a5dc86;color:#a5dc86}div:where(.swal2-icon).swal2-success [class^=swal2-success-circular-line]{position:absolute;width:3.75em;height:7.5em;border-radius:50%}div:where(.swal2-icon).swal2-success [class^=swal2-success-circular-line][class$=left]{top:-0.4375em;left:-2.0635em;transform:rotate(-45deg);transform-origin:3.75em 3.75em;border-radius:7.5em 0 0 7.5em}div:where(.swal2-icon).swal2-success [class^=swal2-success-circular-line][class$=right]{top:-0.6875em;left:1.875em;transform:rotate(-45deg);transform-origin:0 3.75em;border-radius:0 7.5em 7.5em 0}div:where(.swal2-icon).swal2-success .swal2-success-ring{position:absolute;z-index:2;top:-0.25em;left:-0.25em;box-sizing:content-box;width:100%;height:100%;border:.25em solid rgba(165,220,134,.3);border-radius:50%}div:where(.swal2-icon).swal2-success .swal2-success-fix{position:absolute;z-index:1;top:.5em;left:1.625em;width:.4375em;height:5.625em;transform:rotate(-45deg)}div:where(.swal2-icon).swal2-success [class^=swal2-success-line]{display:block;position:absolute;z-index:2;height:.3125em;border-radius:.125em;background-color:#a5dc86}div:where(.swal2-icon).swal2-success [class^=swal2-success-line][class$=tip]{top:2.875em;left:.8125em;width:1.5625em;transform:rotate(45deg)}div:where(.swal2-icon).swal2-success [class^=swal2-success-line][class$=long]{top:2.375em;right:.5em;width:2.9375em;transform:rotate(-45deg)}div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-line-tip{animation:swal2-animate-success-line-tip .75s}div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-line-long{animation:swal2-animate-success-line-long .75s}div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-circular-line-right{animation:swal2-rotate-success-circular-line 4.25s ease-in}[class^=swal2]{-webkit-tap-highlight-color:rgba(0,0,0,0)}.swal2-show{animation:var(--swal2-show-animation)}.swal2-hide{animation:var(--swal2-hide-animation)}.swal2-noanimation{transition:none}.swal2-scrollbar-measure{position:absolute;top:-9999px;width:50px;height:50px;overflow:scroll}.swal2-rtl .swal2-close{margin-right:initial;margin-left:0}.swal2-rtl .swal2-timer-progress-bar{right:0;left:auto}.swal2-toast{box-sizing:border-box;grid-column:1/4 !important;grid-row:1/4 !important;grid-template-columns:min-content auto min-content;padding:1em;overflow-y:hidden;border:var(--swal2-toast-border);background:var(--swal2-background);box-shadow:var(--swal2-toast-box-shadow);pointer-events:auto}.swal2-toast>*{grid-column:2}.swal2-toast h2:where(.swal2-title){margin:.5em 1em;padding:0;font-size:1em;text-align:initial}.swal2-toast .swal2-loading{justify-content:center}.swal2-toast input:where(.swal2-input){height:2em;margin:.5em;font-size:1em}.swal2-toast .swal2-validation-message{font-size:1em}.swal2-toast div:where(.swal2-footer){margin:.5em 0 0;padding:.5em 0 0;font-size:.8em}.swal2-toast button:where(.swal2-close){grid-column:3/3;grid-row:1/99;align-self:center;width:.8em;height:.8em;margin:0;font-size:2em}.swal2-toast div:where(.swal2-html-container){margin:.5em 1em;padding:0;overflow:initial;font-size:1em;text-align:initial}.swal2-toast div:where(.swal2-html-container):empty{padding:0}.swal2-toast .swal2-loader{grid-column:1;grid-row:1/99;align-self:center;width:2em;height:2em;margin:.25em}.swal2-toast .swal2-icon{grid-column:1;grid-row:1/99;align-self:center;width:2em;min-width:2em;height:2em;margin:0 .5em 0 0}.swal2-toast .swal2-icon .swal2-icon-content{display:flex;align-items:center;font-size:1.8em;font-weight:bold}.swal2-toast .swal2-icon.swal2-success .swal2-success-ring{width:2em;height:2em}.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line]{top:.875em;width:1.375em}.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=left]{left:.3125em}.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=right]{right:.3125em}.swal2-toast div:where(.swal2-actions){justify-content:flex-start;height:auto;margin:0;margin-top:.5em;padding:0 .5em}.swal2-toast button:where(.swal2-styled){margin:.25em .5em;padding:.4em .6em;font-size:1em}.swal2-toast .swal2-success{border-color:#a5dc86}.swal2-toast .swal2-success [class^=swal2-success-circular-line]{position:absolute;width:1.6em;height:3em;border-radius:50%}.swal2-toast .swal2-success [class^=swal2-success-circular-line][class$=left]{top:-0.8em;left:-0.5em;transform:rotate(-45deg);transform-origin:2em 2em;border-radius:4em 0 0 4em}.swal2-toast .swal2-success [class^=swal2-success-circular-line][class$=right]{top:-0.25em;left:.9375em;transform-origin:0 1.5em;border-radius:0 4em 4em 0}.swal2-toast .swal2-success .swal2-success-ring{width:2em;height:2em}.swal2-toast .swal2-success .swal2-success-fix{top:0;left:.4375em;width:.4375em;height:2.6875em}.swal2-toast .swal2-success [class^=swal2-success-line]{height:.3125em}.swal2-toast .swal2-success [class^=swal2-success-line][class$=tip]{top:1.125em;left:.1875em;width:.75em}.swal2-toast .swal2-success [class^=swal2-success-line][class$=long]{top:.9375em;right:.1875em;width:1.375em}.swal2-toast .swal2-success.swal2-icon-show .swal2-success-line-tip{animation:swal2-toast-animate-success-line-tip .75s}.swal2-toast .swal2-success.swal2-icon-show .swal2-success-line-long{animation:swal2-toast-animate-success-line-long .75s}.swal2-toast.swal2-show{animation:var(--swal2-toast-show-animation)}.swal2-toast.swal2-hide{animation:var(--swal2-toast-hide-animation)}@keyframes swal2-show{0%{transform:translate3d(0, -50px, 0) scale(0.9);opacity:0}100%{transform:translate3d(0, 0, 0) scale(1);opacity:1}}@keyframes swal2-hide{0%{transform:translate3d(0, 0, 0) scale(1);opacity:1}100%{transform:translate3d(0, -50px, 0) scale(0.9);opacity:0}}@keyframes swal2-animate-success-line-tip{0%{top:1.1875em;left:.0625em;width:0}54%{top:1.0625em;left:.125em;width:0}70%{top:2.1875em;left:-0.375em;width:3.125em}84%{top:3em;left:1.3125em;width:1.0625em}100%{top:2.8125em;left:.8125em;width:1.5625em}}@keyframes swal2-animate-success-line-long{0%{top:3.375em;right:2.875em;width:0}65%{top:3.375em;right:2.875em;width:0}84%{top:2.1875em;right:0;width:3.4375em}100%{top:2.375em;right:.5em;width:2.9375em}}@keyframes swal2-rotate-success-circular-line{0%{transform:rotate(-45deg)}5%{transform:rotate(-45deg)}12%{transform:rotate(-405deg)}100%{transform:rotate(-405deg)}}@keyframes swal2-animate-error-x-mark{0%{margin-top:1.625em;transform:scale(0.4);opacity:0}50%{margin-top:1.625em;transform:scale(0.4);opacity:0}80%{margin-top:-0.375em;transform:scale(1.15)}100%{margin-top:0;transform:scale(1);opacity:1}}@keyframes swal2-animate-error-icon{0%{transform:rotateX(100deg);opacity:0}100%{transform:rotateX(0deg);opacity:1}}@keyframes swal2-rotate-loading{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}@keyframes swal2-animate-question-mark{0%{transform:rotateY(-360deg)}100%{transform:rotateY(0)}}@keyframes swal2-animate-i-mark{0%{transform:rotateZ(45deg);opacity:0}25%{transform:rotateZ(-25deg);opacity:.4}50%{transform:rotateZ(15deg);opacity:.8}75%{transform:rotateZ(-5deg);opacity:1}100%{transform:rotateX(0);opacity:1}}@keyframes swal2-toast-show{0%{transform:translateY(-0.625em) rotateZ(2deg)}33%{transform:translateY(0) rotateZ(-2deg)}66%{transform:translateY(0.3125em) rotateZ(2deg)}100%{transform:translateY(0) rotateZ(0deg)}}@keyframes swal2-toast-hide{100%{transform:rotateZ(1deg);opacity:0}}@keyframes swal2-toast-animate-success-line-tip{0%{top:.5625em;left:.0625em;width:0}54%{top:.125em;left:.125em;width:0}70%{top:.625em;left:-0.25em;width:1.625em}84%{top:1.0625em;left:.75em;width:.5em}100%{top:1.125em;left:.1875em;width:.75em}}@keyframes swal2-toast-animate-success-line-long{0%{top:1.625em;right:1.375em;width:0}65%{top:1.25em;right:.9375em;width:0}84%{top:.9375em;right:0;width:1.125em}100%{top:.9375em;right:.1875em;width:1.375em}}</style>
+    <script>
+
+        function getMsgY(msgid, msgtitle) {
+            Swal.fire({
+                title:"عذرا",
+                html: " بيانات الطالب الجامعيه غير مكتمله برجاء اكمال بيانات النزوح في تفاصيل العنوان والإتصال",
+                icon: 'error',
+                showCancelButton: false,
+                showconfirmButton: true,
+                confirmButtonText: 'انتقال'
+            }).then((result) => {
+                if (result.isConfirmed || result.isDismissed) {
+                    window.location.replace(
+                        window.location.origin + "/profile/student_info"
+                    );
+                    //window.location.replace("https://my.ucas.edu.ps/profile/student_info");
+                }
+            });
+        }
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $('.lines').click(function () {
+                //$('#navigation').toggle();
+            });
+            $('.has-submenu>a').click(function (event) {
+                event.stopPropagation();
+                $('.submenu').toggle();
+            });
+            $('.responsive_table').basictable();
+        });
+
+        $(document).ready(function () { // Add your event handlers inside ready block
+            $(".btn-noref").click(function (event) { // button event handler
+                event.preventDefault(); // prevent page from redirecting
+            });
+            $(".topbtn").each(function (index) {
+                var attr = $(this).attr('href');
+                var hclass = $(this).hasClass('fb');
+                var iframe = $(this).hasClass('fancybox.iframe');
+                var fancybox = $(this).hasClass('fancybox');
+                if ((typeof attr !== 'undefined' && attr !== false) || hclass || iframe || fancybox) {
+                } else {
+                    $(this).addClass("ChangeIt");
+                }
+            });
+        });
+    </script>
+    <script>
+        $(window).load(function () {
+            $('#loader').hide();
+        });
+    </script>
+
+    
+    <title>تقييم المدرسين</title>
+    <script type="text/javascript">
+        var x;
+        $(document).ready(function () {
+
+        });
+    </script>
+    <style>
+        .icheckR td{
+            border-top:0;
+            padding:5px;
+        }
+        span.bt-content {
+            float: right;
+            width: 100%;
+        }
+        .isw_radio input + label:after {
+            content:'';
+            position:absolute;
+            border:1px solid #eee;
+            width:15px;
+            height:15px;
+            right: 0;
+            top: 2px;
+        }
+        .isw_radio input:checked + label:before {
+            content: '\e83f';
+            font-family: 'feather';
+            font-size: 10px;
+            text-align: center;
+            line-height: 14px;
+            position:absolute;
+            border:1px solid #eee;
+            width:15px;
+            height:15px;
+            background:#0094ff;
+            right: 0;
+            color:#fff;
+            top: 2px;
+        }
+        .isw_radio input {
+            display:none;
+        }
+        .isw_radio label{
+            float:right;
+            width:100%;
+            margin-bottom:0;
+            padding-right:20px;
+            position:relative;
+            margin-left:5px;
+        }
+
+        @media(max-width:992px) {
+            .just_onmob>table>thead>tr>th:nth-child(1) ,
+            .just_onmob>table>tbody>tr>td:nth-child(1) {
+                width:14%
+            }
+            .just_onmob >table>thead>tr>th:nth-child(2) ,
+            .just_onmob >table>tbody>tr>td:nth-child(2) {
+                width:85%
+            }
+            .just_onmob >table>thead>tr>th:nth-child(3) ,
+            .just_onmob >table>tbody>tr>td:nth-child(3) {
+                width:100%
+            }
+            .just_onmob>table>thead>tr>th ,
+            .just_onmob>table>tbody>tr>td {
+                display: inline-block;
+            }
+            .just_onmob>table>thead>tr ,
+            .just_onmob>table>tbody>tr {
+                display: inline-block;
+                width:100%;
+            }
+            .just_onmob table table tr {
+                border-bottom:0;
+            }
+            .just_onmob table td {
+            
+                border-top:0;
+            }
+            .just_onmob table tbody table td{
+                display:inline-block;
+            }
+            .just_onmob table tbody,
+            .just_onmob table thead,
+            .just_onmob table,
+            .just_onmob{
+                display:inline-block;
+                width:100%;
+            }
+        }
+    </style>
+     
+ 
+    <style>
+        .col-sm-3.has_valid:before,
+        .col-sm-4.has_valid:before,
+        .col-sm-5.has_valid:before,
+        .col-sm-6.has_valid:before,
+        .col-sm-7.has_valid:before,
+        .col-sm-8.has_valid:before,
+        .col-sm-9.has_valid:before,
+        .col-sm-10.has_valid:before,
+        .col-sm-11.has_valid:before,
+        .col-sm-12.has_valid:before,
+        .col-sm-1.has_valid:before,
+        .col-sm-2.has_valid:before{
+            left:17px;
+        }
+        .redColor{
+            color: red !important;
+        }
+        span.reqspan:before , .has_valid:before {
+            content: "";
+            background-image: url(../NewTemp/src/icons/req.png);
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 10px;
+            height: 10px;
+            position: absolute;
+            left: 2px;
+            top: 2px;
+            background-size: contain;
+        }
+        span.reqspan {
+            float: left;
+            position: relative;
+        }
+        .lblEmail{
+            cursor:pointer;
+        }
+        .swal2-html-container, button.swal2-confirm.swal2-styled {
+            font-family: Fon !important;
+        }
+    </style>
+
+<style type="text/css">.fancybox-margin{margin-right:0px;}</style></head>
+<body class="webstyle-light">
+    <div id="loader" style="display: none;">
+        <div class="loader"></div>
+    </div>
+    <!-- Navigation Bar-->
+    <header id="topnav" class="light">
+
+        <!-- Topbar Start -->
+        <div class="navbar-custom">
+            <div class="container-fluid">
+                <ul class="list-unstyled topnav-menu float-right mb-0">
+
+                    <li class="dropdown notification-list">
+                        <!-- Mobile menu toggle-->
+                        <a class="navbar-toggle nav-link">
+                            <div class="lines">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </a>
+                        <!-- End mobile menu toggle-->
+                    </li>
+
+                    <li id="notifys_New" class="dropdown notification-list notifys_New">
+                        <a class="nav-link dropdown-toggle waves-effect" id="notifys_link" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            <i class="fe-bell noti-icon"></i>
+                            <span id="notify_number" class="badge badge-danger rounded-circle noti-icon-badge">0</span>
+                        </a>
+                        
+                        <div class="dropdown-menu dropdown-menu-right dropdown-lg" id="notify-dropdown">
+                            <!-- item-->
+                            <div class="dropdown-item noti-title">
+                                <h5 class="m-0">
+                                    <span class="float-right">
+                                        
+                                    </span>التنبيهات
+                                </h5>
+                            </div>
+
+                            <div class="slimscroll noti-scroll" id="notList">
+                                
+                                        <a href="#" class="dropdown-item notify-item fb fancybox.iframe active">
+                                            <p class="">القبول والتسجيل</p>
+                                            <p class="text-muted mb-0 user-msg">
+                                                <small>رابط القضايا الطلابية </small>
+                                            </p>
+                                        </a>
+                                    
+                                
+                                
+                            </div>
+
+                            <!-- All-->
+                            
+                        </div>
+                    </li>
+
+                    <li class="dropdown notification-list">
+                        <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            <img src="/static/NewTemp/src/images/fotlogo.png" alt="user-image" class="rounded-circle">
+                            <span class="pro-user-name ml-1">
+                                عبدالله محمد أحمد سالم <i class="mdi mdi-chevron-down"></i>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                            <!-- item-->
+
+                            <!-- item-->
+                            
+
+                            <!-- item-->
+                            <a href="#" class="dropdown-item notify-item">
+                                <i class="fe-settings"></i>
+                                <span>بياناتي</span>
+                            </a>
+
+                            <!-- item-->
+                            <a href="/profile/change_password" class="dropdown-item notify-item">
+                                <i class="fe-lock"></i>
+                                <span>تغير كلمه المرور</span>
+                            </a>
+
+                            <div class="dropdown-divider"></div>
+
+                            <!-- item-->
+                            
+                            <!-- item-->
+                            <a href="/logout" class="dropdown-item notify-item">
+                                <i class="fe-log-out"></i>
+                                <span>تسجيل الخروج</span>
+                            </a>
+
+
+                        </div>
+                    </li>
+                    <li class="dropdown notification-list">
+                        <a href="javascript:void(0);" class="nav-link waves-effect dark_btn_change light">
+                            <i class="mdi mdi-white-balance-sunny"></i>
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- LOGO -->
+                <div class="logo-box">
+                    <a href="/home" class="logo text-center">
+                        <span class="logo-lg">
+                            <img src="/static/NewTemp/src/images/logo-dark.png" alt="" height="55">
+                            <!-- <span class="logo-lg-text-light">UBold</span> -->
+                        </span>
+                        <span class="logo-sm">
+                            <!-- <span class="logo-sm-text-dark">U</span> -->
+                            <img src="/static/NewTemp/src/images/logo-sm.png" alt="" height="50">
+                        </span>
+                    </a>
+                </div>
+
+            </div>
+            <!-- end container-fluid-->
+        </div>
+        <!-- end Topbar -->
+
+        <div class="topbar-menu">
+            <div class="container-fluid">
+                <div id="navigation" class="active">
+                    <!-- Navigation Menu-->
+                    <ul class="navigation-menu in">
+
+                        <li>
+                            <a href="/home"><i class="mdi mdi-view-dashboard"></i>الرئيسية</a>
+                        </li>
+                        
+                                <li class="has-submenu">
+                                    <a id="M1" class="menulnk" href="/Registration">القبول و التسجيل</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                                <li>
+                                                    <a id="M18" title="تمكين الطالب من الاطلاع على خطته الدراسية" href="/Registration/study_plan">الخطة الدراسية</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M49" title="المساقات المسجلة للفصل الدراسي الحالي والفصول السابقة." href="/Registration/Registered_Subjects">المساقات المسجلة</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M9" title="تسجيل المساقات في الفصل الدراسي و السحب و الإضافة و تغيير الشعب" href="/Registration/semester_registration">التسجيل الفصلي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M10" title="يوضح الجدول الدراسي للطالب بالتفصيل الأيام و المواعيد و المساقات و الشعب" href="/Registration/semester_table">الجدول التفصيلي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M12" title="تحتوي على الأجندة الفصلية مثل بدء الدراسة و التسجيل و السحب و الإضافة" href="/Registration/academic_calendar">التقويم الأكاديمي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M57" title="تحتوي على جدول مواعيد الامتحانات النهائية." href="/Registration/exams_schedule">جدول الإمتحانات</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M19" title="عبارة عن جدول بدرجات الطالب مصنفة حسب الفصول الدراسية." href="/Registration/transcript">كشف الدرجات</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M25" title="تحتوي على مساقات الطالب المسجلة حاليا وتوصيفها" href="/Registration/course_descriptions">توصيف المساقات</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M208" title="للتسجيل في امتحانات المستوى مثل امتحان مستوى اللغة الانجليزية وامتحان مستوى القراءن وغيرها." href="#">تقديم لامتحانات المستوى</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M248" title="لاستعراض المواد والمساقات التي تم طرحها في الفصل الحالي , كذلك الفصلص القادم." href="/Registration/semester_subjects">المواد لهذا الفصل</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu">
+                                    <a id="M2" class="menulnk" href="/profile">ملف الطالب</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                                <li>
+                                                    <a id="M15" title="تمكين الطالب من تغيير كلمة المرور الخاصة به" href="/profile/change_password">تغيير كلمة المرور</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M48" title="يقوم الطالب بتعبئة بيانات طلب اقرار خريج حتى تتحول حالته الى خريج اذا كانت بياناته صحيحة." href="/profile/graduate_allowance_form">اقرار خريج</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M20" title="عبارة عن سجلات مالية تخص الطالب بحيث يعرف الطالب تاريخ الدفعات التي قام بها وتاريخ المستحقات لكل فصل دراسي" href="/profile/financial_profile">الملف المالي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M21" title="يتعرف الطالب من خلالها على مرشده المالي ويتلقى الرسائل التي يرسلها مرشده المالي." href="/profile/financial_advisor">المرشد المالي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M22" title="يتعرف الطالب من خلالها على مرشده الاكاديمي ويتلقى الرسائل التي يرسلها مرشده." href="/profile/academic_advisor">المرشد الأكاديمي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M16" title="تفعيل البريد الالكتروني وفحص حالة البريد." href="/profile/email">البريد الإلكتروني</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M17" title="قم من هذه الصفحة بمراجعة بياناتك واحرص ان تكون جميع بياناتك الاساسية سليمة وصحيحة." href="/profile/student_info">بيانات الطالب</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M288" title="للاستعلام عن المنح والقروض الخاصة بالطالب حسب الفصل." href="/profile/discounts_gifts">المنح والقروض</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M328" title="للاستعلام عن المنح والقروض المقدمة من التعليم العالي- برنامج إقراض." href="/profile/Iqrad">قروض التعليم العالي</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu">
+                                    <a id="M4" class="menulnk" href="/personal_apps">الطلبات الشخصية</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                                <li>
+                                                    <a id="M28" title="في حال اردت طلب مساعدة لتغطية الرسوم الدراسية او الحصول على منحة يمكنك استخدام هذه الصفحة لتعبئة بياناتك." href="/personal_apps/assistance_request">البحث الاجتماعي</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M29" title="تمكين الطالب من استلام درجاته للمساقات المسجلة للفصل الحالي فور اعتمادها." href="#">إشتراك الرسائل القصيرة</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M150" title="تحتوي على طلبات الإفادات التي ممكن أن يحتاجها الطال مثل شهادة القيد و إفادة خريج." href="/personal_apps/Student_Informs">الإفادات</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M317" title="الذهاب الى حساب دريم سبارك" href="/personal_apps/UserVerification">حساب دريم سبارك</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu">
+                                    <a id="M5" class="menulnk" href="/issues_and_applications">القضايا و الطلبات</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                                <li>
+                                                    <a id="M32" title="من هنا يمكنك تقديم طلب احتساب من مئة او طلب غير مكتمل او طلب مراجعة لاي مساق من مساقات المسجلة لهذا الفصل." href="/issues_and_applications/courses_applications">طلبات المساقات</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M108" title="من هنا يمكنك تقديم طلب تأجيل الفصل الدراسي الحالي" href="/issues_and_applications/postponement">طلب تأجيل فصل</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M109" title="من هنا يمكنك تقديم طلب إعادة قيد الفصل الدراسي الحالي" href="/issues_and_applications/re_under">طلب إعادة قيد</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M168" title="استخدم هذه الصفحة لتحويل تخصصك الحالي الى تخصص اخر." href="/issues_and_applications/dept_trans">طلب تحويل تخصص</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M31" title="قضايا التسجيل" href="/issues_and_applications/registration_issues">قضايا التسجيل</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu active">
+                                    <a id="M6" class="menulnk active" href="/evaluation">تقييم المساقات</a>
+
+                                    
+                                    <ul class="submenu in">
+                                        
+                                                <li class="active">
+                                                    <a id="M44" title="تقييم الطالب للمساقات" href="/evaluation/teacher_eval" class="active">تقييم المساقات</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu">
+                                    <a id="M7" class="menulnk" href="/questionnair">استبانات عامة</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                                <li>
+                                                    <a id="M45" title="قائمة الاستبانات الحالية" href="/questionnair/general_questionnaires">استبانات عامة</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu last-elements">
+                                    <a id="M8" class="menulnk" href="/library">المكتبة</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                                <li>
+                                                    <a id="M47" title="يمكنك من هنا الحصول على نماذج الامتحانات لمساقات الفصل الحالي." href="/library/examinations_samples">نماذج الامتحانات</a>
+                                                </li>
+                                            
+                                                <li>
+                                                    <a id="M46" title="الاطلاع على الكتب المستعارة من المكتبة كما ويمكنه تجديد الاستعارة" href="/library/borrowed_books">الكتب المستعارة</a>
+                                                </li>
+                                            
+                                    </ul>
+                                    
+                                </li>
+                            
+                                <li class="has-submenu last-elements">
+                                    <a id="M999" class="menulnk" href="#">برامج الطلبة</a>
+
+                                    
+                                    <ul class="submenu">
+                                        
+                                    </ul>
+                                    
+                                </li>
+                            
+
+
+
+
+                    </ul>
+                    <!-- End navigation menu -->
+
+                    <div class="clearfix"></div>
+                </div>
+                <!-- end #navigation -->
+            </div>
+            <!-- end container -->
+        </div>
+        <!-- end navbar-custom -->
+
+    </header>
+    <!-- End Navigation Bar-->
+
+    <div class="wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-12 col-md-12">
+                    <div class="card-box widget-user">
+                        <div>
+                            <div class="avatar-lg float-left mr-3">
+                                <img src="/static/NewTemp/src/images/fotlogo.png" style="width: 72px !important; height: 72px;" class="img-fluid rounded-circle" alt="user">
+                            </div>
+                            <div class="wid-u-info">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h5 id="lblStudentName" class="mt-2 font-18">عبدالله محمد أحمد سالم</h5>
+                                        <p id="lblStudentNo" class="text-muted mb-1 font-16 text-truncate">200000000</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="pull-left plfef float-right">
+                                            <small class="text-info"><b>التخصص :</b>
+                                                <span id="lblSpecial">أمن المعلومات</span>
+                                            </small>
+                                            <small class="text-info"><b>القسم :</b>
+                                                <span id="lblTaw_College">قسم هندسة الحاسوب - دبلوم متوسط</span>
+                                            </small>
+                                            <small class="text-info"><b>العمادة:</b>
+                                                <span id="lblDean">عمادة الهندسة والنظم الذكية</span>
+                                            </small>
+                                            <small id="smallEmail" class="text-info"><b>البريد :</b>
+                                                <span id="lblEmail" title="اضغط هنا لنسخ البريد الالكتروني" class="lblEmail">200000000@smail.ucas.edu.ps</span>
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="ADVISOR_DIV" class="col-xl-12 col-md-12">
+                    <div class="card-box">
+                        <h4>بيانات المرشد</h4>
+                        <div class="wid-u-info">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <small class="text-info"><b>الاسم  :</b>
+                                        <span id="ADVISOR_NAME">أحمد محمد المرشد</span>
+                                    </small>
+                                </div>
+                                <div class="col-md-4">
+                                    <small class="text-info"><b>القسم  :</b>
+                                        <span id="ADVISOR_DEPT_NAME">أمن المعلومات</span>
+                                    </small>
+                                </div>
+                                <div class="col-md-4">
+                                    <small class="text-info"><b>البريد الالكتروني :</b>
+                                        <span id="ADVISOR_MAIL">advisor@ucas.edu.ps</span>
+                                    </small>
+                                </div>
+                                <div class="col-md-4">
+                                    <small class="text-info"><b>رقم الواتس  :</b>
+                                        <span id="ADVISOR_WHATSAPP_NO">970599000000</span>
+                                    </small>
+                                </div>
+                                <div class="col-md-4">
+                                    <small class="text-info"><b>ساعات التواصل :</b>
+                                        <span id="TimeCon" class="redColor">من الساعة 9:00 صباحاً حتى 3:00 مساءً</span>
+                                    </small>
+                                </div>
+                                <div id="NOTES_div" class="col-md-12">
+                                    <small class="text-info"><b>الملاحظات  :</b>
+                                        <span id="NOTES">م. أحمد المرشد – مرشد دبلوم أمن المعلومات (طلاب وطالبات)</span>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- end row -->
+
+            <form method="post" action="#" id="form1">
+<div class="aspNetHidden">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="">
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['form1'];
+if (!theForm) {
+    theForm = document.form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/WebResource.axd?d=bKOHa5UOkbPilqSUsULhvAX0Z4G8NjALFVt3B0PF-dgGbOoNhtfkRwXJ5qjOpx1abHKQDFolvugBd5KOHLb2PJacSA4OMhEYhzTphBfHCF81&amp;t=638901634312636832" type="text/javascript"></script>
+
+
+<script src="/ScriptResource.axd?d=O-D59-NsY1B-XHtpqAIhOu1mZ3dWsydLcXfSqFBOBebNNYyNm6RZrQM_NOBsjNBYxMtbD2nry2IUOwNzHO7BaH66JrkF_kAFI7VXWJKYJ99su_nmwQVwGgZkjpooxdraGhz1u5-0xC5RGcgJU_YLtxLOixTyBybdGL9HYI6JOXk1&amp;t=345ad968" type="text/javascript"></script>
+<script src="/ScriptResource.axd?d=bWbsSBXYSSjEbTvvBYEwJWs0oHiWCXICJlrANLxp6jDYZ52X85CUiJf1b7f-P3rEEgZzOIpYoLn3qkss6Parvsmq5HMlIZMSxukGsRmE_Ofzys1uB6QC4DybXcyjx3442ZI4mLTYJKl4-vSYr6j-eruI2bqOyg0ACq9SVJS3ucCV0yexTb_eGEE1o0Uo6h9F0&amp;t=345ad968" type="text/javascript"></script>
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="6073BC5A">
+	<input type="hidden" name="__VIEWSTATEENCRYPTED" id="__VIEWSTATEENCRYPTED" value="">
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="G3x3W2nuox8fBUZ4En5Kpy1lpBFOUK2NTt97eGxMxseuT5Q9P2hFHp/byJR+gfqcvAq8wbyItsX/o4K17c060jv0nnLWQWEfrijQ8OklFBmp2AfJM+/HVUZt7K/H9llmIROP1s11+wLNZFWLRpioQp3PC22TR0ZU9cPn2luy2tQfy/+pBYRD/r3Cylg8CjiG">
+</div>
+                
+                
+                
+    <script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ctl00$ContentPlaceHolder1$ScriptManager1', 'form1', ['tctl00$ContentPlaceHolder1$UpdatePanel1','ContentPlaceHolder1_UpdatePanel1'], [], [], 1000, 'ctl00');
+//]]>
+</script>
+
+    <div id="ContentPlaceHolder1_UpdatePanel1">
+	
+            <div class="card-boxs">
+                <input type="hidden" name="ctl00$ContentPlaceHolder1$hdn_smtr" id="ContentPlaceHolder1_hdn_smtr">
+                <input type="hidden" name="ctl00$ContentPlaceHolder1$hdn_smtr_text" id="ContentPlaceHolder1_hdn_smtr_text" value="عملية التقييم لم تبدأ بعد.....">
+                <div id="ContentPlaceHolder1_Div2" class="card-box">
+                    <h4 class="header-title mt-0 mb-3"><i class="mdi mdi-notification-clear-all mr-1"></i>
+                        تقييم المدرسين
+                        <a class="topbtn ChangeIt">عملية التقييم لم تبدأ بعد.....</a>
+                    </h4>
+                    <div id="ContentPlaceHolder1_Msg1_divMsg" class="card-boxs" style="">
+    <div class="">
+        <div id="ContentPlaceHolder1_Msg1_TMsg" class="alert alert-danger">
+            <strong><img src="/static/NewTemp/src/icons/error.png" id="ContentPlaceHolder1_Msg1_imgMsg" class="small_img d_right" style="width:35px; margin-left:5px;"></strong>
+            <span id="ContentPlaceHolder1_Msg1_lblMsg" class="c_red" style="float:none;">عملية التقييم لم تبدأ بعد.....</span>
+        </div>
+    </div>
+</div>
+
+                    
+                    
+                    <div class="card-body">
+                        
+                    </div>
+                </div>
+            </div>
+        
+</div>
+
+                <!-- end page title -->
+            </form>
+        </div>
+    </div>
+
+
+
+    <!-- Footer Start -->
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    2020 - 2022 © جميع الحقوق محفوظة لـ <a href="#">الكلية الجامعية</a>
+                </div>
+                
+            </div>
+        </div>
+    </footer>
+    <!-- end Footer -->
+    <div class="feedback">
+        <a href="/feedback.aspx" class="fb fancybox.iframe">الإبلاغ عن مشكلة
+        </a>
+    </div>
+
+    <!-- Right bar overlay-->
+    <div class="rightbar-overlay"></div>
+
+
+    <!-- knob plugin -->
+    
+
+    <!--Morris Chart-->
+    
+    
+
+
+
+    <!-- Dashboard init js-->
+    
+
+    <!-- App js-->
+    <script src="/static/NewTemp/src/js/app.js"></script>
+
+    <!-- Add mousewheel plugin (this is optional) -->
+    <script type="text/javascript" src="/static/NewTemp/src/libs/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+
+    <!-- Add fancyBox main JS and CSS files -->
+    <script type="text/javascript" src="/static/NewTemp/src/libs/fancybox/source/jquery.fancybox.js?v=2.1.5"></script>
+    <link rel="stylesheet" type="text/css" href="/static/NewTemp/src/libs/fancybox/source/jquery.fancybox.css?v=2.1.5" media="screen">
+
+    <!-- Add Button helper (this is optional) -->
+    <link rel="stylesheet" type="text/css" href="/static/NewTemp/src/libs/fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5">
+    <script type="text/javascript" src="/static/NewTemp/src/libs/fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+
+    <!-- Add Thumbnail helper (this is optional) -->
+    <link rel="stylesheet" type="text/css" href="/static/NewTemp/src/libs/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7">
+    <script type="text/javascript" src="/static/NewTemp/src/libs/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+
+    <!-- Add Media helper (this is optional) -->
+    <script type="text/javascript" src="/static/NewTemp/src/libs/fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
+    <script>
+        function getCookie(cname) {
+            let name = cname + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let ca = decodedCookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+        var themes_style = "light";
+        //console.log(themes_style);
+        if (themes_style == '') {
+            var themes_style = getCookie("themes_style");
+        }
+        //console.log(themes_style);
+        $(document).ready(function () {
+            $(".lblEmail").click(function () {
+                copyToClipboard($(this));
+            });
+            $('#notifys_New a').click(function () {
+                document.cookie = "notifys_New=true;path=/";
+                $('#notifys_New').removeClass('notifys_New');
+            });
+            $('.bg_NewJusts').click(function () {
+                document.cookie = "notifys_New=true;path=/";
+                $('#notifys_New').removeClass('notifys_New');
+            });
+            console.log("true");
+            $('.dark_btn_change').click(function () {
+                if (themes_style == 'dark') {
+                    themes_style = "light";
+                    document.cookie = "themes_style=light;path=/";
+                } else {
+                    themes_style = "dark";
+                    document.cookie = "themes_style=dark;path=/";
+                }
+                location.reload();
+            });
+            $(".fb").fancybox({
+                width: 1024,
+                autoScale: false,
+                afterClose: function () {
+                    // parent.location.reload(true);
+                }
+            });
+        });
+
+        function fnSaveData() {
+            var item = JSON.parse(window.localStorage.getItem("notifications"));
+            let unread = 0;
+            var notifList = document.getElementById("notList");
+            var notifyNum = document.getElementById("notify_number");
+            function viewItems() {
+                var templateItem = document.createElement("a");
+                templateItem.classList.add("fancybox.iframe");
+                templateItem.classList.add("dropdown-item");
+                templateItem.classList.add("fb");
+                templateItem.classList.add("notify-item");
+                templateItem.setAttribute("id", "_notify-item");
+                let notTitle = item[i].TITLE;
+                let notUrl = item[i].URL;
+                let notAdv = item[i].ADV_SIDE;
+                let notDate = item[i].START_DATE;
+                let notRead = item[i].IS_READ;
+                let notDetails = item[i].DETAILS;
+                if (notRead == 0)
+                    unread++;
+                templateItem.classList.add(notRead);
+                let title = document.createElement("p");
+                let adv = document.createElement("p");
+                let details = document.createElement("p");
+                let date = document.createElement("small");
+                templateItem.href = `/show.aspx?created_date= ${notDate}&title= ${notTitle}&url=${notUrl}`;
+                notRead == 0 ? templateItem.classList.add("active") : "";
+                title.innerHTML = notTitle;
+                adv.innerHTML = notAdv;
+                notRead == 0 ? adv.classList.add("font-weight-bold") : "";
+                date.classList.add("text-muted");
+                date.classList.add("d-flex");
+                date.classList.add("flex-row-reverse");
+                details.innerHTML = notDetails.substring(0, 15) + "...";
+                date.innerHTML = notDate
+                templateItem.appendChild(adv);
+                templateItem.appendChild(title);
+                templateItem.appendChild(details);
+                templateItem.appendChild(date);
+                notifList.appendChild(templateItem);
+            }
+            if (item != null) {
+                if (notifList.children[0]) {
+                    for (i = 0; i < item?.length; i++) {
+                        document.getElementById("_notify-item")?.remove();
+                        viewItems();
+                    }
+                }
+                else {
+                    for (i = 0; i < item?.length; i++) {
+                        viewItems();
+                    }
+
+                }
+
+
+                notifyNum.innerHTML = unread.toString();
+            }
+        }
+
+        function GET_STD_NOTIFICATIONS_SSP(currentdate) {
+            $.ajax({
+                type: "POST",
+                url: '/WebService.asmx/GET_STD_NOTIFICATIONS_SSP',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    localStorage.setItem('notifications', data.d);
+                    currentdate.setDate(currentdate.getDate() + 1);
+                    localStorage.setItem('expiryStartDate', currentdate);
+                    fnSaveData();
+                },
+                error: function (result) {
+                    msgget(2, "حدث خطأ أثناء عملية الحفظ");
+                }
+            });
+        }
+
+
+        function SET_STD_NOTIFICATIONS_READ() {
+
+            $.ajax({
+                type: "POST",
+                url: '/WebService.asmx/SET_STD_NOTIFICATIONS_READ',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+
+                },
+                error: function (result) {
+                    msgget(2, "حدث خطأ ما");
+
+                }
+            })
+        }
+        $(document).ready(function () {
+
+            $("#notifys_link").click(function (e) {
+                var _currentdate = new Date();
+                GET_STD_NOTIFICATIONS_SSP(_currentdate);
+                SET_STD_NOTIFICATIONS_READ();
+            });
+            var currentdate = new Date();
+            var expiryDate = new Date(localStorage.getItem('expiryStartDate'));
+            var IsNotif = localStorage.getItem('notifications');
+            if (isNaN(Date.parse(expiryDate)) || currentdate > expiryDate || !IsNotif) {
+                GET_STD_NOTIFICATIONS_SSP(currentdate);
+            } else {
+                fnSaveData();
+            }
+
+
+        });
+        function copyToClipboard(element) {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val($(element).html()).select();
+            document.execCommand("copy");
+            $temp.remove();
+            alert("تم نسخ البريد");
+        }
+
+    </script>
+
+    
+    <script>
+        var custemSetting = function () {
+            //$('input[type=radio]').iCheck({
+            //    checkboxClass: 'icheckbox_square-red checkbox',
+            //    radioClass: 'iradio_square-red'
+            //});
+        };
+        $(document).ready(function () {
+            //custemSetting();
+        });
+        var prmGlobal = Sys.WebForms.PageRequestManager.getInstance();
+        prmGlobal.add_endRequest(function (sender, args) {
+            custemSetting();
+        });
+    </script>
+ 
+
+
+</body></html>

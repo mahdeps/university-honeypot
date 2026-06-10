@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ar" class="notranslate">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>{% block title %}خدمات الطلبة - الكلية الجامعية للعلوم التطبيقية{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta content="الكلية الجامعية للعلوم التطبيقية" name="description">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='NewTemp/src/images/favicon.ico') }}">
+
+  <link href="{{ url_for('static', filename='NewTemp/src/css-light/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ url_for('static', filename='NewTemp/src/css-light/icons.min.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ url_for('static', filename='NewTemp/src/css-light/app-rtl.min.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ url_for('static', filename='NewTemp/src/style.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ url_for('static', filename='NewTemp/src/css-light/cusstyle.css') }}" rel="stylesheet" type="text/css">
+  <!-- portal component theme (UCAS-tinted) -->
+  <link href="{{ url_for('static', filename='css/portal.css') }}" rel="stylesheet" type="text/css">
+
+  <script src="{{ url_for('static', filename='NewTemp/src/js/vendor.min.js') }}"></script>
+</head>
+<body>
+
+<header id="topnav" class="light">
+  <!-- Topbar -->
+  <div class="navbar-custom">
+    <div class="container-fluid">
+      <ul class="list-unstyled topnav-menu float-right mb-0">
+        <li class="dropdown notification-list">
+          <a class="navbar-toggle nav-link"><div class="lines"><span></span><span></span><span></span></div></a>
+        </li>
+        <li class="dropdown notification-list">
+          <a class="nav-link dropdown-toggle waves-effect" data-toggle="dropdown" href="#" role="button">
+            <i class="fe-bell noti-icon"></i>
+            <span class="badge badge-danger rounded-circle noti-icon-badge">0</span>
+          </a>
+        </li>
+        <li class="dropdown notification-list">
+          <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button">
+            <img src="{{ url_for('static', filename='NewTemp/src/images/fotlogo.png') }}" alt="user-image" class="rounded-circle">
+            <span class="pro-user-name ml-1">{{ session.get('user', 'طالب') }} <i class="mdi mdi-chevron-down"></i></span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right profile-dropdown">
+            <a href="/profile" class="dropdown-item notify-item"><i class="fe-settings"></i><span>بياناتي</span></a>
+            <a href="/change-password" class="dropdown-item notify-item"><i class="fe-lock"></i><span>تغيير كلمة المرور</span></a>
+            <div class="dropdown-divider"></div>
+            <a href="/logout" class="dropdown-item notify-item"><i class="fe-log-out"></i><span>تسجيل الخروج</span></a>
+          </div>
+        </li>
+      </ul>
+      <div class="logo-box">
+        <a href="/portal" class="logo text-center">
+          <span class="logo-lg"><img src="{{ url_for('static', filename='NewTemp/src/images/logo-dark.png') }}" alt="" height="55"></span>
+          <span class="logo-sm"><img src="{{ url_for('static', filename='NewTemp/src/images/logo-sm.png') }}" alt="" height="50"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- end Topbar -->
+
+  <!-- Horizontal Menu -->
+  <div class="topbar-menu">
+    <div class="container-fluid">
+      <div id="navigation">
+        <ul class="navigation-menu">
+          <li><a href="/portal" class="{{ 'active' if active=='home' }}"><i class="mdi mdi-view-dashboard"></i>الرئيسية</a></li>
+
+          <li class="has-submenu">
+            <a class="menulnk" href="#">القبول و التسجيل</a>
+            <ul class="submenu">
+              <li><a href="/studyplan">الخطة الدراسية</a></li>
+              <li><a href="/registration">المساقات والتسجيل الفصلي</a></li>
+              <li><a href="/schedule">الجدول التفصيلي</a></li>
+              <li><a href="/exams">جدول الإمتحانات</a></li>
+              <li><a href="/grades">كشف الدرجات</a></li>
+            </ul>
+          </li>
+
+          <li class="has-submenu">
+            <a class="menulnk" href="#">ملف الطالب</a>
+            <ul class="submenu">
+              <li><a href="/profile">بيانات الطالب</a></li>
+              <li><a href="/finance">الملف المالي</a></li>
+              <li><a href="/change-password">تغيير كلمة المرور</a></li>
+            </ul>
+          </li>
+
+          <li class="has-submenu">
+            <a class="menulnk" href="#">الخدمات الطلابية</a>
+            <ul class="submenu">
+              <li><a href="/messages">الرسائل</a></li>
+              <li><a href="/announcements">الإعلانات</a></li>
+              <li><a href="/library">المكتبة</a></li>
+            </ul>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+  <!-- end Horizontal Menu -->
+</header>
+
+<div class="wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xl-12 col-md-12">
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        2020 - 2026 © جميع الحقوق محفوظة · الكلية الجامعية للعلوم التطبيقية
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="{{ url_for('static', filename='NewTemp/src/js/app.min.js') }}"></script>
+<script>
+  // Horizontal submenu toggle (click) — keeps the real look working offline.
+  (function () {
+    document.querySelectorAll('.navigation-menu .has-submenu > a').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        var sub = this.parentNode.querySelector('.submenu');
+        if (!sub) return;
+        var open = sub.style.display === 'block';
+        document.querySelectorAll('.navigation-menu .submenu').forEach(function (s) { s.style.display = 'none'; });
+        sub.style.display = open ? 'none' : 'block';
+        e.stopPropagation();
+      });
+    });
+    document.addEventListener('click', function () {
+      document.querySelectorAll('.navigation-menu .submenu').forEach(function (s) { s.style.display = 'none'; });
+    });
+  })();
+</script>
+</body>
+</html>
