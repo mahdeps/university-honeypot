@@ -7,6 +7,22 @@ logs/
 *.sqlite
 *.db
 
+# TLS certs for the local HTTPS dev server (regenerated on startup) — the
+# private key must never be committed
+certs/
+*.crt
+*.key
+*.pem
+
+# Suricata capture + ingestion bookmark (large, and holds captured traffic)
+eve.json
+*.eve.json
+.suricata_offset.json
+
+# Local credentials (bot token, API keys) — NEVER commit
+app/local_config.py
+.env
+
 # Python
 __pycache__/
 *.pyc

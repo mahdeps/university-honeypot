@@ -2,3 +2,4 @@ Flask==3.0.3
 Werkzeug==3.0.3
 user-agents==2.2.0
 gunicorn==22.0.0
+cryptography==42.0.8   # local HTTPS dev server: auto-generates a self-signed cert

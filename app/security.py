@@ -25,6 +25,7 @@ Environment variables (all optional, safe defaults):
 """
 import os
 import time
+import hashlib
 import hmac
 import secrets
 import threading
@@ -58,6 +59,11 @@ MAX_BODY = int(os.environ.get("HONEYPOT_MAX_BODY", 256 * 1024))
 RATE = int(os.environ.get("HONEYPOT_RATE", 240))
 RATE_WINDOW = int(os.environ.get("HONEYPOT_RATE_WINDOW", 10))
 HTTPS = _flag("HONEYPOT_HTTPS")
+# Send HSTS only behind real, trusted TLS (a proper cert at the edge — e.g.
+# Render sets HONEYPOT_HTTPS). The local dev server uses a self-signed cert and
+# may auto-flip HTTPS on for Secure cookies, but it must NOT emit HSTS or the
+# browser will permanently refuse to bypass the self-signed warning.
+SEND_HSTS = _flag("HONEYPOT_HTTPS")
 
 # --- private-demo front door -------------------------------------------------
 # When DEMO_GATE_PASS (or DEMO_GATE_PASS_HASH) is set, the ENTIRE decoy surface
@@ -74,15 +80,45 @@ else:
 DEMO_GATE_ON = bool(DEMO_GATE_HASH)
 
 
+# Trust X-Forwarded-For only behind a real proxy that sets it (Render sets
+# HONEYPOT_HTTPS). Directly exposed, XFF is attacker-controlled, and honouring it
+# would let one host bypass the flood limiter completely just by rotating a fake
+# header on every request. The event log keeps its own XFF copy either way, so
+# spoofing attempts are still recorded.
+TRUST_PROXY = _flag("HONEYPOT_TRUST_PROXY") or _flag("HONEYPOT_HTTPS")
+
+
 def client_ip() -> str:
-    xff = request.headers.get("X-Forwarded-For", "")
-    return (xff.split(",")[0].strip() if xff else request.remote_addr) or "?"
+    """Rate-limiting identity: the real socket peer unless a proxy is trusted."""
+    if TRUST_PROXY:
+        xff = request.headers.get("X-Forwarded-For", "")
+        if xff:
+            return xff.split(",")[0].strip()
+    return request.remote_addr or "?"
 
 
 # --- dashboard access control ------------------------------------------------
 
 _auth_fail: dict[str, tuple[int, float]] = {}     # ip -> (count, locked_until)
 _auth_lock = threading.Lock()
+
+# Verifying the stored PBKDF2 hash costs 260k iterations (~145 ms of CPU). The
+# dashboard polls several endpoints every few seconds, so re-deriving it on every
+# request made the monitor slower than the whole rest of the app combined — and
+# handed an unauthenticated attacker free CPU amplification. Cache the RESULT of
+# a successful check for a short window, keyed by an HMAC of ip+credentials so
+# the password itself is never held in memory and a wrong password can never hit
+# a cached hit. Failures are never cached; they still feed the lockout counter.
+_auth_ok: dict[str, float] = {}                  # cred key -> expires_at
+try:
+    AUTH_CACHE_TTL = int(os.environ.get("MONITOR_AUTH_TTL", 300))
+except ValueError:
+    AUTH_CACHE_TTL = 300
+
+
+def _cred_key(ip: str, user: str, pw: str) -> str:
+    return hmac.new(SECRET.encode(), f"{ip}|{user}|{pw}".encode(),
+                    hashlib.sha256).hexdigest()
 
 
 def monitor_guard():
@@ -98,10 +134,23 @@ def monitor_guard():
                         {"Retry-After": str(int(until - time.time()))})
 
     auth = request.authorization
+    ckey = _cred_key(ip, auth.username or "", auth.password or "") if auth else None
+    if ckey and AUTH_CACHE_TTL > 0:
+        with _auth_lock:
+            if _auth_ok.get(ckey, 0.0) > time.time():
+                return None                       # verified recently, skip PBKDF2
+
     if (auth and hmac.compare_digest(auth.username or "", MONITOR_USER)
             and check_password_hash(MONITOR_PASS_HASH, auth.password or "")):
+        now = time.time()
         with _auth_lock:
             _auth_fail.pop(ip, None)
+            if AUTH_CACHE_TTL > 0:
+                _auth_ok[ckey] = now + AUTH_CACHE_TTL
+                if len(_auth_ok) > 512:           # bound memory
+                    for k, exp in list(_auth_ok.items()):
+                        if exp < now:
+                            _auth_ok.pop(k, None)
         return None
 
     # Wrong/with a credential supplied -> count it and lock after 5 tries for 5 min.
@@ -110,6 +159,11 @@ def monitor_guard():
             cnt += 1
             until = time.time() + 300 if cnt >= 5 else 0.0
             _auth_fail[ip] = (cnt, until)
+            if len(_auth_fail) > 4096:        # bound memory under a distributed spray
+                now = time.time()
+                for k, (_, u) in list(_auth_fail.items()):
+                    if u < now:
+                        _auth_fail.pop(k, None)
     return Response("401 Unauthorized", 401,
                     {"WWW-Authenticate": 'Basic realm="Restricted Monitor"'})
 

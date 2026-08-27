@@ -36,10 +36,13 @@ import sqlite3
 from flask import (Flask, request, render_template, redirect, url_for,
                    Response, send_from_directory, abort)
 
-from . import detectors, logger, decoy_db, dyn, security, intel
+from . import detectors, logger, decoy_db, dyn, security, intel, ids, notify
 from .dashboard import dashboard_bp
 
 # Make the dev server announce itself as IIS too (no Werkzeug banner leak).
+# NB: do NOT force protocol_version="HTTP/1.1" here — Werkzeug's dev server does
+# not handle persistent (keep-alive) connections reliably and will hang the
+# browser. We rely on threaded=True (below) for concurrency instead.
 try:
     from werkzeug.serving import WSGIRequestHandler
     WSGIRequestHandler.server_version = "Microsoft-IIS/10.0"
@@ -234,8 +237,20 @@ def _capture(event_type: str = "request", extra: dict | None = None) -> list[dic
     return findings
 
 
+# The Suricata tailer must start AFTER any fork: gunicorn --preload imports this
+# module in the master process and then forks, and a thread created at import
+# time would stay behind in the master. Starting it on the first request means
+# it lands inside the worker that actually serves traffic.
+_ids_started = False
+
+
 @app.before_request
 def _before():
+    global _ids_started
+    if not _ids_started:
+        _ids_started = True
+        ids.start_tailer()
+        notify.start()
     # Health probe for the hosting platform — never gated, never logged.
     if request.path == "/healthz":
         return
@@ -247,9 +262,17 @@ def _before():
         gate = security.demo_gate()
         if gate is not None:
             return gate
-    # Don't double-log the monitor, static assets, or our own intel endpoints.
-    if request.path.startswith(("/_monitor", "/static", "/_intel.js", "/_collect")):
+    # Don't double-log the monitor, static assets, or our own intel endpoints —
+    # but DO shed floods there. The monitor's auth check runs PBKDF2 (260k
+    # iterations), so leaving it unlimited turns every unauthenticated request
+    # into CPU amplification and lets a spray stall the SOC dashboard.
+    if request.path.startswith(("/_monitor", "/static", "/_intel.js")):
+        if security.is_flooding(security.client_ip()):
+            return Response("429 Too Many Requests", status=429,
+                            headers={"Retry-After": str(security.RATE_WINDOW)})
         return
+    if request.path.startswith("/_collect"):
+        return                       # self-limits inside collect_intel()
     _capture()
     # Record the attack first, then shed floods so the host can't be exhausted
     # or abused as a DoS reflector.
@@ -268,7 +291,11 @@ def _harden(resp: Response):
     resp.headers["X-Frame-Options"] = "SAMEORIGIN"
     resp.headers["X-XSS-Protection"] = "1; mode=block"
     resp.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
-    resp.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+    # HSTS only behind REAL TLS (HONEYPOT_HTTPS, e.g. Render). Never on the local
+    # self-signed dev server: once a browser caches HSTS for 127.0.0.1 it refuses
+    # to let you bypass the self-signed warning, locking you out of the site.
+    if security.SEND_HSTS:
+        resp.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
     resp.headers.setdefault("Cache-Control", "private")
     # Drop the intel beacon into every decoy HTML page (never the monitor).
     if ("text/html" in resp.headers.get("Content-Type", "") and resp.status_code < 400
@@ -518,9 +545,118 @@ def _err_500(e):
     return render_template("error_aspx.html", path=request.path), 500
 
 
+CERT_DIR = os.path.join(os.path.dirname(__file__), "..", "certs")
+_DEFAULT_CERT = os.path.join(CERT_DIR, "honeypot.crt")
+_DEFAULT_KEY = os.path.join(CERT_DIR, "honeypot.key")
+
+
+def _generate_self_signed(cert_path: str, key_path: str) -> bool:
+    """Write a localhost self-signed cert/key pair. Returns True on success.
+
+    Used only for the local dev server so it can speak HTTPS like the real
+    portal. Needs the `cryptography` package; if it is missing we print the
+    openssl one-liner and fall back to HTTP.
+    """
+    try:
+        import datetime
+        import ipaddress
+        from cryptography import x509
+        from cryptography.x509.oid import NameOID, ExtendedKeyUsageOID
+        from cryptography.hazmat.primitives import hashes, serialization
+        from cryptography.hazmat.primitives.asymmetric import rsa
+    except Exception:
+        print(" ! TLS requested but no cert found and 'cryptography' is not "
+              "installed.\n   Generate a Chrome-valid cert with:\n"
+              '   openssl req -x509 -newkey rsa:2048 -nodes -days 825 \\\n'
+              f'     -keyout "{key_path}" -out "{cert_path}" -subj "/CN=localhost" \\\n'
+              '     -addext "subjectAltName=DNS:localhost,IP:127.0.0.1,IP:::1" \\\n'
+              '     -addext "basicConstraints=critical,CA:FALSE" \\\n'
+              '     -addext "keyUsage=critical,digitalSignature,keyEncipherment" \\\n'
+              '     -addext "extendedKeyUsage=serverAuth"\n'
+              "   Serving over HTTP for now.")
+        return False
+    try:
+        os.makedirs(os.path.dirname(cert_path), exist_ok=True)
+        key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
+        name = x509.Name([x509.NameAttribute(NameOID.COMMON_NAME, "localhost")])
+        san = x509.SubjectAlternativeName([
+            x509.DNSName("localhost"),
+            x509.IPAddress(ipaddress.IPv4Address("127.0.0.1")),
+            x509.IPAddress(ipaddress.IPv6Address("::1")),
+        ])
+        now = datetime.datetime.utcnow()
+        # A browser-valid LEAF cert: CA:FALSE + serverAuth EKU + SAN. Without the
+        # serverAuth EKU / CA:FALSE, Chrome reports NET::ERR_CERT_INVALID and the
+        # "Proceed anyway" link does nothing -> the page appears to hang.
+        cert = (x509.CertificateBuilder()
+                .subject_name(name).issuer_name(name)
+                .public_key(key.public_key())
+                .serial_number(x509.random_serial_number())
+                .not_valid_before(now - datetime.timedelta(days=1))
+                .not_valid_after(now + datetime.timedelta(days=825))
+                .add_extension(san, critical=False)
+                .add_extension(x509.BasicConstraints(ca=False, path_length=None), critical=True)
+                .add_extension(x509.KeyUsage(
+                    digital_signature=True, key_encipherment=True, content_commitment=False,
+                    data_encipherment=False, key_agreement=False, key_cert_sign=False,
+                    crl_sign=False, encipher_only=False, decipher_only=False), critical=True)
+                .add_extension(x509.ExtendedKeyUsage([ExtendedKeyUsageOID.SERVER_AUTH]), critical=False)
+                .sign(key, hashes.SHA256()))
+        with open(key_path, "wb") as fh:
+            fh.write(key.private_bytes(serialization.Encoding.PEM,
+                     serialization.PrivateFormat.TraditionalOpenSSL,
+                     serialization.NoEncryption()))
+        with open(cert_path, "wb") as fh:
+            fh.write(cert.public_bytes(serialization.Encoding.PEM))
+        print(f" * Generated self-signed TLS cert -> {cert_path}")
+        return True
+    except Exception as exc:                       # pragma: no cover
+        print(f" ! Could not generate TLS cert ({exc}); serving over HTTP.")
+        return False
+
+
+def _flag(name):
+    return os.environ.get(name, "").lower() in ("1", "true", "yes", "on")
+
+
+def _ssl_context():
+    """Pick a TLS context for the dev server, or None to serve plain HTTP.
+
+    The local dev server serves plain HTTP by default. TLS is opt-in: set
+    HONEYPOT_TLS=1 (or provide HONEYPOT_SSL_CERT/KEY) to serve HTTPS, in which
+    case a self-signed cert is auto-generated under certs/ if none is supplied.
+    """
+    cert = os.environ.get("HONEYPOT_SSL_CERT")
+    key = os.environ.get("HONEYPOT_SSL_KEY")
+    if cert and key and os.path.exists(cert) and os.path.exists(key):
+        return (cert, key)
+    if not _flag("HONEYPOT_TLS"):
+        return None
+    if not (os.path.exists(_DEFAULT_CERT) and os.path.exists(_DEFAULT_KEY)):
+        if not _generate_self_signed(_DEFAULT_CERT, _DEFAULT_KEY):
+            return None
+    return (_DEFAULT_CERT, _DEFAULT_KEY)
+
+
 if __name__ == "__main__":
     print(security.startup_banner())
     # PORT is injected by most hosting platforms (Render/Railway); fall back to
     # 8080 for local runs. Production uses gunicorn (see Procfile) instead.
     port = int(os.environ.get("PORT", 8080))
-    app.run(host="0.0.0.0", port=port, debug=False)
+    # Plain HTTP by default. TLS is opt-in (HONEYPOT_TLS=1 or HONEYPOT_SSL_*);
+    # over TLS we also flip the session cookie to Secure.
+    ssl_ctx = _ssl_context()
+    scheme = "https" if ssl_ctx else "http"
+    if ssl_ctx:
+        security.HTTPS = True
+    print(f" * Portal  (attacker view): {scheme}://127.0.0.1:{port}/")
+    print(f" * Monitor (SOC dashboard): {scheme}://127.0.0.1:{port}/_monitor")
+    if scheme == "https":
+        print("   self-signed cert -> the browser warning is expected; accept it.")
+    else:
+        print("   (HTTP. To serve HTTPS instead: set HONEYPOT_TLS=1)")
+    # threaded=True is essential: a browser opens several parallel connections
+    # per page (assets + /_intel.js + /_collect), and a single-threaded dev
+    # server deadlocks on keep-alive TLS connections -> the page hangs forever.
+    app.run(host="0.0.0.0", port=port, debug=False, ssl_context=ssl_ctx,
+            threaded=True)
