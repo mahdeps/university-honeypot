@@ -12,9 +12,7 @@ certs/
 # Suricata capture + ingestion bookmark (large, and holds captured traffic)
 *..suricata_offset.json
 
-# Local credentials (bot token, API keys) — NEVER commit
 app/local_config.py
-.env
 
 # Python
 __pycache__/
