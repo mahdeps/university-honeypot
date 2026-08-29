@@ -33,10 +33,11 @@ import base64
 import hashlib
 import secrets
 import sqlite3
+import threading as _threading
 from flask import (Flask, request, render_template, redirect, url_for,
                    Response, send_from_directory, abort)
 
-from . import detectors, logger, decoy_db, dyn, security, intel, ids, notify
+from . import detectors, logger, decoy_db, dyn, security, intel, ids, notify, services
 from .dashboard import dashboard_bp
 
 # Make the dev server announce itself as IIS too (no Werkzeug banner leak).
@@ -213,7 +214,8 @@ def _personalize(html, ctx):
 
 # --- Request capture ----------------------------------------------------------
 
-def _capture(event_type: str = "request", extra: dict | None = None) -> list[dict]:
+def _capture(event_type: str = "request", extra: dict | None = None,
+             extra_findings: list | None = None) -> list[dict]:
     headers = {k: v for k, v in request.headers.items()}
     query = request.args.to_dict()
     form = request.form.to_dict()
@@ -227,6 +229,8 @@ def _capture(event_type: str = "request", extra: dict | None = None) -> list[dic
     findings = detectors.scan_request(
         path=request.path, query=query, form=form, headers=headers, raw_body=raw_body,
     )
+    if extra_findings:
+        findings = findings + extra_findings
     logger.log_event(
         remote_addr=request.remote_addr or "?",
         method=request.method,
@@ -251,6 +255,7 @@ def _before():
         _ids_started = True
         ids.start_tailer()
         notify.start()
+        services.start()
     # Health probe for the hosting platform — never gated, never logged.
     if request.path == "/healthz":
         return
@@ -328,32 +333,90 @@ def index():
     return redirect(url_for("login"))
 
 
+_login_fails: dict = {}
+_login_lock = _threading.Lock()
+_BRUTE_THRESHOLD = 5
+_BRUTE_WINDOW = 120
+
+
+def _note_login_fail(ip: str) -> int:
+    """Count recent web-form failures per IP; the return value crossing the
+    threshold is what marks a run as brute-force."""
+    now = time.time()
+    with _login_lock:
+        q = _login_fails.setdefault(ip, [])
+        q[:] = [t for t in q if t > now - _BRUTE_WINDOW]
+        q.append(now)
+        if len(_login_fails) > 10000:
+            for k in [k for k, v in list(_login_fails.items()) if not v]:
+                _login_fails.pop(k, None)
+        return len(q)
+
+
+def _http_weak_ok(username: str, password: str) -> bool:
+    """Planted weak web credentials that succeed, so a straight dictionary
+    attack against the form (hydra http-post-form) reaches a success state
+    without needing SQL injection."""
+    return services.WEAK.get((username, password), False)
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     error = None
     if request.method == "POST":
-        # ASP.NET anti-forgery: reject a POST that did not come from our form.
-        vs = request.form.get("__VIEWSTATE", "")
-        ev = request.form.get("__EVENTVALIDATION", "")
-        if not (_valid_token(vs, b"vs") and _valid_token(ev, b"ev")):
-            _capture(event_type="viewstate_tamper",
-                     extra={"reason": "missing/invalid __VIEWSTATE or __EVENTVALIDATION"})
-            return redirect("/error.aspx?aspxerrorpath=/login")
-
         username = (request.form.get("ctl00$ContentPlaceHolder1$txtUsername")
                     or request.form.get("username", ""))
         password = (request.form.get("ctl00$ContentPlaceHolder1$txtPassword")
                     or request.form.get("password", ""))
+        # A POST carrying the ASP.NET fields but forged/absent tokens is a
+        # scripted bypass of the real form -> kept as high-signal tamper noise.
+        # A POST with no VIEWSTATE fields at all is a straight brute-force tool
+        # (hydra http-post-form, Burp intruder); let it through so the
+        # credentials and the success path are captured.
+        has_vs_fields = ("__VIEWSTATE" in request.form
+                         or "__EVENTVALIDATION" in request.form)
+        vs = request.form.get("__VIEWSTATE", "")
+        ev = request.form.get("__EVENTVALIDATION", "")
+        if has_vs_fields and not (_valid_token(vs, b"vs") and _valid_token(ev, b"ev")):
+            _capture(event_type="viewstate_tamper",
+                     extra={"reason": "missing/invalid __VIEWSTATE or __EVENTVALIDATION"})
+            return redirect("/error.aspx?aspxerrorpath=/login")
+
         rows, executed_sql = decoy_db.vulnerable_login(username, password)
-        _capture(event_type="login_attempt", extra={
-            "username": username, "password": password, "executed_sql": executed_sql,
-            "rows_returned": len(rows) if isinstance(rows, list) else 0,
-            "db_error": rows.get("error") if isinstance(rows, dict) else None,
-        })
-        if isinstance(rows, list) and rows:
+        sqli_ok = isinstance(rows, list) and bool(rows)
+        weak_ok = _http_weak_ok(username, password)
+
+        extra_findings = None
+        if not (sqli_ok or weak_ok):
+            hits = _note_login_fail(security.client_ip())
+            if hits >= _BRUTE_THRESHOLD:
+                extra_findings = [{"category": "brute_force", "field": "body:password",
+                                   "payload": "%d failed logins in %ds" % (hits, _BRUTE_WINDOW),
+                                   "severity": "high"}]
+        _capture(event_type=("weak_cred_success" if weak_ok else "login_attempt"),
+                 extra={
+                     "username": username, "password": password,
+                     "executed_sql": executed_sql,
+                     "rows_returned": len(rows) if isinstance(rows, list) else 0,
+                     "db_error": rows.get("error") if isinstance(rows, dict) else None,
+                     "success": bool(sqli_ok or weak_ok),
+                     "via": "sqli" if sqli_ok else ("weak-credential" if weak_ok else None),
+                 }, extra_findings=extra_findings)
+
+        if sqli_ok:
             resp = redirect("/home")
             return _attach_session(resp, {"sid": rows[0].get("student_id"),
                                           "user": rows[0].get("full_name") or "طالب"})
+        if weak_ok:
+            conn = decoy_db._connect()
+            try:
+                row = conn.execute("SELECT student_id, full_name FROM students "
+                                   "LIMIT 1").fetchone()
+            finally:
+                conn.close()
+            resp = redirect("/home")
+            return _attach_session(resp, {"sid": row["student_id"] if row else None,
+                                          "user": row["full_name"] if row else "طالب"})
         error = "الرقم الجامعي أو كلمة المرور غير صحيحة."
 
     viewstate, vsgen, eventvalidation = _issue_tokens()
@@ -468,6 +531,29 @@ def asmx(method):
     # payload in "d" as a JSON *string* — the client JSON.parses it later, so an
     # empty array must be the string "[]", not [].
     return Response('{"d":"[]"}', mimetype="application/json")
+
+
+@app.route("/api/grades", methods=["GET"])
+@app.route("/StudentServices.asmx/GetGrades", methods=["GET", "POST"])
+def grades_api():
+    """A SECOND injectable surface, inside the authenticated area. The portal's
+    transcript page looks up grades by student id; the query is built by string
+    concatenation on purpose (decoy_db.vulnerable_grade_lookup), so an attacker
+    who has already logged in finds another SQL-injection point to probe — and
+    every payload is captured. Read-only connection: injection can read the
+    decoy bait but never modify it."""
+    sid = (request.args.get("id") or request.args.get("student_id")
+           or request.form.get("id") or "")
+    rows, executed_sql = decoy_db.vulnerable_grade_lookup(sid)
+    _capture(event_type="grade_lookup", extra={
+        "student_id": sid, "executed_sql": executed_sql,
+        "rows_returned": len(rows) if isinstance(rows, list) else 0,
+        "db_error": rows.get("error") if isinstance(rows, dict) else None,
+    })
+    if isinstance(rows, dict):                       # SQL error surfaced as bait
+        return Response(json.dumps({"error": rows["error"]}, ensure_ascii=False),
+                        status=500, mimetype="application/json")
+    return Response(json.dumps(rows, ensure_ascii=False), mimetype="application/json")
 
 
 # Minimal ASP.NET WebForms client shim so the captured pages run clean offline

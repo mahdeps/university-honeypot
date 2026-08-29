@@ -89,6 +89,7 @@ TECH_INFO = {
     "lfi_rce_upload": "Web-shell / رفع ملف خبيث",
     "scanner": "أداة فحص آلية (sqlmap / nikto / curl …)",
     "ids": "تنبيه Suricata — كشف على طبقة الشبكة",
+    "brute_force": "تخمين بيانات الدخول (SSH / FTP / HTTP)",
 }
 
 
@@ -203,7 +204,8 @@ def aggregate(events):
         "paths": Counter(), "payloads": [], "intel": None, "geo": None,
         "sev_weight": 0, "high_techs": set(), "max_sev": "none", "ids_info": 0,
         "header_sigs": set(), "header_names": None, "creds": [], "sqls": [],
-        "ids_sigs": Counter(), "methods": Counter(), "statuses": Counter()})
+        "ids_sigs": Counter(), "methods": Counter(), "statuses": Counter(),
+        "breach": False, "cmds": []})
     cat_tot, etype_tot, timeline = Counter(), Counter(), Counter()
     sev_timeline = defaultdict(lambda: Counter())
     creds_all, sql_all = Counter(), []
@@ -270,6 +272,20 @@ def aggregate(events):
             if ex.get("executed_sql") and len(sql_all) < 200:
                 sql_all.append({"ip": ip, "sql": str(ex["executed_sql"])[:400], "ts": ts,
                                 "rows": ex.get("rows_returned")})
+        if et == "weak_cred_success":
+            r["breach"] = True
+            r["creds"].append({"u": str(ex.get("username"))[:80],
+                               "p": str(ex.get("password") or "")[:80], "ts": ts,
+                               "svc": "http", "ok": True})
+        if et in ("ssh_login", "ftp_login") and ex.get("username") is not None:
+            creds_all[(str(ex.get("username"))[:80], str(ex.get("password") or "")[:80])] += 1
+            r["creds"].append({"u": str(ex.get("username"))[:80],
+                               "p": str(ex.get("password") or "")[:80], "ts": ts,
+                               "svc": ex.get("service"), "ok": ex.get("success")})
+            if ex.get("success"):
+                r["breach"] = True
+        if et == "ssh_command" and ex.get("command"):
+            r.setdefault("cmds", []).append({"cmd": str(ex["command"])[:200], "ts": ts})
         if et == "ids_alert" and ex.get("signature"):
             r["ids_sigs"][ex["signature"]] += 1
             ids_sig_all[ex["signature"]] += 1
@@ -371,6 +387,8 @@ def aggregate(events):
             "creds": r["creds"][:20],
             "sqls": r["sqls"][:10],
             "ids_sigs": dict(r["ids_sigs"].most_common(8)),
+            "breach": r["breach"],
+            "shell_cmds": r["cmds"][:40],
             "intel": intel,
         })
     attackers.sort(key=lambda a: (a["threat"], a["attacks"], a["hits"]), reverse=True)
@@ -392,6 +410,8 @@ def aggregate(events):
         "correlated_actors": correlated,
         "hw_correlated": hw_correlated,
         "spoofers": sum(1 for a in attackers if a["spoof_marks"]),
+        "breaches": sum(1 for a in attackers if a.get("breach")),
+        "brute_force_sources": sum(1 for a in attackers if "brute_force" in a["categories"]),
         "tech_info": TECH_INFO,
         "timeline": dict(sorted(timeline.items())),
         "sev_timeline": {k: dict(v) for k, v in sorted(sev_timeline.items())},
@@ -473,6 +493,12 @@ def api_notify():
     """Alerting engine state — answers "why did I not get a Telegram alert?"."""
     from . import notify
     return jsonify(notify.status())
+
+
+@dashboard_bp.route("/api/services")
+def api_services():
+    from . import services
+    return jsonify(services.status())
 
 
 # --- log management ----------------------------------------------------------

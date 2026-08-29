@@ -1,0 +1,56 @@
+================================================================
+ University honeypot — security layer active
+  /_monitor  ->  HTTP Basic auth required   user: mahde
+               password stored as a hash; allow-list: none (password required everywhere)
+               5 bad logins per IP  ->  5-minute lockout
+  flood limit: 240 req / 10s per IP    body cap: 262144 bytes
+================================================================
+ * Serving Flask app 'honeypot'
+ * Debug mode: off
+2026-06-10T06:32:25.786288+00:00  127.0.0.1        GET  /login
+2026-06-10T06:32:36.097196+00:00  127.0.0.1        POST /login
+2026-06-10T06:32:36.100287+00:00  127.0.0.1        POST /login
+2026-06-10T06:32:36.111794+00:00  127.0.0.1        GET  /error.aspx?aspxerrorpath=/login
+2026-06-10T06:32:36.114751+00:00  127.0.0.1        GET  /error.aspx?aspxerrorpath=/login
+2026-06-10T06:32:39.303132+00:00  127.0.0.1        GET  /error.aspx?aspxerrorpath=/login
+2026-06-10T06:32:39.306142+00:00  127.0.0.1        GET  /error.aspx?aspxerrorpath=/login
+2026-06-10T06:32:51.140560+00:00  127.0.0.1        GET  /error.aspx?aspxerrorpath=/login
+2026-06-10T06:32:51.143764+00:00  127.0.0.1        GET  /error.aspx?aspxerrorpath=/login
+2026-06-10T06:32:53.501316+00:00  127.0.0.1        GET  /error.aspx?aspxerrorpath=/login
+2026-06-10T06:32:53.503344+00:00  127.0.0.1        GET  /error.aspx?aspxerrorpath=/login
+2026-06-10T06:32:56.649545+00:00  127.0.0.1        POST /login
+2026-06-10T06:32:56.654947+00:00  127.0.0.1        POST /login
+2026-06-10T06:32:56.669827+00:00  127.0.0.1        GET  /error.aspx?aspxerrorpath=/login
+2026-06-10T06:32:56.672262+00:00  127.0.0.1        GET  /error.aspx?aspxerrorpath=/login
+2026-06-10T06:34:39.088078+00:00  127.0.0.1        GET  /error.aspx?aspxerrorpath=/login
+2026-06-10T06:34:39.088881+00:00  127.0.0.1        GET  /error.aspx?aspxerrorpath=/login
+2026-06-10T06:34:39.550495+00:00  127.0.0.1        GET  /error.aspx?aspxerrorpath=/login
+2026-06-10T06:34:39.551299+00:00  127.0.0.1        GET  /error.aspx?aspxerrorpath=/login
+2026-06-10T06:37:08.545124+00:00  127.0.0.1        GET  /login
+2026-06-10T06:37:32.827532+00:00  127.0.0.1        GET  /error.aspx?aspxerrorpath=/login
+2026-06-10T06:37:32.828400+00:00  127.0.0.1        GET  /error.aspx?aspxerrorpath=/login
+2026-06-10T06:38:04.803638+00:00  127.0.0.1        GET  /
+2026-06-10T06:38:04.808904+00:00  127.0.0.1        GET  /login
+2026-06-10T06:38:06.538454+00:00  127.0.0.1        POST /_collect
+2026-06-10T06:38:07.185085+00:00  127.0.0.1        POST /login
+2026-06-10T06:38:07.187259+00:00  127.0.0.1        POST /login
+2026-06-10T06:38:07.192382+00:00  127.0.0.1        GET  /home
+2026-06-10T06:38:07.267979+00:00  127.0.0.1        GET  /WebResource.axd?d=2oWCilgSPpcNNdYmr4pIkLekxTSabsutXAliOEfwTiqM3dKXOkyVk67fRoz1POnCQtpG-vdVSWMXy1_TpzXAANXA6TGQNQ6tC4W7rMXlJis1&t=638901634312636832
+2026-06-10T06:38:07.407738+00:00  127.0.0.1        POST /WebService.asmx/GET_LOANMINISTRY_APPROVAL
+2026-06-10T06:38:07.420567+00:00  127.0.0.1        POST /WebService.asmx/GET_STD_SHOULD_PAIED
+2026-06-10T06:38:08.121230+00:00  127.0.0.1        GET  /WebResource.axd?d=2oWCilgSPpcNNdYmr4pIkLekxTSabsutXAliOEfwTiqM3dKXOkyVk67fRoz1POnCQtpG-vdVSWMXy1_TpzXAANXA6TGQNQ6tC4W7rMXlJis1&t=638901634312636832
+2026-06-10T06:38:08.804939+00:00  127.0.0.1        POST /_collect
+2026-06-10T06:40:00.634430+00:00  127.0.0.1        GET  /profile/financial_profile
+2026-06-10T06:40:02.252236+00:00  127.0.0.1        POST /_collect
+2026-06-10T06:40:15.563504+00:00  127.0.0.1        GET  /home
+2026-06-10T06:40:15.632500+00:00  127.0.0.1        GET  /WebResource.axd?d=2oWCilgSPpcNNdYmr4pIkLekxTSabsutXAliOEfwTiqM3dKXOkyVk67fRoz1POnCQtpG-vdVSWMXy1_TpzXAANXA6TGQNQ6tC4W7rMXlJis1&t=638901634312636832
+2026-06-10T06:40:15.819893+00:00  127.0.0.1        POST /WebService.asmx/GET_LOANMINISTRY_APPROVAL
+2026-06-10T06:40:15.832761+00:00  127.0.0.1        POST /WebService.asmx/GET_STD_SHOULD_PAIED
+2026-06-10T06:40:16.195892+00:00  127.0.0.1        GET  /WebResource.axd?d=2oWCilgSPpcNNdYmr4pIkLekxTSabsutXAliOEfwTiqM3dKXOkyVk67fRoz1POnCQtpG-vdVSWMXy1_TpzXAANXA6TGQNQ6tC4W7rMXlJis1&t=638901634312636832
+2026-06-10T06:40:17.216267+00:00  127.0.0.1        POST /_collect
+2026-06-10T06:40:21.893112+00:00  127.0.0.1        GET  /Registration/study_plan
+2026-06-10T06:40:23.470536+00:00  127.0.0.1        POST /_collect
+2026-06-10T06:40:28.760918+00:00  127.0.0.1        GET  /profile/financial_profile
+2026-06-10T06:40:30.301324+00:00  127.0.0.1        POST /_collect
+2026-06-10T06:41:58.277578+00:00  127.0.0.1        GET  /profile/financial_profile
+2026-06-10T06:41:59.851311+00:00  127.0.0.1        POST /_collect

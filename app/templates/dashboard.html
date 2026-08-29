@@ -167,6 +167,7 @@ tr.row-medium{box-shadow:inset 3px 0 0 var(--med)}
 .t-xss{background:rgba(251,191,36,.14);color:#fde68a;border:1px solid rgba(251,191,36,.28)}
 .t-scanner{background:rgba(56,189,248,.13);color:#bae6fd;border:1px solid rgba(56,189,248,.28)}
 .t-ids{background:rgba(56,163,248,.13);color:#b3d9fd;border:1px solid rgba(56,163,248,.3)}
+  .t-brute_force{background:rgba(255,138,61,.15);color:#ffcaa0;border:1px solid rgba(255,138,61,.34)}
 .t-default{background:rgba(107,127,163,.15);color:#c3d0e5;border:1px solid var(--line2)}
 .chip{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:999px;font-size:10px}
 .c-bot{background:rgba(167,139,250,.14);color:var(--bot);border:1px solid rgba(167,139,250,.32)}
@@ -372,6 +373,10 @@ tr.row-medium{box-shadow:inset 3px 0 0 var(--med)}
         <div id="notifyb"></div>
       </div>
       <div class="card">
+        <h2>خدمات الطُعم <span class="note">SSH / FTP — محاكاة، تسجّل ولا تنفّذ</span></h2>
+        <div id="servicesb"></div>
+      </div>
+      <div class="card">
         <h2>إدارة السجل <span class="note">الأرشفة تخفّف الحِمل وتحافظ على الأدلة</span></h2>
         <div class="toolbar"><span id="logsize" class="muted" style="font-size:12px">…</span></div>
         <div class="toolbar">
@@ -402,7 +407,7 @@ var SORT={k:'threat', dir:-1};
 function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){
   return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 function n(v){ return (v==null||v==='')?'—':v; }
-function tcls(c){ return 't-'+(['sqli','xss','lfi','cmdi','scanner','ssti','lfi_rce_upload','ids'].indexOf(c)>=0?c:'default'); }
+function tcls(c){ return 't-'+(['sqli','xss','lfi','cmdi','scanner','ssti','lfi_rce_upload','ids','brute_force'].indexOf(c)>=0?c:'default'); }
 function tname(c){ return TECH[c]||c; }
 function human(b){ if(b<1024) return b+' B'; if(b<1048576) return (b/1024).toFixed(1)+' KB'; return (b/1048576).toFixed(1)+' MB'; }
 function num(v){ return (v==null?0:v).toLocaleString('en-US'); }
@@ -420,6 +425,7 @@ function renderKpis(s){
     kpi(num(s.critical_threats),'تهديد عالٍ/حرج','k-crit','يستدعي تدخّلاً')+
     kpi(num(s.bots_detected),'أدوات آلية','k-bot','بوتات وماسحات')+
     kpi(num(s.spoofers||0),'محاولات تمويه','k-warn','بصمة متناقضة')+
+    kpi('<span style="color:#ff3b4f">'+num(s.breaches||0)+'</span>','اختراقات ناجحة','k-crit','بيانات ضعيفة نجحت')+
     kpi(num(s.devices_fingerprinted),'أجهزة مبصومة','k-acc','بصمة كاملة')+
     kpi(num((s.credentials||[]).length),'بيانات ملتقطة','', 'اسم/كلمة مرور')+
     kpi(num(Object.keys(s.category_totals||{}).length),'تقنيات مختلفة','', 'تصنيفات فريدة');
@@ -482,6 +488,7 @@ function renderActors(s,q){
     var marks='';
     if(a.is_bot) marks+=' <span class="chip c-bot">🤖 آلي</span>';
     if((a.spoof_marks||[]).length) marks+=' <span class="chip c-spoof" title="'+esc(a.spoof_marks.join(', '))+'">🎭 تمويه</span>';
+    if(a.breach) marks+=' <span class="chip c-spoof" title="دخل بنجاح ببيانات ضعيفة">🔓 اختراق</span>';
     var links=(a.also_seen_ips||[]).length+(a.hw_siblings||[]).length;
     var lk = links? ' <span class="chip c-link" title="مرتبط بـ'+links+' عنوان آخر">🔗'+links+'</span>':'';
     return '<tr class="click row-'+a.threat_level+'" onclick="openM('+i+')">'+
@@ -668,6 +675,10 @@ function openM(i){
     h+='<div class="sect">استعلامات نفّذها الحقن</div>'+
        a.sqls.map(function(x){ return '<div class="sqlbox">'+esc(x.sql)+'</div>'; }).join('');
   }
+  if((a.shell_cmds||[]).length){
+    h+='<div class="sect">أوامر نفّذها في الشل الوهمي (SSH)</div>'+
+       a.shell_cmds.map(function(c){ return '<div class="sqlbox">'+esc(c.cmd)+'</div>'; }).join('');
+  }
   if(Object.keys(a.ids_sigs||{}).length){
     h+='<div class="sect">توقيعات Suricata لهذا المصدر</div><div class="fld wide"><div class="vv">'+
        Object.entries(a.ids_sigs).map(function(kv){
@@ -711,6 +722,15 @@ function loadChain(ip){
 function closeM(){ document.getElementById('ov').classList.remove('on'); }
 
 /* ---- ops ------------------------------------------------------------------- */
+function loadServices(){
+  fetch('/_monitor/api/services').then(function(r){return r.json();}).then(function(s){
+    var box=document.getElementById('servicesb'); if(!box) return;
+    box.innerHTML='<div class="fgrid">'+
+      fld('SSH', (s.ssh_enabled?'<span class="chip c-link">نشط</span> منفذ '+s.ssh_port:'معطّل'))+
+      fld('FTP', (s.ftp_enabled?'<span class="chip c-link">نشط</span> منفذ '+s.ftp_port:'معطّل'))+
+      fld('بيانات ضعيفة مزروعة', num(s.weak_cred_pairs)+' زوج')+'</div>';
+  }).catch(function(){});
+}
 function loadNotify(){
   fetch('/_monitor/api/notify').then(function(r){return r.json();}).then(function(s){
     var on=s.enabled&&s.started;
@@ -783,7 +803,7 @@ document.getElementById('tabs').addEventListener('click',function(e){
   var t=e.target.closest('.tab'); if(!t) return;
   document.querySelectorAll('.tab').forEach(function(x){x.classList.toggle('on',x===t);});
   document.querySelectorAll('.pane').forEach(function(p){p.classList.toggle('on',p.id==='p-'+t.dataset.p);});
-  if(t.dataset.p==='ops'){ loadNotify(); loadLogs(); }
+  if(t.dataset.p==='ops'){ loadNotify(); loadServices(); loadLogs(); }
 });
 document.getElementById('q').addEventListener('input',function(){ render(); });
 document.getElementById('ov').addEventListener('click',function(e){ if(e.target===this) closeM(); });
@@ -821,7 +841,7 @@ function load(){
   }).catch(function(){});
 }
 load(); setInterval(load,5000);
-loadLogs(); loadNotify(); setInterval(function(){ loadLogs(); loadNotify(); },30000);
+loadLogs(); loadNotify(); loadServices(); setInterval(function(){ loadLogs(); loadNotify(); loadServices(); },30000);
 </script>
 </body>
 </html>
