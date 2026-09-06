@@ -319,6 +319,33 @@ def _logged_in() -> bool:
     return "user" in _sess()
 
 
+# Track which sessions we have already flagged, so one escalation is logged once
+# rather than on every admin request.
+_escalated: set = set()
+
+
+def _current_role() -> str:
+    """Trust the client-supplied role cookie. This is the deliberate broken-
+    access-control bug: the server never re-checks it against the session."""
+    return (request.cookies.get("role") or "student").lower()
+
+
+def _note_privesc():
+    """Record a student -> admin escalation once per session."""
+    sid = request.cookies.get(SESSION_COOKIE, "")
+    if not sid or sid in _escalated:
+        return
+    _escalated.add(sid)
+    if len(_escalated) > 20000:
+        _escalated.clear()
+    _capture(event_type="privilege_escalation", extra={
+        "from": "student", "to": "admin", "via": "role cookie tampering",
+        "user": _sess().get("user")},
+        extra_findings=[{"category": "privesc", "field": "cookie:role",
+                         "payload": "role=admin (broken access control)",
+                         "severity": "high"}])
+
+
 # --- Auth ---------------------------------------------------------------------
 
 @app.route("/healthz")
@@ -405,8 +432,10 @@ def login():
 
         if sqli_ok:
             resp = redirect("/home")
+            resp.set_cookie("role", "student", samesite="Lax", path="/")
             return _attach_session(resp, {"sid": rows[0].get("student_id"),
-                                          "user": rows[0].get("full_name") or "طالب"})
+                                          "user": rows[0].get("full_name") or "طالب",
+                                          "role": "student"})
         if weak_ok:
             conn = decoy_db._connect()
             try:
@@ -415,8 +444,10 @@ def login():
             finally:
                 conn.close()
             resp = redirect("/home")
+            resp.set_cookie("role", "student", samesite="Lax", path="/")
             return _attach_session(resp, {"sid": row["student_id"] if row else None,
-                                          "user": row["full_name"] if row else "طالب"})
+                                          "user": row["full_name"] if row else "طالب",
+                                          "role": "student"})
         error = "الرقم الجامعي أو كلمة المرور غير صحيحة."
 
     viewstate, vsgen, eventvalidation = _issue_tokens()
@@ -454,7 +485,16 @@ def forgot():
 @app.route("/administrator", methods=["GET", "POST"])
 def admin_bait():
     _capture(event_type="admin_probe")
-    return render_template("admin.html", error="مطلوب تسجيل دخول المسؤول."), 200
+    # If the visitor has already escalated (role=admin cookie) and is logged in,
+    # hand them straight to the real control panel — a coherent path from the
+    # tampered cookie to the payoff.
+    if _logged_in() and _current_role() == "admin":
+        return redirect("/admin/dashboard")
+    # Otherwise the believable admin gate, with a breadcrumb an attacker reading
+    # the HTML source will follow.
+    hint = "\n<!-- TODO: control panel moved to /admin/dashboard (admins only) -->\n"
+    html = render_template("admin.html", error="مطلوب تسجيل دخول المسؤول.")
+    return Response(html + hint, status=200, mimetype="text/html")
 
 
 @app.route("/.env")
@@ -494,8 +534,15 @@ def pma_bait():
 
 @app.route("/robots.txt")
 def robots():
-    body = ("User-agent: *\nDisallow: /admin\nDisallow: /backup.sql\n"
-            "Disallow: /.env\nDisallow: /phpmyadmin\n")
+    body = ("User-agent: *\n"
+            "Disallow: /admin\n"
+            "Disallow: /admin/dashboard\n"
+            "Disallow: /admin/students\n"
+            "Disallow: /backup.sql\n"
+            "Disallow: /.env\n"
+            "Disallow: /phpmyadmin\n"
+            "Disallow: /search\n"
+            "Disallow: /api/grades\n")
     return Response(body, mimetype="text/plain")
 
 
@@ -577,6 +624,99 @@ _ASPNET_SHIM = """(function(){
   S.WebForms.PageRequestManager.getInstance=function(){return new S.WebForms.PageRequestManager();};
   if(S.Application&&S.Application.notifyScriptLoaded){try{S.Application.notifyScriptLoaded();}catch(_){}}
 })();"""
+
+
+# --- Planted vulnerabilities (all inside the decoy; nothing touches the host) --
+
+@app.route("/search")
+@app.route("/portal/search")
+def portal_search():
+    """Reflected-XSS sink. The query is echoed into the page UNESCAPED, so an
+    injected <script> executes in the ATTACKER's own browser and the payload is
+    captured. It never reaches the SOC dashboard (which escapes everything), so
+    it cannot pop the operator — only the intruder poking the trap."""
+    q = request.args.get("q", "")
+    # _capture already ran in before_request and detectors flagged any XSS.
+    body = (
+        "<!doctype html><html lang='ar' dir='rtl'><head><meta charset='utf-8'>"
+        "<title>نتائج البحث</title></head><body style='font-family:Tahoma'>"
+        "<h2>بوابة الطالب — البحث</h2>"
+        "<form method='get' action='/search'>"
+        "<input name='q' value='" + q + "' style='width:320px'>"
+        "<button>بحث</button></form>"
+        "<p>نتائج البحث عن: " + q + "</p>"
+        "<p style='color:#888'>لم يتم العثور على نتائج مطابقة.</p>"
+        "</body></html>"
+    )
+    return Response(body, mimetype="text/html")
+
+
+def _admin_gate():
+    """Return None if the caller is an admin, else a redirect. Logs the
+    escalation the first time a tampered role cookie is seen."""
+    if not _logged_in():
+        return redirect(url_for("login"))
+    if _current_role() != "admin":
+        # A normal student hitting the admin area — show a 403-ish teaser so the
+        # path is discoverable and the attacker is nudged toward the role cookie.
+        _capture(event_type="admin_denied")
+        return Response(
+            "<!doctype html><meta charset='utf-8'><body style='font-family:Tahoma'>"
+            "<h3>لوحة الإدارة</h3><p>هذه الصفحة تتطلب صلاحية <b>admin</b>. "
+            "دورك الحالي: <code>student</code>.</p></body>", status=403,
+            mimetype="text/html")
+    _note_privesc()
+    return None
+
+
+@app.route("/admin/dashboard")
+@app.route("/admin/panel")
+def admin_panel():
+    gate = _admin_gate()
+    if gate is not None:
+        return gate
+    conn = decoy_db._connect()
+    try:
+        total = conn.execute("SELECT COUNT(*) c FROM students").fetchone()["c"]
+        staff = conn.execute("SELECT username, password, role FROM accounts "
+                             "LIMIT 8").fetchall()
+    finally:
+        conn.close()
+    rows = "".join(
+        "<tr><td>%s</td><td>%s</td><td>%s</td></tr>" % (a["username"], a["password"], a["role"])
+        for a in staff)
+    body = (
+        "<!doctype html><html lang='ar' dir='rtl'><head><meta charset='utf-8'>"
+        "<title>لوحة الإدارة</title></head><body style='font-family:Tahoma;padding:20px'>"
+        "<h2>لوحة إدارة النظام</h2><p>عدد الطلاب: <b>%d</b></p>"
+        "<h3>حسابات الموظفين</h3>"
+        "<table border='1' cellpadding='6'><tr><th>المستخدم</th><th>كلمة المرور</th><th>الدور</th></tr>"
+        "%s</table>"
+        "<p><a href='/admin/students'>عرض كل الطلاب</a></p>"
+        "</body></html>" % (total, rows))
+    return Response(body, mimetype="text/html")
+
+
+@app.route("/admin/students")
+def admin_students():
+    gate = _admin_gate()
+    if gate is not None:
+        return gate
+    # IDOR-friendly: dump any slice of the decoy roster.
+    limit = min(int(request.args.get("limit", 50) or 50), 500)
+    conn = decoy_db._connect()
+    try:
+        rows = conn.execute("SELECT student_id, full_name, email, gpa FROM students "
+                            "LIMIT ?", (limit,)).fetchall()
+    finally:
+        conn.close()
+    trs = "".join("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>"
+                  % (r["student_id"], r["full_name"], r["email"], r["gpa"]) for r in rows)
+    body = ("<!doctype html><html lang='ar' dir='rtl'><meta charset='utf-8'>"
+            "<body style='font-family:Tahoma;padding:20px'><h2>كل الطلاب</h2>"
+            "<table border='1' cellpadding='5'><tr><th>الرقم</th><th>الاسم</th>"
+            "<th>البريد</th><th>المعدل</th></tr>%s</table></body>" % trs)
+    return Response(body, mimetype="text/html")
 
 
 # --- Catch-all: serve exact portal clones, else log the probe -----------------

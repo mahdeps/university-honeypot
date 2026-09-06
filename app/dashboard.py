@@ -90,6 +90,7 @@ TECH_INFO = {
     "scanner": "أداة فحص آلية (sqlmap / nikto / curl …)",
     "ids": "تنبيه Suricata — كشف على طبقة الشبكة",
     "brute_force": "تخمين بيانات الدخول (SSH / FTP / HTTP)",
+    "privesc": "رفع صلاحيات / كسر التحكم بالوصول",
 }
 
 
