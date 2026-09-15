@@ -344,6 +344,25 @@ def check_ip_reputation(ip):
 _BANDS = [(70, "\U0001f534", "CRITICAL"), (40, "\U0001f7e0", "HIGH"),
           (15, "\U0001f7e1", "MEDIUM"), (0, "\U0001f535", "LOW")]
 
+# Attack technique -> (emoji, clear Arabic name). This is what makes the alert
+# read at a glance: the reader sees exactly what kind of attack it is.
+_AR_TECH = {
+    "sqli":            ("\U0001f489", "حقن SQL"),
+    "xss":             ("\U0001f4dc", "حقن سكربت (XSS)"),
+    "lfi":             ("\U0001f4c2", "اجتياز مسار / قراءة ملفات"),
+    "cmdi":            ("\U0001f4bb", "حقن أوامر نظام"),
+    "ssti":            ("\U0001f9e9", "حقن قوالب"),
+    "lfi_rce_upload":  ("\U0001f41a", "رفع ملف خبيث / web-shell"),
+    "scanner":         ("\U0001f50d", "أداة فحص آلية"),
+    "brute_force":     ("\U0001f511", "تخمين كلمة مرور"),
+    "privesc":         ("\u2b06\ufe0f", "رفع صلاحيات"),
+    "ids":             ("\U0001f310", "تنبيه شبكة (Suricata)"),
+}
+
+
+def _ar_tech(cat):
+    return _AR_TECH.get(cat, ("\u26a0\ufe0f", cat))
+
 
 def _band(score):
     for floor, dot, label in _BANDS:
@@ -429,83 +448,95 @@ def _enqueue(record):
 
 
 def _format_alert(record, suppressed=0, first_time=False):
+    """Build one short, clear Arabic alert. Every field is html.escape'd."""
     ip = record.get("src_ip", "?")
     etype = record.get("event_type", "request")
     extra = record.get("extra") or {}
     findings = record.get("findings") or []
     e = html.escape
+    when = str(record.get("ts", ""))[:19].replace("T", " ")
 
-    profile = _threat_for(ip)
-    score = profile["threat"] if profile else 0
-    dot, band = _band(score)
+    L = []
 
-    lines = []
+    # --- pick the headline by event type, in plain Arabic ---
     if etype == "ids_alert":
-        lines.append("%s <b>%s</b> │ <b>NETWORK IDS ALERT</b>" % (dot, band))
-        lines.append(RULE)
-        lines.append("")
-        lines.append(_row("SIGNATURE", "<b>%s</b>" % e(str(extra.get("signature", "?")))))
-        lines.append(_row("CLASS", e(str(extra.get("suricata_category") or "uncategorised"))))
-        lines.append(_row("SOURCE", "<code>%s:%s</code>" % (
-            e(ip), e(str(extra.get("src_port", "?"))))))
-        lines.append(_row("TARGET", "<code>%s:%s</code>" % (
-            e(str(extra.get("dest_ip", "?"))), e(str(extra.get("dest_port", "?"))))))
-        lines.append(_row("PROTOCOL", e("%s / %s" % (extra.get("proto", "?"),
-                                                     extra.get("app_proto") or "raw"))))
-        lines.append(_row("SENSOR", e(str(extra.get("in_iface", "?")))))
-        lines.append(_row("SEVERITY", "Suricata level %s" % e(str(extra.get("suricata_severity", "?")))))
+        emoji, name = _ar_tech("ids")
+        L.append("%s <b>%s</b>" % (emoji, name))
+        L.append("")
+        L.append("• <b>التوقيع:</b> %s" % e(str(extra.get("signature", "—"))))
+        L.append("• <b>المصدر:</b> <code>%s</code>" % e(ip))
+        L.append("• <b>الهدف:</b> <code>%s:%s</code>" % (
+            e(str(extra.get("dest_ip", "—"))), e(str(extra.get("dest_port", "—")))))
+
+    elif etype in ("ssh_login", "ftp_login"):
+        emoji, name = _ar_tech("brute_force")
+        svc = "SSH" if etype == "ssh_login" else "FTP"
+        ok = extra.get("success")
+        L.append("%s <b>%s — %s</b>" % (emoji, name, svc))
+        L.append("")
+        L.append("• <b>المصدر:</b> <code>%s</code>" % e(ip))
+        L.append("• <b>الحساب:</b> <code>%s : %s</code>" % (
+            e(str(extra.get("username", ""))) or "—", e(str(extra.get("password", ""))) or "—"))
+        L.append("• <b>النتيجة:</b> %s" % (
+            "🔓 <b>نجح الدخول</b>" if ok else "❌ فشل"))
+
+    elif etype == "weak_cred_success":
+        L.append("🔓 <b>اختراق ناجح — دخول ببيانات ضعيفة</b>")
+        L.append("")
+        L.append("• <b>المصدر:</b> <code>%s</code>" % e(ip))
+        L.append("• <b>الحساب:</b> <code>%s : %s</code>" % (
+            e(str(extra.get("username", ""))) or "—", e(str(extra.get("password", ""))) or "—"))
+        L.append("• <b>المسار:</b> <code>%s</code>" % e(str(record.get("path", "/login"))))
+
+    elif etype == "privilege_escalation":
+        emoji, name = _ar_tech("privesc")
+        L.append("%s <b>%s</b>" % (emoji, name))
+        L.append("")
+        L.append("• <b>المصدر:</b> <code>%s</code>" % e(ip))
+        L.append("• <b>التفاصيل:</b> من <code>student</code> إلى <code>admin</code> (تلاعب بالكوكي)")
+
+    elif etype == "viewstate_tamper":
+        L.append("🚫 <b>تجاوز نموذج الدخول</b>")
+        L.append("")
+        L.append("• <b>المصدر:</b> <code>%s</code>" % e(ip))
+        L.append("• <b>التفاصيل:</b> طلب بدون توكن VIEWSTATE (أداة آلية)")
+
     else:
-        cats = ", ".join(sorted({f.get("category", "?") for f in findings})) or etype
-        lines.append("%s <b>%s</b> │ <b>HONEYPOT INTRUSION</b>" % (dot, band))
-        lines.append(RULE)
-        lines.append("")
-        lines.append(_row("TECHNIQUE", "<b>%s</b>" % e(cats.upper())))
-        lines.append(_row("SOURCE", "<code>%s</code>" % e(ip)))
-        lines.append(_row("TARGET", "<code>%s</code>" % e(str(record.get("path", ""))[:150])))
-        lines.append(_row("METHOD", e(str(record.get("method", "?")))))
-        ua = record.get("user_agent")
-        if ua:
-            lines.append(_row("CLIENT", "<code>%s</code>" % e(ua[:90])))
-
-    if profile:
-        lines.append("")
-        lines.append("<b>THREAT SCORE</b>")
-        lines.append("<code>%s %3d/100</code>  %s" % (_bar(score), score, band))
-        lines.append("<code>%s</code> requests · <code>%s</code> attacks%s" % (
-            profile["hits"], profile["attacks"],
-            " · <b>AUTOMATED TOOL</b>" if profile.get("is_bot") else ""))
-        if profile.get("also_seen_ips"):
-            lines.append("Same device also seen from <b>%d</b> other address(es)"
-                         % len(profile["also_seen_ips"]))
-
-    if etype != "ids_alert":
+        # generic web attack — name it from the detector categories
+        cats = sorted({f.get("category", "?") for f in findings})
+        emoji, name = _ar_tech(cats[0]) if cats else ("⚠️", etype)
+        L.append("%s <b>%s</b>" % (emoji, name))
+        L.append("")
+        L.append("• <b>المصدر:</b> <code>%s</code>" % e(ip))
+        L.append("• <b>المسار:</b> <code>%s</code>" % e(str(record.get("path", ""))[:120]))
         if extra.get("username") is not None:
-            lines.append("")
-            lines.append("<b>CREDENTIALS SUBMITTED</b>")
-            lines.append("<code>%s</code> : <code>%s</code>" % (
-                e(str(extra.get("username"))[:60]) or "(empty)",
-                e(str(extra.get("password"))[:60]) or "(empty)"))
-        if extra.get("executed_sql"):
-            lines.append("")
-            lines.append("<b>SQL EXECUTED ON THE DECOY</b>")
-            lines.append("<pre>%s</pre>" % e(str(extra["executed_sql"])[:350]))
-        payloads = [f.get("payload") for f in findings if f.get("payload")]
-        if payloads:
-            lines.append("")
-            lines.append("<b>CAPTURED PAYLOAD</b>")
-            lines.append("<pre>%s</pre>" % e(str(payloads[0])[:350]))
+            L.append("• <b>محاولة دخول:</b> <code>%s : %s</code>" % (
+                e(str(extra.get("username", ""))) or "—", e(str(extra.get("password", ""))) or "—"))
 
-    lines.append("")
-    lines.append("<b>THREAT INTELLIGENCE</b>")
-    lines.append(e(check_ip_reputation(ip)))
-    lines.append("")
-    lines.append("<code>%s UTC</code>" % e(str(record.get("ts", ""))[:19].replace("T", " ")))
+    # --- one payload/SQL line, the evidence, if any ---
+    payload = None
+    if extra.get("executed_sql"):
+        payload = str(extra["executed_sql"])
+    elif etype == "ssh_command" and extra.get("command"):
+        payload = str(extra["command"])
+    else:
+        pls = [f.get("payload") for f in findings if f.get("payload")]
+        if pls and etype not in ("ssh_login", "ftp_login", "ids_alert"):
+            payload = str(pls[0])
+    if payload:
+        L.append("")
+        L.append("<b>الحمولة:</b>")
+        L.append("<pre>%s</pre>" % e(payload[:300]))
 
+    # --- footer: time + first-contact note ---
+    L.append("")
+    L.append("🕒 %s" % e(when))
     if suppressed:
-        lines.append("<i>+%d further matching events from this source in this window</i>"
-                     % suppressed)
-    head = ("\U0001f195 <b>FIRST CONTACT FROM THIS SOURCE</b>\n\n" if first_time else "")
-    return head + "\n".join(lines)
+        L.append("<i>+%d محاولة مماثلة من نفس المصدر</i>" % suppressed)
+
+    head = ("🆕 <b>أول ظهور لهذا المصدر</b>\n\n"
+            if first_time else "")
+    return head + "\n".join(L)
 
 
 def _handle(record):
@@ -571,40 +602,24 @@ def _band_index(score):
 
 
 def _format_escalation(a):
+    """Simple Arabic escalation notice when a source climbs a threat band."""
     e = html.escape
-    dot, band = _band(a["threat"])
-    lines = [
-        "📈 %s <b>THREAT ESCALATION</b> │ <b>%s</b>" % (dot, band),
-        RULE, "",
-        _row("SOURCE", "<code>%s</code>" % e(a["ip"])),
-        _row("SCORE", "<code>%s %3d/100</code>" % (_bar(a["threat"]), a["threat"])),
-        _row("ACTIVITY", "<code>%s</code> requests · <code>%s</code> attacks"
-             % (a["hits"], a["attacks"])),
-    ]
-    if a.get("os") and a["os"] != "Unknown":
-        lines.append(_row("SYSTEM", e("%s · %s" % (a["os"], a.get("browser") or "?"))))
+    L = ["📈 <b>تصاعد خطورة مصدر</b>", ""]
+    L.append("• <b>المصدر:</b> <code>%s</code>" % e(a["ip"]))
+    L.append("• <b>درجة التهديد:</b> %d/100" % a["threat"])
+    L.append("• <b>النشاط:</b> %s طلب · %s هجوم" % (a["hits"], a["attacks"]))
     if a.get("is_bot"):
-        lines.append(_row("CLASS", "<b>AUTOMATED TOOLING</b> (%s)"
-                          % e(", ".join(a.get("bot_marks") or []))))
+        L.append("• <b>النوع:</b> 🤖 أداة آلية")
     techs = a.get("categories") or {}
     if techs:
-        lines += ["", "<b>TECHNIQUES OBSERVED</b>",
-                  " · ".join("%s <b>%s</b>" % (e(k), v) for k, v in
-                             sorted(techs.items(), key=lambda kv: -kv[1]))]
-    paths = a.get("top_paths") or []
-    if paths:
-        lines += ["", "<b>MOST PROBED PATHS</b>",
-                  "<pre>%s</pre>" % e("\n".join("%-34s %s" % (str(p[0])[:34], p[1])
-                                                for p in paths[:6]))]
-    if a.get("threat_factors"):
-        lines += ["", "<b>SCORING RATIONALE</b>"]
-        lines += ["• " + e(f) for f in a["threat_factors"][:6]]
+        names = "، ".join(_ar_tech(k)[1] for k in
+                               sorted(techs, key=lambda k: -techs[k]))
+        L += ["", "<b>التقنيات المرصودة:</b>", e(names)]
     if a.get("also_seen_ips"):
-        lines += ["", "🔗 Same device fingerprint also seen from: <code>%s</code>"
-                  % e(", ".join(a["also_seen_ips"][:5]))]
-    lines += ["", "<b>THREAT INTELLIGENCE</b>", e(check_ip_reputation(a["ip"])),
-              "", "<code>%s UTC</code>" % time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())]
-    return "\n".join(lines)
+        L += ["", "🔗 نفس الجهاز من: <code>%s</code>"
+              % e("، ".join(a["also_seen_ips"][:5]))]
+    L += ["", "🕒 %s" % time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())]
+    return "\n".join(L)
 
 
 def _check_escalations(force=False):
@@ -639,53 +654,34 @@ def _check_escalations(force=False):
 # --- periodic report ----------------------------------------------------------
 
 def build_report():
-    """Roll the current picture into one HTML message plus a CSV attachment."""
+    """One short Arabic status report plus a CSV attachment."""
     from . import dashboard                      # imported late: avoids a cycle
     data = dashboard.cached_aggregate()
     e = html.escape
     attackers = data.get("attackers") or []
 
-    lines = ["\U0001f4ca <b>HONEYPOT SOC REPORT</b>", RULE, ""]
-    lines.append("<b>POSTURE</b>")
-    for label, val in (("EVENTS", data.get("total_events", 0)),
-                       ("SOURCES", data.get("total_attackers", 0)),
-                       ("ATTACKS", data.get("total_attacks", 0)),
-                       ("HIGH+CRIT", data.get("critical_threats", 0)),
-                       ("TOOLS/BOTS", data.get("bots_detected", 0)),
-                       ("DEVICES", data.get("devices_fingerprinted", 0))):
-        lines.append("<code>%s %s</code>" % (label.ljust(11), str(val).rjust(7)))
+    L = ["📊 <b>تقرير المصيدة</b>", ""]
+    L.append("• إجمالي الأحداث: <b>%s</b>" % data.get("total_events", 0))
+    L.append("• عناوين مهاجمة: <b>%s</b>" % data.get("total_attackers", 0))
+    L.append("• محاولات هجوم: <b>%s</b>" % data.get("total_attacks", 0))
+    L.append("• تهديد عالٍ/حرج: <b>%s</b>" % data.get("critical_threats", 0))
+    L.append("• أدوات آلية: <b>%s</b>" % data.get("bots_detected", 0))
 
     cats = data.get("category_totals") or {}
     if cats:
-        top = sorted(cats.items(), key=lambda kv: -kv[1])[:8]
-        mx = max(v for _, v in top) or 1
-        lines += ["", "⚔ <b>ATTACK TECHNIQUES</b>"]
-        for name, count in top:
-            lines.append("<code>%s %s %s</code>" % (
-                name[:10].ljust(10), _bar(count * 100.0 / mx, 10, min_fill=1),
-                str(count).rjust(5)))
+        L += ["", "<b>التقنيات المرصودة:</b>"]
+        for name, count in sorted(cats.items(), key=lambda kv: -kv[1])[:8]:
+            L.append("• %s: <b>%s</b>" % (e(_ar_tech(name)[1]), count))
 
     if attackers:
-        lines += ["", "\U0001f3af <b>TOP THREAT ACTORS</b>"]
-        for i, a in enumerate(attackers[:5], 1):
-            dot, band = _band(a["threat"])
-            lines.append("%s <code>%s</code>" % (dot, e(a["ip"])))
-            lines.append("<code>   %s %3d</code> %s%s" % (
-                _bar(a["threat"], 10), a["threat"], band,
-                " · AUTOMATED" if a.get("is_bot") else ""))
-            techs = ", ".join(sorted(a.get("categories", {}).keys()))[:60]
-            if techs:
-                lines.append("<code>   %s</code>" % e(techs))
+        L += ["", "<b>أعلى المهاجمين:</b>"]
+        for a in attackers[:5]:
+            tag = " 🤖" if a.get("is_bot") else ""
+            L.append("• <code>%s</code> — تهديد %s/100%s"
+                     % (e(a["ip"]), a["threat"], tag))
 
-    corr = data.get("correlated_actors") or []
-    if corr:
-        lines += ["", "\U0001f517 <b>ACTOR CORRELATION</b>"]
-        for c in corr[:3]:
-            lines.append("Device <code>%s</code> seen from <b>%d</b> addresses"
-                         % (e(c["fpId"]), len(c["ips"])))
-
-    lines += ["", "<code>%s UTC</code>" % time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())]
-    return "\n".join(lines), data
+    L += ["", "🕒 %s" % time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())]
+    return "\n".join(L), data
 
 
 def send_report(force=False):
@@ -764,15 +760,9 @@ def start():
              ("%sm" % REPORT_EVERY) if REPORT_EVERY else "off"), flush=True)
     if ANNOUNCE:
         msg = "\n".join([
-            "\U0001f6e1 <b>HONEYPOT DEFENCE GRID ONLINE</b>", RULE, "",
-            "Monitoring is active across both detection layers:",
-            "<code>  APPLICATION</code> payload inspection on every request",
-            "<code>  NETWORK    </code> Suricata IDS alert ingestion",
-            "",
-            _row("ALERT FLOOR", cfg("TELEGRAM_MIN_SEVERITY", "high").upper()),
-            _row("RECIPIENTS", str(len(CHAT_IDS))),
-            _row("REPORTS", ("every %sm" % REPORT_EVERY) if REPORT_EVERY else "disabled"),
-            "", "<i>Standing by for hostile activity.</i>",
+            "\U0001f6e1 <b>محرّك تنبيهات المصيدة يعمل</b>", "",
+            "الرصد نشط على طبقتي التطبيق والشبكة.",
+            "ستصلك تنبيهات عند أي هجوم.",
         ])
         threading.Thread(target=send_message, daemon=True, args=(msg,)).start()
     return True
