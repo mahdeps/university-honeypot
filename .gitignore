@@ -1,1 +1,28 @@
-# All files published at maintainer request — nothing excluded.
+# Python virtualenv + bytecode — machine-specific, regenerate with:
+#   python -m venv .venv ; pip install -r requirements.txt
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+
+# Runtime logs (regenerated at runtime)
+*.log
+_e.log
+_o.log
+
+# Local credentials override (real secrets live in .env, which IS tracked here
+# at the maintainer's choice; use .env.example as the public template)
+app/local_config.py
+
+# Suricata read bookmark
+.suricata_offset.json
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Scratch reports (personal, not part of the project source)
+/_report/
+/_*

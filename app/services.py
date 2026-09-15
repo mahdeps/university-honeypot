@@ -40,6 +40,12 @@ import os
 import socket
 import threading
 import time
+import warnings
+
+# paramiko still references TripleDES via cryptography, which emits a noisy
+# CryptographyDeprecationWarning at import time. It is harmless (we never use
+# 3DES) and only clutters the startup output, so silence that one warning.
+warnings.filterwarnings("ignore", message=r".*TripleDES.*")
 
 from . import config, logger
 

@@ -881,6 +881,15 @@ if __name__ == "__main__":
         print("   self-signed cert -> the browser warning is expected; accept it.")
     else:
         print("   (HTTP. To serve HTTPS instead: set HONEYPOT_TLS=1)")
+    # Dev-server run only: start the background workers now so the boot banner
+    # shows every subsystem at once (Suricata tailer, Telegram, SSH/FTP). Under
+    # gunicorn --preload __main__ never runs, so _before() starts them after the
+    # fork instead. The start functions are idempotent, so the first request's
+    # start attempt is a harmless no-op.
+    _ids_started = True
+    ids.start_tailer()
+    notify.start()
+    services.start()
     # threaded=True is essential: a browser opens several parallel connections
     # per page (assets + /_intel.js + /_collect), and a single-threaded dev
     # server deadlocks on keep-alive TLS connections -> the page hangs forever.
